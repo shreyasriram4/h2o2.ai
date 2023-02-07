@@ -24,6 +24,8 @@ Building a production-ready web application for Voice of the Customer (VOC) anal
 │   ├──preprocessing/
 │       └── preprocressing_utils.py <- Scripts to preprocess corpus
 │   ├──models/
+        ├──sentiment_analysis/
+        └──topic_modelling/
 │   └──visualisations/
 │       └── eda_utils.py <- Scripts to run visualisations
 ├── .dockerignore
