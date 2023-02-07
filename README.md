@@ -2,33 +2,54 @@
 
 Building a production-ready web application for Voice of the Customer (VOC) analysis.
 
-## Getting Started
+## Folder Structure
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+```bash
+.
+├──app/
+│   └── pages/
+├──data/
+│   ├── raw/
+│   └── processed/
+├── Dockerfile
+├── docker-compose.yml
+├── environment.yml
+├── figures/
+├── README.md
+├── reports/
+├──requirements.txt
+├── results/
+├── src/
+│   ├──__init__.py <- Make src a Python module
+│   ├──preprocessing/
+│       └── preprocressing_utils.py <- Scripts to preprocess corpus
+│   ├──models/
+│   └──visualisations/
+│       └── eda_utils.py <- Scripts to run visualisations
+├── .dockerignore
+└── .gitignore 
+
+```
 
 ## Prerequisites
 
-You will need to have a valid Python installation on your system. This has been tested with Python 3.6. It does not assume a particulay version of python, however, it makes no assertions of proper working, either on this version of Python, or on another. 
+You will need to have a valid Python and Conda installation on your system.
 
-## Installing
+## Setup Instructions
 
-The folloiwing installations are for \*nix-like systems. 
+### Option 1: Without Docker
+For installation, first close this repository, and generate the virtual environment required for running the programs within your IDE of choice:
 
-For installation, first close this repository, and generate the virtual environment required for running the programs. 
+```bash
+#Create environment from file
+conda env create -f environment.yml
 
-This project framework uses [venv](https://docs.python.org/3/library/venv.html) for maintaining virtual environments. Please familiarize yourself with [venv](https://docs.python.org/3/library/venv.html) before working with this repository. You do not want to contaminate your system python while working with this repository.
+#Activate created conda environment
+conda activate voc_env
 
-A convenient script for doing this is present in the file [`bin/vEnv.sh`](../master/bin/vEnv.sh). This is automatically do the following things:
+```
 
-1. Generate a virtual environment
-2. activate this environment
-3. install all required libraries
-4. deactivate the virtual environment and return to the prompt. 
-
-At this point you are ready to run programs. However, remember that you will need to activate the virtual environment any time you use the program.
-
-For activating your virtual environment, type `source env/bin/activate` in the project folder in [bash](https://www.gnu.org/software/bash/) or `source env/bin/activate.fish` if you are using the [fish](https://fishshell.com/) shell.
-For deactivating, just type deactivate in your shell
+### Option 2: With Docker
 
 ## Deployment
 
@@ -36,11 +57,7 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
- - Python 3.6
-
-## Contributing
-
-Please send in a pull request.
+ - Python 3.9
 
 ## Authors
 
