@@ -1,7 +1,9 @@
 bertopic==0.13.0
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.4.0/en_core_web_sm-3.4.0-py3-none-any.whl
 h2o-wave==0.24.2
 pandas==1.5.3
 matplotlib==3.6.3
 numpy==1.24.2
 plotly==5.13.0
+spacy==3.5.0
 top2vec==1.0.28
