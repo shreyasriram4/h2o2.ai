@@ -152,3 +152,30 @@ class Preprocess:
 
         """
         return data[col].apply(self.remove_stopwords_text)
+
+    def remove_numbers_text(self, text):
+        """
+        
+        Removes all numbers in a given string using String library
+        
+        Args: 
+            1. String containing unwanted numbers (str)
+        Returns:
+            1. String without unwanted numbers (str)
+        """
+        numbersfree="".join([i for i in text if i not in string.digits])
+        return numbersfree
+
+
+    def remove_numbers_df(self, data, col):
+        """
+        
+        Calls remove_numbers_text function on each row in a particular column in dataframe, to add a new column that 
+        removes all numbers in a given column using Pandas library
+        Args: 
+            1. Dataframe (pandas.core.frame.DataFrame)
+            2. Column in Dataframe with numbers to be removed (str)
+        Returns:
+            1. Updated column with all numbers removed (pandas.core.series.Series)
+        """
+        return data[col].apply(self.remove_numbers_text)
