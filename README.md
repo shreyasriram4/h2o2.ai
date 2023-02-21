@@ -37,6 +37,12 @@ Building a production-ready web application for Voice of the Customer (VOC) anal
 
 You will need to have a valid Python and Conda installation on your system.
 
+## Git Flow
+ - Branch off main and do dev work, remember to git pull origin main
+ - Create PR to merge to main once done and delete that branch
+ - For bugfixes, if the branch is already merged, create hotfix branch based off main
+ - Create PR to merge to prd when ready to realease and changes in release
+
 ## Setup Instructions
 
 ### Option 1: Without Docker
