@@ -10,6 +10,10 @@ def convert_sentiment_df(df: pd.DataFrame, src_col: str = "Sentiment", dst_col: 
     df[dst_col] = df[src_col].apply(
         lambda x: 1 if x == "positive" else 0
         )
+    
+    if src_col != dst_col:
+        df.drop(src_col, axis = 1)
+
     return df
 
 def expand_contractions_df(df: pd.DataFrame, src_col: str = "cleaned_text", dst_col: str = "cleaned_text") -> pd.DataFrame:    
