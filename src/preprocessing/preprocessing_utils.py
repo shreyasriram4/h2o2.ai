@@ -1,9 +1,11 @@
 import contractions
+import nltk
 import pandas as pd
 import re
 import string
 from nltk.corpus import stopwords
 
+nltk.download('stopwords')
 STOP_WORDS = set(stopwords.words('english'))
 
 def convert_sentiment_df(df: pd.DataFrame, src_col: str = "Sentiment", dst_col: str = "sentiment") -> pd.DataFrame:
@@ -12,7 +14,7 @@ def convert_sentiment_df(df: pd.DataFrame, src_col: str = "Sentiment", dst_col: 
         )
     
     if src_col != dst_col:
-        df.drop(src_col, axis = 1)
+        df = df.drop([src_col], axis = 1)
 
     return df
 
@@ -53,6 +55,16 @@ def remove_stopwords_df(df: pd.DataFrame, src_col: str = "cleaned_text", dst_col
 
 def remove_stopwords_text(text: str) -> str:
     return " ".join([w for w in text.split(" ") if not w in STOP_WORDS])
+
+def remove_trailing_leading_spaces_df(df: pd.DataFrame, src_col: str = "cleaned_text", dst_col: str = "cleaned_text") -> pd.DataFrame:
+    df[dst_col] = df[src_col].apply(
+        lambda text: text.strip()
+        )
+    return df
+
+def rename_column_df(df: pd.DataFrame, src_col: str, dst_col: str) -> pd.DataFrame:
+    df = df.rename(columns = {src_col: dst_col})
+    return df
 
 def replace_multiple_spaces_df(df: pd.DataFrame, src_col: str = "cleaned_text", dst_col: str = "cleaned_text") -> pd.DataFrame:
     df[dst_col] = df[src_col].apply(
