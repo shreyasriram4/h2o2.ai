@@ -26,7 +26,7 @@ def main():
     df = apply_cleaning(df)
 
     create_path_if_not_exists(PROCESSED_DATA_DIR)
-    df.to_csv(os.path.join(PROCESSED_DATA_DIR, FILE_NAME))
+    df.to_csv(os.path.join(PROCESSED_DATA_DIR, FILE_NAME), index = False)
 
 def create_path_if_not_exists(path):
     if not os.path.exists(path):
