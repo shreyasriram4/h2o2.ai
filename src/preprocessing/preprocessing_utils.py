@@ -12,3 +12,9 @@ def strip_html_tags_df(df: pd.DataFrame, src_col: str = "cleaned_text", dst_col:
         lambda text: re.sub('<[^<]+?>', ' ', text)
         )
     return df
+
+def lowercase_string_df(df: pd.DataFrame) -> pd.DataFrame:
+    df["cleaned_text"] = df["cleaned_text"].apply(
+        lambda text: text.lower()
+        )
+    return df
