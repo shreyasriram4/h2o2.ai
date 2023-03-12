@@ -50,4 +50,3 @@ def apply_cleaning(df: pd.DataFrame) -> pd.DataFrame:
 
 if __name__ == "__main__":
     main()
-    
