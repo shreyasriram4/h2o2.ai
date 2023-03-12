@@ -55,3 +55,9 @@ def remove_numbers_df(df: pd.DataFrame) -> pd.DataFrame:
         lambda text: ''.join([i for i in text if not i.isdigit()])
         )
     return df
+
+def replace_multiple_spaces_df(df: pd.DataFrame, src_col: str = "cleaned_text", dst_col: str = "cleaned_text") -> pd.DataFrame:
+    df[dst_col] = df[src_col].apply(
+        lambda text: re.sub(' +', ' ', text)
+    )
+    return df
