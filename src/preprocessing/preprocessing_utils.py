@@ -2,6 +2,9 @@ import contractions
 import pandas as pd
 import re
 import string
+from nltk.corpus import stopwords
+
+STOP_WORDS = set(stopwords.words('english'))
 
 def convert_sentiment_df(df: pd.DataFrame) -> pd.DataFrame:
     df["sentiment"] = df["Sentiment"].apply(
@@ -36,4 +39,13 @@ def remove_punctuations_df(df: pd.DataFrame) -> pd.DataFrame:
     df["cleaned_text"] = df["cleaned_text"].apply(
         lambda text: text.translate(str.maketrans('', '', string.punctuation))
         )
+    return df
+
+def remove_stopwords_text(text: str) -> str:
+    return " ".join([w for w in text.split(" ") if not w in STOP_WORDS])
+    
+def remove_stopwords_df(df: pd.DataFrame) -> pd.DataFrame:
+    df["cleaned_text"] = df["cleaned_text"].apply(
+        remove_stopwords_text
+    )
     return df
