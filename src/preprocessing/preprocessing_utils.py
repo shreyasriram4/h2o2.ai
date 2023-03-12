@@ -1,3 +1,4 @@
+import contractions
 import pandas as pd
 import re
 
@@ -17,4 +18,15 @@ def lowercase_string_df(df: pd.DataFrame) -> pd.DataFrame:
     df["cleaned_text"] = df["cleaned_text"].apply(
         lambda text: text.lower()
         )
+    return df
+
+def expand_contractions_text(text: str) -> str:
+    expanded_words = []   
+    for word in text.split():
+        expanded_words.append(contractions.fix(word))  
+        
+    return ' '.join(expanded_words)
+
+def expand_contractions_df(df: pd.DataFrame) -> pd.DataFrame:    
+    df["cleaned_text"] = df["Text"].apply(expand_contractions_text)
     return df
