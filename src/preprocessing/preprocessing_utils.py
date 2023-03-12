@@ -1,6 +1,7 @@
 import contractions
 import pandas as pd
 import re
+import string
 
 def convert_sentiment_df(df: pd.DataFrame) -> pd.DataFrame:
     df["sentiment"] = df["Sentiment"].apply(
@@ -29,4 +30,10 @@ def expand_contractions_text(text: str) -> str:
 
 def expand_contractions_df(df: pd.DataFrame) -> pd.DataFrame:    
     df["cleaned_text"] = df["Text"].apply(expand_contractions_text)
+    return df
+
+def remove_punctuations_df(df: pd.DataFrame) -> pd.DataFrame:
+    df["cleaned_text"] = df["cleaned_text"].apply(
+        lambda text: text.translate(str.maketrans('', '', string.punctuation))
+        )
     return df
