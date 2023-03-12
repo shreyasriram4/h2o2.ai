@@ -49,3 +49,9 @@ def remove_stopwords_df(df: pd.DataFrame) -> pd.DataFrame:
         remove_stopwords_text
     )
     return df
+
+def remove_numbers_df(df: pd.DataFrame) -> pd.DataFrame:
+    df["cleaned_text"] = df["cleaned_text"].apply(
+        lambda text: ''.join([i for i in text if not i.isdigit()])
+        )
+    return df
