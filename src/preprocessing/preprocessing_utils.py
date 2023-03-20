@@ -43,7 +43,7 @@ def remove_numbers_df(df: pd.DataFrame, src_col: str = "cleaned_text", dst_col: 
 
 def remove_punctuations_df(df: pd.DataFrame, src_col: str = "cleaned_text", dst_col: str = "cleaned_text") -> pd.DataFrame:
     df[dst_col] = df[src_col].apply(
-        lambda text: text.translate(str.maketrans('', '', string.punctuation))
+        lambda text: re.sub(r'[^\w\s]', ' ', text)
         )
     return df
 
