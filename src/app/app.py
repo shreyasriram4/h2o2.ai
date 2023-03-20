@@ -4,7 +4,6 @@ from home import page1
 from sentiments import page2
 from topics import page3
 from topic_playground import page4
-from test import page5
 
 async def init(q: Q) -> None:
     q.page['meta'] = ui.meta_card(box='', layouts=[ui.layout(breakpoint='xs', min_height='100vh', zones=[
@@ -33,8 +32,7 @@ async def init(q: Q) -> None:
                 ui.nav_item(name='#home', label='Home', icon='Home'),
                 ui.nav_item(name='#sentiments', label='Sentiment', icon='SentimentAnalysis'),
                 ui.nav_item(name='#topics', label='Topics', icon='StackedLineChart'),
-                ui.nav_item(name='#topic_playground', label='Topic Playground', icon='Sunny'),
-                ui.nav_item(name='#test', label='Test', icon='Sunny'),
+                ui.nav_item(name='#topic_playground', label='Topic Playground', icon='Sunny')
             ]),
         ])
     q.page['header'] = ui.header_card(
@@ -62,8 +60,6 @@ async def serve(q: Q):
         await page3(q)
     elif route == 'topic_playground':
         await page4(q)
-    elif route == 'test':
-        await page5(q)
 
 
     # Handle routing.
