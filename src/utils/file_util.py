@@ -73,6 +73,10 @@ class FileUtil():
             os.makedirs(dir)
 
     @classmethod
+    def check_filepath_exists(self, filepath):
+        return os.path.isfile(filepath)
+
+    @classmethod
     def get_raw_train_data(self) -> pd.DataFrame:
         filepath = os.path.join(FileUtil.RAW_DATA_DIR, FileUtil.TRAIN_FILE_NAME)
         return self.get_csv(self, filepath)
