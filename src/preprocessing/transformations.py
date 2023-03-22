@@ -1,6 +1,6 @@
-import os
 import pandas as pd
 
+from src.utils.file_util import FileUtil
 from src.preprocessing.preprocessing_utils import (
     convert_sentiment_df,
     expand_contractions_df,
@@ -14,23 +14,11 @@ from src.preprocessing.preprocessing_utils import (
     strip_html_tags_df
 )
 
-PROJECT_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)
-)
-RAW_DATA_DIR = os.path.join(PROJECT_DIR, "data/raw")
-PROCESSED_DATA_DIR = os.path.join(PROJECT_DIR, "data/processed")
-FILE_NAME = "reviews.csv"
-
 def main():
-    df = pd.read_csv(os.path.join(RAW_DATA_DIR, FILE_NAME))
+    df = FileUtil.get_raw_train_data()
     df = apply_cleaning(df)
 
-    create_path_if_not_exists(PROCESSED_DATA_DIR)
-    df.to_csv(os.path.join(PROCESSED_DATA_DIR, FILE_NAME), index = False)
-
-def create_path_if_not_exists(path):
-    if not os.path.exists(path):
-        os.makedirs(path)
+    FileUtil.put_processed_train_data()
 
 def apply_cleaning(df: pd.DataFrame) -> pd.DataFrame:
     return (
