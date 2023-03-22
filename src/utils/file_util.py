@@ -66,37 +66,37 @@ class FileUtil():
     @classmethod
     def get_raw_train_data(self) -> pd.DataFrame:
         filepath = os.path.join(FileUtil.RAW_DATA_DIR, FileUtil.TRAIN_FILE_NAME)
-        return self.get_csv(filepath)
+        return self.get_csv(self, filepath)
 
     @classmethod
     def get_processed_train_data(self) -> pd.DataFrame:
         filepath = os.path.join(FileUtil.PROCESSED_DATA_DIR, FileUtil.TRAIN_FILE_NAME)
-        return self.get_csv(filepath)
+        return self.get_csv(self, filepath)
 
     @classmethod
     def put_processed_train_data(self, df: pd.DataFrame) -> None:
         self.create_dir_if_not_exists(FileUtil.PROCESSED_DATA_DIR)
         filepath = os.path.join(FileUtil.PROCESSED_DATA_DIR, FileUtil.TRAIN_FILE_NAME)
-        self.put_csv(filepath, df)
+        self.put_csv(self, filepath, df)
 
     @classmethod
     def get_topic_model(self):
         filepath = os.path.join(FileUtil.TOPIC_MODELLING_DIR, FileUtil.MODEL_FILE_NAME)
-        return self.get_pkl(filepath)
+        return self.get_pkl(self, filepath)
 
     @classmethod
     def put_topic_model(self, model) -> None:
         self.create_dir_if_not_exists(FileUtil.TOPIC_MODELLING_DIR)
         filepath = os.path.join(FileUtil.TOPIC_MODELLING_DIR, FileUtil.MODEL_FILE_NAME)
-        self.put_pkl(filepath, model)
+        self.put_pkl(self, filepath, model)
 
     @classmethod
     def get_sentiment_model(self):
         filepath = os.path.join(FileUtil.SENTIMENT_ANALYSIS_DIR, FileUtil.MODEL_FILE_NAME)
-        return self.get_pkl(filepath)
+        return self.get_pkl(self, filepath)
 
     @classmethod
     def put_sentiment_model(self, model) -> None:
         self.create_dir_if_not_exists(FileUtil.SENTIMENT_ANALYSIS_DIR)
         filepath = os.path.join(FileUtil.SENTIMENT_ANALYSIS_DIR, FileUtil.MODEL_FILE_NAME)
-        self.put_pkl(filepath, model)
+        self.put_pkl(self, filepath, model)
