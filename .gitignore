@@ -1,1 +1,3 @@
+# do not push envirnoment stuff
+venv/
 __pycache__/
