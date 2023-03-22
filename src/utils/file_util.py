@@ -64,19 +64,19 @@ class FileUtil():
             os.makedirs(dir)
 
     @classmethod
-    def get_raw_train_data(self, filename: str) -> pd.DataFrame:
-        filepath = os.path.join(FileUtil.RAW_DATA_DIR, filename)
+    def get_raw_train_data(self) -> pd.DataFrame:
+        filepath = os.path.join(FileUtil.RAW_DATA_DIR, FileUtil.TRAIN_FILE_NAME)
         return self.get_csv(filepath)
 
     @classmethod
-    def get_processed_train_data(self, filename: str) -> pd.DataFrame:
-        filepath = os.path.join(FileUtil.PROCESSED_DATA_DIR, filename)
+    def get_processed_train_data(self) -> pd.DataFrame:
+        filepath = os.path.join(FileUtil.PROCESSED_DATA_DIR, FileUtil.TRAIN_FILE_NAME)
         return self.get_csv(filepath)
 
     @classmethod
-    def put_processed_train_data(self, filename: str, df: pd.DataFrame) -> None:
+    def put_processed_train_data(self, df: pd.DataFrame) -> None:
         self.create_dir_if_not_exists(FileUtil.PROCESSED_DATA_DIR)
-        filepath = os.path.join(FileUtil.PROCESSED_DATA_DIR, filename)
+        filepath = os.path.join(FileUtil.PROCESSED_DATA_DIR, FileUtil.TRAIN_FILE_NAME)
         self.put_csv(filepath, df)
 
     @classmethod
