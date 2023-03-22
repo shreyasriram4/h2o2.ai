@@ -2,6 +2,7 @@ import functools
 import os
 import pandas as pd
 import pickle
+import yaml
 
 class InvalidExtension(Exception):
     pass
@@ -26,6 +27,7 @@ def _check_filepath(ext):
 class FileUtil():
     TRAIN_FILE_NAME = "reviews.csv"
     MODEL_FILE_NAME = "model.pkl"
+    TOPIC_LIST_FILE_NAME = "topics.yml"
 
     PROJECT_DIR = os.path.abspath(
         os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)
@@ -33,6 +35,7 @@ class FileUtil():
 
     RAW_DATA_DIR = os.path.join(PROJECT_DIR, "data/raw")
     PROCESSED_DATA_DIR = os.path.join(PROJECT_DIR, "data/processed")
+    PREDICTED_DATA_DIR = os.path.join(PROJECT_DIR, "data/predicted")
 
     SENTIMENT_ANALYSIS_DIR = os.path.join(PROJECT_DIR, "src/models/sentiment_analysis")
     TOPIC_MODELLING_DIR = os.path.join(PROJECT_DIR, "src/models/topic_modelling")
@@ -59,7 +62,13 @@ class FileUtil():
         with open(filepath, "wb") as f:
             pickle.dump(python_object, f)
 
-    def create_dir_if_not_exists(dir):
+    @_check_filepath(".yml")
+    def get_yml(self, filepath: str):
+        with open(filepath, "r") as f:
+            return yaml.safe_load(f)
+
+    @classmethod
+    def create_dir_if_not_exists(self, dir):
         if not os.path.exists(dir):
             os.makedirs(dir)
 
@@ -75,7 +84,7 @@ class FileUtil():
 
     @classmethod
     def put_processed_train_data(self, df: pd.DataFrame) -> None:
-        self.create_dir_if_not_exists(FileUtil.PROCESSED_DATA_DIR)
+        FileUtil.create_dir_if_not_exists(FileUtil.PROCESSED_DATA_DIR)
         filepath = os.path.join(FileUtil.PROCESSED_DATA_DIR, FileUtil.TRAIN_FILE_NAME)
         self.put_csv(self, filepath, df)
 
@@ -86,7 +95,7 @@ class FileUtil():
 
     @classmethod
     def put_topic_model(self, model) -> None:
-        self.create_dir_if_not_exists(FileUtil.TOPIC_MODELLING_DIR)
+        FileUtil.create_dir_if_not_exists(FileUtil.TOPIC_MODELLING_DIR)
         filepath = os.path.join(FileUtil.TOPIC_MODELLING_DIR, FileUtil.MODEL_FILE_NAME)
         self.put_pkl(self, filepath, model)
 
@@ -97,6 +106,17 @@ class FileUtil():
 
     @classmethod
     def put_sentiment_model(self, model) -> None:
-        self.create_dir_if_not_exists(FileUtil.SENTIMENT_ANALYSIS_DIR)
+        FileUtil.create_dir_if_not_exists(FileUtil.SENTIMENT_ANALYSIS_DIR)
         filepath = os.path.join(FileUtil.SENTIMENT_ANALYSIS_DIR, FileUtil.MODEL_FILE_NAME)
         self.put_pkl(self, filepath, model)
+
+    @classmethod
+    def get_topics(self):
+        filepath = os.path.join(FileUtil.TOPIC_MODELLING_DIR, FileUtil.TOPIC_LIST_FILE_NAME)
+        return self.get_yml(self, filepath)
+    
+    @classmethod
+    def put_predicted_df(self, df: pd.DataFrame, filename: str) -> None:
+        FileUtil.create_dir_if_not_exists(FileUtil.PREDICTED_DATA_DIR)
+        filepath = os.path.join(FileUtil.PREDICTED_DATA_DIR, filename)
+        self.put_csv(self, filepath, df)
