@@ -6,13 +6,13 @@ from src.models.topic_modelling.test.zero_shot import ZeroShot
 def predict_topic(df, model_name = "Lbl2Vec"):
     assert model_name in ["ZeroShot", "Lbl2Vec"]
 
-    topic_dict = FileUtil.get_topics()
+    config = FileUtil.get_config()
 
     if model_name == "ZeroShot":
-        candidate_labels = topic_dict["topics"]
+        candidate_labels = config["topics"]
         df = ZeroShot().predict(df, "cleaned_text", candidate_labels)
     else:
-        candidate_labels = topic_dict["topic_mapping"]
+        candidate_labels = config["topic_mapping"]
         df = Lbl2Vec().predict(df, "cleaned_text", candidate_labels)
 
     return df
