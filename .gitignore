@@ -6,7 +6,7 @@ __pycache__/
 src/models/topic_modelling/model.pkl
 
 # test predictions
-*predicted/2023*
+data/predicted/2023*
 
 # best model saved dir for sentiment analysis
 src/models/sentiment_analysis/best_model/
