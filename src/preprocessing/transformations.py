@@ -18,7 +18,7 @@ def main():
     df = FileUtil.get_raw_train_data()
     df = apply_cleaning(df)
 
-    FileUtil.put_processed_train_data()
+    FileUtil.put_processed_train_data(df)
 
 def apply_cleaning(df: pd.DataFrame) -> pd.DataFrame:
     return (
