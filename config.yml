@@ -1,3 +1,13 @@
+BERT: {"dropout": 0.1, 
+      "learning_rate": 3e-5, 
+      "batch_size": 128, 
+      "clipnorm": 1.0, 
+      "epsilon": 1e-08,
+      "callback_monitor": "val_loss",
+      "callback_patience": 7,
+      "epochs": 20,
+      "text_col": "cleaned_text",
+      "target_col": "sentiment"}
 topics: ["Drinks", "Snacks", "Ingredients", "Baked goods", "Sauces", "Cereal", "Noodles", "Pet"]
 topic_mapping: {"Drinks": ['drinks', 'tea', 'coffee', 'juice', 'soda'], 
           "Snacks": ['snacks', 'nuts', 'chips', 'crackers', 'protein bars'], 
