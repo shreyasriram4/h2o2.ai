@@ -1,4 +1,4 @@
-topics: ["coffee", "tea", "sugar", "dog food"]
+topics: ["Drinks", "Snacks", "Ingredients", "Baked goods", "Sauces", "Cereal", "Noodles", "Pet"]
 topic_mapping: {"Drinks": ['drinks', 'tea', 'coffee', 'juice', 'soda'], 
           "Snacks": ['snacks', 'nuts', 'chips', 'crackers', 'protein bars'], 
           "Ingredients": ['ingredients', 'sugar', 'salt', 'oil', 'seasoning', 'spices'],
