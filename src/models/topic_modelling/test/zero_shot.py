@@ -1,9 +1,10 @@
 import os
 import pandas as pd
+from src.models.classifier import Classifier
 from src.utils.file_util import FileUtil
 from transformers import pipeline
 
-class ZeroShot():
+class ZeroShot(Classifier):
     def save_model(self):
         classifier = pipeline(task="zero-shot-classification",
                               model="facebook/bart-large-mnli",
@@ -34,6 +35,12 @@ class ZeroShot():
         df['topic'] = preds['labels'].apply(lambda x: x[0])
 
         return df
+    
+    def fit(self):
+        pass
+
+    def evaluate(self):
+        pass
     
 if __name__ == "__main__":
     ZeroShot().save_model()
