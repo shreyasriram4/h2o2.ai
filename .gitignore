@@ -1,2 +1,10 @@
 # do not push envirnoment stuff
 venv/
+__pycache__/
+reports/
+data/
+notebooks/predictions_lbl2vec.xlsx
+
+
+*.xlsx
+*.csv
