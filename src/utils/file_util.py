@@ -27,7 +27,7 @@ def _check_filepath(ext):
 class FileUtil():
     TRAIN_FILE_NAME = "reviews.csv"
     MODEL_FILE_NAME = "model.pkl"
-    TOPIC_LIST_FILE_NAME = "topics.yml"
+    CONFIG_FILE_NAME = "config.yml"
 
     PROJECT_DIR = os.path.abspath(
         os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)
@@ -115,8 +115,8 @@ class FileUtil():
         self.put_pkl(self, filepath, model)
 
     @classmethod
-    def get_topics(self):
-        filepath = os.path.join(FileUtil.TOPIC_MODELLING_DIR, FileUtil.TOPIC_LIST_FILE_NAME)
+    def get_config(self):
+        filepath = os.path.join(FileUtil.PROJECT_DIR, FileUtil.CONFIG_FILE_NAME)
         return self.get_yml(self, filepath)
     
     @classmethod
