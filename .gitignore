@@ -1,5 +1,12 @@
-# do not push envirnoment stuff
+# do not push environment stuff
 venv/
 __pycache__/
+
+# topic modelling zero shot model pkl
 src/models/topic_modelling/model.pkl
+
+# test predictions
 *predicted/2023*
+
+# best model saved dir for sentiment analysis
+src/models/sentiment_analysis/best_model/
