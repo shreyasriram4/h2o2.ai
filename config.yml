@@ -1,0 +1,9 @@
+topics: ["Drinks", "Snacks", "Ingredients", "Baked goods", "Sauces", "Cereal", "Noodles", "Pet"]
+topic_mapping: {"Drinks": ['drinks', 'tea', 'coffee', 'juice', 'soda'], 
+          "Snacks": ['snacks', 'nuts', 'chips', 'crackers', 'protein bars'], 
+          "Ingredients": ['ingredients', 'sugar', 'salt', 'oil', 'seasoning', 'spices'],
+          "Baked goods": ['baked goods', 'pastries', 'cookies'], 
+          "Sauces": ['sauces', 'butter'], 
+          "Cereal": ['cereal'], 
+          "Noodles": ['noodles',  'pasta'], 
+          "Pet": ['pet', 'dog', 'cat']}
