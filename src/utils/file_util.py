@@ -1,4 +1,5 @@
 import functools
+import json
 import os
 import pandas as pd
 import pickle
@@ -28,6 +29,7 @@ class FileUtil():
     TRAIN_FILE_NAME = "reviews.csv"
     MODEL_FILE_NAME = "model.pkl"
     CONFIG_FILE_NAME = "config.yml"
+    METRICS_FILE_NAME = "metrics.json"
 
     PROJECT_DIR = os.path.abspath(
         os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)
@@ -39,6 +41,8 @@ class FileUtil():
 
     SENTIMENT_ANALYSIS_DIR = os.path.join(PROJECT_DIR, "src/models/sentiment_analysis")
     TOPIC_MODELLING_DIR = os.path.join(PROJECT_DIR, "src/models/topic_modelling")
+
+    BEST_SENTIMENT_MODEL_DIR = os.path.join(SENTIMENT_ANALYSIS_DIR, "train/best_model")
 
     @_check_filepath(".csv")
     def get_csv(self, filepath: str) -> pd.DataFrame:
@@ -66,10 +70,21 @@ class FileUtil():
     def get_yml(self, filepath: str):
         with open(filepath, "r") as f:
             return yaml.safe_load(f)
+        
+    @_check_filepath(".json")
+    def put_json(self, filepath: str, dic) -> None:
+        if not isinstance(dic, dict):
+            raise TypeError(f"dic must be of type dict, got {type(dic)}")
+        with open(filepath, "w") as f:
+            json.dump(dic, f)
+        
+    @classmethod
+    def check_dir_exists(self, dir):
+        return os.path.exists(dir)
 
     @classmethod
     def create_dir_if_not_exists(self, dir):
-        if not os.path.exists(dir):
+        if not FileUtil.check_dir_exists(dir):
             os.makedirs(dir)
 
     @classmethod
@@ -124,3 +139,9 @@ class FileUtil():
         FileUtil.create_dir_if_not_exists(FileUtil.PREDICTED_DATA_DIR)
         filepath = os.path.join(FileUtil.PREDICTED_DATA_DIR, filename)
         self.put_csv(self, filepath, df)
+
+    @classmethod
+    def put_metrics(self, task: str, dic) -> None:
+        if task == "sentiment_analysis":
+            filepath = os.path.join(FileUtil.SENTIMENT_ANALYSIS_DIR, FileUtil.METRICS_FILE_NAME)
+        self.put_json(self, filepath, dic)
