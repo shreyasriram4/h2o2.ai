@@ -11,7 +11,7 @@ def predict_sentiment_topic(file_path, df = FileUtil.get_raw_train_data()):
     
     df = apply_cleaning(df)
 
-    df = df.iloc[:10,] #to be removed
+    # df = df.iloc[:10,] #uncomment to predict just the first 10 rows
 
     df = predict_sentiment(df)
     df = predict_topic(df)
