@@ -1,8 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
-from sklearn.metrics import auc, precision_recall_curve
-from sklearn.model_selection import train_test_split
+from sklearn.metrics import auc, precision_recall_curve, average_precision_score
 from src.models.classifier import Classifier
 from src.utils.file_util import FileUtil
 from transformers import BertTokenizer, TFBertForSequenceClassification, BertConfig, InputExample, InputFeatures
@@ -77,9 +76,11 @@ class BERT(Classifier):
         y_scores = list(map(lambda prob: prob[1], all_probs))
         precision, recall, thresholds = precision_recall_curve(valid[self.target_col], y_scores)
 
+        ap = average_precision_score(valid[self.target_col], y_scores)
+
         pr_auc = auc(recall, precision)
 
-        FileUtil.put_metrics("sentiment_analysis", {"BERT": {"PR AUC": pr_auc}})
+        FileUtil.put_metrics("sentiment_analysis", {"BERT": {"PR AUC": pr_auc, "Average Precision": ap}})
 
         return pr_auc
         
