@@ -1,10 +1,10 @@
 BERT: {"dropout": 0.1, 
-      "learning_rate": 3e-5, 
+      "learning_rate": 0.00003, 
       "batch_size": 128, 
       "clipnorm": 1.0, 
-      "epsilon": 1e-08,
+      "epsilon": 0.00000001,
       "callback_monitor": "val_loss",
-      "callback_patience": 7,
+      "callback_patience": 5,
       "epochs": 20,
       "text_col": "cleaned_text",
       "target_col": "sentiment"}
