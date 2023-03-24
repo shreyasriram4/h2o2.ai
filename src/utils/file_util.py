@@ -30,6 +30,7 @@ class FileUtil():
     MODEL_FILE_NAME = "model.pkl"
     CONFIG_FILE_NAME = "config.yml"
     METRICS_FILE_NAME = "metrics.json"
+    BERT_TRAINING_GRAPH_FILE_NAME = "bert_training.png"
 
     PROJECT_DIR = os.path.abspath(
         os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)
@@ -42,7 +43,9 @@ class FileUtil():
     SENTIMENT_ANALYSIS_DIR = os.path.join(PROJECT_DIR, "src/models/sentiment_analysis")
     TOPIC_MODELLING_DIR = os.path.join(PROJECT_DIR, "src/models/topic_modelling")
 
-    BEST_SENTIMENT_MODEL_DIR = os.path.join(SENTIMENT_ANALYSIS_DIR, "train/best_model")
+    SENTIMENT_ANALYSIS_TRAIN_DIR = os.path.join(SENTIMENT_ANALYSIS_DIR, "train")
+    BEST_SENTIMENT_MODEL_DIR = os.path.join(SENTIMENT_ANALYSIS_TRAIN_DIR, "best_model")
+    BERT_TRAINING_GRAPH_FILE_PATH = os.path.join(SENTIMENT_ANALYSIS_TRAIN_DIR, BERT_TRAINING_GRAPH_FILE_NAME)
 
     @_check_filepath(".csv")
     def get_csv(self, filepath: str) -> pd.DataFrame:
@@ -143,5 +146,5 @@ class FileUtil():
     @classmethod
     def put_metrics(self, task: str, dic) -> None:
         if task == "sentiment_analysis":
-            filepath = os.path.join(FileUtil.SENTIMENT_ANALYSIS_DIR, FileUtil.METRICS_FILE_NAME)
+            filepath = os.path.join(FileUtil.SENTIMENT_ANALYSIS_TRAIN_DIR, FileUtil.METRICS_FILE_NAME)
         self.put_json(self, filepath, dic)
