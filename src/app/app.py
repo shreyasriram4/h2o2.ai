@@ -15,9 +15,11 @@ async def init(q: Q) -> None:
                 ui.zone('sidebar', size='200px'),
                 ui.zone('content', zones=[
                     # Specify various zones and use the one that is currently needed. Empty zones are ignored.
+                    
                     ui.zone('horizontal', direction=ui.ZoneDirection.ROW),
                     ui.zone('horizontal1', direction=ui.ZoneDirection.ROW),
-                    ui.zone('vertical', direction=ui.ZoneDirection.COLUMN, size='50%'),
+                    ui.zone('horizontal_sentiment', direction=ui.ZoneDirection.ROW, size = '100%'),
+                    ui.zone('vertical_sentiment', direction=ui.ZoneDirection.COLUMN, size='100%'),
                     ui.zone('grid', direction=ui.ZoneDirection.ROW, wrap='stretch', justify='center')
                 ]),
             ])

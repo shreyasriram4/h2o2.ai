@@ -28,10 +28,11 @@ async def sentiment_pie_chart(data):
         html = pio.to_html(fig, config=None, auto_play=True, include_plotlyjs="cdn")
         return html
 
-def sentiment_line_chart_over_time(data):
+async def sentiment_line_chart_over_time(data):
     freq_df = data.groupby(['date', 'sentiment'], as_index = False).size()
     fig = px.line(freq_df, x="date", y="size", color = "sentiment", title="Sentiments over Time", color_discrete_sequence=px.colors.qualitative.Safe[0:2][::-1]) 
-    return fig
+    html = pio.to_html(fig, config=None, auto_play=True, include_plotlyjs="cdn")
+    return html
 
 def topics_bar_chart(data):
     freq_df = data.groupby(['pred_topic_label', 'sentiment'], as_index = False).size()

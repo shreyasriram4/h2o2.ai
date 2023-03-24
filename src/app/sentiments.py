@@ -4,7 +4,7 @@ import pandas as pd
 from plotly import graph_objects as go
 from plotly import io as pio
 # from charts import reformat_data, sentiment_pie_chart
-from visualisation.dashboard_viz import reformat_data, sentiment_pie_chart
+from visualisation.dashboard_viz import reformat_data, sentiment_pie_chart, sentiment_line_chart_over_time
 
 # def load_data():
 #     data = pd.read_csv('../../data/processed/reviews.csv')
@@ -22,11 +22,16 @@ async def page2(q: Q):
 
     # fig = await sentiment_pie_chart(data=df)
     add_card(q, 'piechart1', ui.frame_card(
-        box='vertical',
+        box='horizontal_sentiment',
         title="Overall Sentiment",
         content=await sentiment_pie_chart(data=df),
-
         ))
+    
+    add_card(q, 'piechart2', ui.frame_card(
+        box='horizontal_sentiment',
+        title="Sentiment Overtime",
+        content=await sentiment_line_chart_over_time(data=df),
+    ))
     
     # add_card(q, 'chart3', ui.markdown_card(
     #     box='horizontal',
