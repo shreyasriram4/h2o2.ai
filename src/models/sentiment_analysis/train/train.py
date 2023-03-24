@@ -13,7 +13,7 @@ def main():
 
     history = model.fit(train, valid)
 
-    pr_auc = model.evaluate(valid)
+    ap, pr_auc = model.evaluate(valid)
 
     model.plot_training_acc_loss(history)
 
