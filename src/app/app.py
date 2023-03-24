@@ -17,7 +17,7 @@ async def init(q: Q) -> None:
                     # Specify various zones and use the one that is currently needed. Empty zones are ignored.
                     ui.zone('horizontal', direction=ui.ZoneDirection.ROW),
                     ui.zone('horizontal1', direction=ui.ZoneDirection.ROW),
-                    ui.zone('vertical'),
+                    ui.zone('vertical', direction=ui.ZoneDirection.COLUMN, size='50%'),
                     ui.zone('grid', direction=ui.ZoneDirection.ROW, wrap='stretch', justify='center')
                 ]),
             ])
@@ -63,7 +63,7 @@ async def serve(q: Q):
 
 
     # Handle routing.
-    #await handle_on(q)
+    await handle_on(q)
 
 
 
