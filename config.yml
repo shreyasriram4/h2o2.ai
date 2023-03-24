@@ -8,13 +8,13 @@ BERT: {"dropout": 0.1,
       "epochs": 20,
       "text_col": "cleaned_text",
       "target_col": "sentiment"}
-topics: ["Drinks", "Snacks", "Ingredients", "Baked Goods", "Spreads", "Noodles & Pasta", "Pets"]
-topic_mapping: {"Drinks": ['drinks', 'tea', 'coffee', 'juice', 'soda'], 
-          "Snacks": ['snacks', 'nuts', 'chips', 'crackers', 'protein bars', 'cereal'], 
-          "Ingredients": ['ingredients', 'sugar', 'salt', 'oil', 'seasoning', 'spices'],
-          "Baked Goods": ['baked', 'pastries', 'cookies'], 
-          "Spreads": ['sauces', 'butter'],
-          "Noodles & Pasta": ['noodles',  'pasta'], 
-          "Pets": ['pet', 'dog', 'cat']}
+topics: ["Drinks", "Snacks", "Ingredients", "Flavour", "Baked Goods", "Noodles & Pasta", "Pet Food"]
+topic_mapping: {"Drinks": ['Drinks', 'Tea', 'Coffee', 'Juice', 'Soda'], 
+          "Snacks": ['Snacks', 'Nuts', 'Chips', 'Crackers', 'Protein Bars', 'Cereal'], 
+          "Ingredients": ['Ingredients', 'Sugar', 'Salt', 'Oil', 'Coconut', 'Olive', 'Cocoa', 'Cacao', "Sweetener", "Gluten"],
+          "Flavour": ["Flavour", "Flavor", "Taste", 'Seasoning', 'Spices', 'Sauce', 'Chili'],
+          "Baked Goods": ['Baked Goods', 'Pastries', 'Cookies', 'Bread'],
+          "Noodles & Pasta": ['Noodles',  'Pasta', 'Ramen', 'Udon'],
+          "Pet Food": ["Dog Food", "Cat Food", "Pet Food", "Dog Treat"]}
 custom_stopwords: ['great', 'taste', 'good', 'like', 'product', 'flavor', 'love', 'really', 'buy', 'tastes', 'better', 'best', 'tried', 'use', 'eat', 'food', 'make']
-labels: ['Drinks', 'Snacks', 'Ingredients', 'Baked Goods', 'Spreads', 'Noodles & Pasta', 'Pets']
+labels: ['Drinks', 'Snacks', 'Ingredients', 'Flavour', 'Baked Goods', 'Noodles & Pasta', 'Pet Food']
