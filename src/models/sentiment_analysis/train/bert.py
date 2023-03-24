@@ -24,11 +24,12 @@ class BERT(Classifier):
             self.loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
             self.metrics = tf.keras.metrics.SparseCategoricalAccuracy('accuracy')
             self.callback = tf.keras.callbacks.EarlyStopping(monitor = self.bert_config["callback_monitor"],
-                                                             patience = self.bert_config["callback_patience"])
+                                                             patience = self.bert_config["callback_patience"],
+                                                             restore_best_weights = True)
         else:
             if not FileUtil.check_dir_exists(self.saved_model_path):
                 raise FileNotFoundError("There is no saved model in path", self.saved_model_path)
-            self.model = tf.keras.models.load_model(self.saved_model_path)
+            self.model = TFBertForSequenceClassification.from_pretrained(self.saved_model_path)
 
     def fit(self, train, valid):
         assert self.load_model != True
@@ -51,7 +52,7 @@ class BERT(Classifier):
                                  validation_data = validation_data, 
                                  callbacks = [self.callback])
 
-        self.model.save(self.saved_model_path)
+        self.model.save_pretrained(self.saved_model_path)
 
         return history
 
@@ -82,7 +83,7 @@ class BERT(Classifier):
 
         FileUtil.put_metrics("sentiment_analysis", {"BERT": {"PR AUC": pr_auc, "Average Precision": ap}})
 
-        return pr_auc
+        return ap, pr_auc
         
     def plot_training_acc_loss(self, history):
         losses = history.history['loss']
@@ -94,14 +95,14 @@ class BERT(Classifier):
         plt.figure(figsize=(12, 4))
         for i, metrics in enumerate(zip([losses, accs], [val_losses, val_accs], ['Loss', 'Accuracy'])):
             plt.subplot(1, 2, i + 1)
-            plt.plot(range(epochs), metrics[0], label='Training {}'.format(metrics[2]))
-            plt.plot(range(epochs), metrics[1], label='Validation {}'.format(metrics[2]))
+            plt.plot(range(1, epochs + 1), metrics[0], label='Training {}'.format(metrics[2]))
+            plt.plot(range(1, epochs + 1), metrics[1], label='Validation {}'.format(metrics[2]))
             plt.legend()
         plt.show()
-        plt.savefig('bert_training.png')
+        plt.savefig(FileUtil.BERT_TRAINING_GRAPH_FILE_PATH)
      
 
-    def convert_data_to_examples(train, test, DATA_COLUMN, LABEL_COLUMN): 
+    def convert_data_to_examples(self, train, test, DATA_COLUMN, LABEL_COLUMN): 
         train_InputExamples = train.apply(lambda x: InputExample(guid=None, # Globally unique ID for bookkeeping, unused in this case
                                                             text_a = x[DATA_COLUMN], 
                                                             text_b = None,
@@ -114,7 +115,7 @@ class BERT(Classifier):
     
         return train_InputExamples, validation_InputExamples
     
-    def convert_examples_to_tf_dataset(examples, tokenizer, max_length=50):
+    def convert_examples_to_tf_dataset(self, examples, tokenizer, max_length=50):
         features = [] # -> will hold InputFeatures to be converted later
 
         for e in examples:
