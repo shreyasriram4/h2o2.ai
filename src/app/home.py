@@ -3,8 +3,8 @@ from helper import add_card, clear_cards
 import pandas as pd
 
 def load_data():
-    data = pd.read_csv('../../../reviews.csv')
-    data.Time = pd.to_datetime(data.Time)
+    data = pd.read_csv('../../data/processed/reviews.csv')
+    data.date = pd.to_datetime(data.date)
     return data
 
 df = load_data()
@@ -54,10 +54,10 @@ async def page1(q: Q):
                 [ui.table_column(name=x, 
                                  label=x,
                                  sortable=True,
-                                 cell_overflow='wrap') for x in ['Time', 'Text']],
+                                 cell_overflow='wrap') for x in ['date', 'partially_cleaned_text']],
             rows = [ui.table_row(
                 name = str(i),
-                cells = list(map(str, df[['Time', 'Text']].values.tolist()[i]))
+                cells = list(map(str, df[['date', 'partially_cleaned_text']].values.tolist()[i]))
                 ) for i in df.index[0:29]])
             ]))
     

@@ -3,16 +3,16 @@ from helper import add_card, clear_cards
 import pandas as pd
 
 def load_data():
-    data = pd.read_csv('../../../reviews.csv')
-    data.Time = pd.to_datetime(data.Time)
-    data['year_month'] = data.Time.dt.to_period('M')
+    data = pd.read_csv('../../data/processed/reviews.csv')
+    data.date = pd.to_datetime(data.date)
+    data['year_month'] = data.date.dt.to_period('M')
     return data
 
 df = load_data()
 
 def sentiment_over_time_df(df):
-    df['Time'] = df['Time'].dt.strftime("%Y-%m-%d")
-    time_df = df.groupby(['Time', 'Sentiment']).count().reset_index()
+    df['date'] = df['date'].dt.strftime("%Y-%m-%d")
+    time_df = df.groupby(['date', 'sentiment']).count().reset_index()
     return time_df
 
 time_df = sentiment_over_time_df(df)
@@ -22,8 +22,8 @@ async def page2(q: Q):
     q.page['sidebar'].value = '#sentiments'
     clear_cards(q)  # When routing, drop all the cards except of the main ones (header, sidebar, meta).
 
-    pos = df.Sentiment.value_counts()['positive']
-    neg = df.Sentiment.value_counts()['negative']
+    pos = (df['sentiment']==1).sum()
+    neg = (df['sentiment']==0).sum()
     total = pos+neg
     add_card(q, 'piechart', ui.wide_pie_stat_card(
         box='horizontal',
@@ -38,7 +38,7 @@ async def page2(q: Q):
         box='horizontal',
         title='Sentiment Over Time',
         data=data(fields=time_df.columns.tolist(),rows = time_df.values.tolist()),
-        plot = ui.plot(marks=[ui.mark(type='line',x='=Time',y='=Text', color='=Sentiment', color_range='$green $red', color_domain=['positive', 'negative'])])
+        plot = ui.plot(marks=[ui.mark(type='line',x='=date',y='=partially_cleaned_text', color='=sentiment', color_range='$green $red')])
     ))
 
     add_card(q, 'chart3', ui.markdown_card(
