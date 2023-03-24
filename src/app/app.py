@@ -32,7 +32,7 @@ async def init(q: Q) -> None:
                 ui.nav_item(name='#home', label='Home', icon='Home'),
                 ui.nav_item(name='#sentiments', label='Sentiment', icon='SentimentAnalysis'),
                 ui.nav_item(name='#topics', label='Topics', icon='StackedLineChart'),
-                ui.nav_item(name='#topic_playground', label='Topic Playground', icon='Sunny'),
+                ui.nav_item(name='#topic_playground', label='Topic Playground', icon='Sunny')
             ]),
         ])
     q.page['header'] = ui.header_card(

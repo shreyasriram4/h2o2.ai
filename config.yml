@@ -17,3 +17,5 @@ topic_mapping: {"Drinks": ['drinks', 'tea', 'coffee', 'juice', 'soda'],
           "Cereal": ['cereal'], 
           "Noodles": ['noodles',  'pasta'], 
           "Pet": ['pet', 'dog', 'cat']}
+custom_stopwords: ['great', 'taste', 'good', 'like', 'product', 'flavor', 'love', 'really', 'buy', 'tastes', 'better', 'best', 'tried', 'use', 'eat', 'food', 'make']
+labels: ['drinks', 'snacks', 'ingredients', 'baked goods', 'spreads', 'noodles & pasta', 'pets']
