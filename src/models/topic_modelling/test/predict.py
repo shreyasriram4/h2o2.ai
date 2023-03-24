@@ -12,7 +12,11 @@ def predict_topic(df, model_name = "Lbl2Vec"):
         candidate_labels = config["topics"]
         df = ZeroShot().predict(df, "cleaned_text", candidate_labels)
     else:
-        candidate_labels = config["topic_mapping"]
+        topic_mapping = config["topic_mapping"]
+        candidate_labels = {}
+        for topic, subtopics in topic_mapping.items():
+            for subtopic in subtopics:
+                candidate_labels[subtopic] = topic
         df = Lbl2Vec().predict(df, "cleaned_text", candidate_labels)
 
     return df
