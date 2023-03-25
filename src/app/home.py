@@ -1,13 +1,12 @@
 from h2o_wave import main, app, Q, ui, on, handle_on, data
-from helper import add_card, clear_cards
+from src.app.helper import add_card, clear_cards
+# from helper import add_card, clear_cards
 import pandas as pd
+from src.visualisation.dashboard_viz import reformat_data, sentiment_pie_chart, sentiment_line_chart_over_time
+# from visualisation.dashboard_viz import reformat_data, sentiment_pie_chart, sentiment_line_chart_over_time
 
-def load_data():
-    data = pd.read_csv('../../data/processed/reviews.csv')
-    data.date = pd.to_datetime(data.date)
-    return data
-
-df = load_data()
+df = pd.read_csv('data/processed/reviews.csv')
+df = reformat_data(df)
 
 @on('#home')
 async def page1(q: Q):

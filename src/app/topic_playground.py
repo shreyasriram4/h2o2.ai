@@ -1,5 +1,5 @@
 from h2o_wave import main, app, Q, ui, on, handle_on, data
-from helper import add_card, clear_cards
+from src.app.helper import add_card, clear_cards
     
 
 @on('#topic_playground')

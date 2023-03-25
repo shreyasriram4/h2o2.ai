@@ -1,9 +1,10 @@
 
 from h2o_wave import main, app, Q, ui, on, handle_on, data
-from home import page1
-from sentiments import page2
-from topics import page3
-from topic_playground import page4
+from src.app.home import page1
+from src.app.sentiments import page2
+from src.app.topics import page3
+from src.app.topic_playground import page4
+
 
 async def init(q: Q) -> None:
     q.page['meta'] = ui.meta_card(box='', layouts=[ui.layout(breakpoint='xs', min_height='100vh', zones=[
@@ -15,11 +16,10 @@ async def init(q: Q) -> None:
                 ui.zone('sidebar', size='200px'),
                 ui.zone('content', zones=[
                     # Specify various zones and use the one that is currently needed. Empty zones are ignored.
-                    
-                    ui.zone('horizontal', direction=ui.ZoneDirection.ROW),
-                    ui.zone('horizontal1', direction=ui.ZoneDirection.ROW),
                     ui.zone('horizontal_sentiment', direction=ui.ZoneDirection.ROW, size = '100%'),
                     ui.zone('vertical_sentiment', direction=ui.ZoneDirection.COLUMN, size='100%'),
+                    # ui.zone('horizontal', direction=ui.ZoneDirection.ROW),
+                    # ui.zone('horizontal1', direction=ui.ZoneDirection.ROW),
                     ui.zone('grid', direction=ui.ZoneDirection.ROW, wrap='stretch', justify='center')
                 ]),
             ])

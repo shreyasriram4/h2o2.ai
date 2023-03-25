@@ -1,18 +1,13 @@
 from h2o_wave import main, app, Q, ui, on, handle_on, data
-from helper import add_card, clear_cards
+from src.app.helper import add_card, clear_cards
+# from helper import add_card, clear_cards
 import pandas as pd
 from plotly import graph_objects as go
 from plotly import io as pio
-# from charts import reformat_data, sentiment_pie_chart
-from visualisation.dashboard_viz import reformat_data, sentiment_pie_chart, sentiment_line_chart_over_time
+# from visualisation.dashboard_viz import reformat_data, sentiment_pie_chart, sentiment_line_chart_over_time
+from src.visualisation.dashboard_viz import reformat_data, sentiment_pie_chart, sentiment_line_chart_over_time
 
-# def load_data():
-#     data = pd.read_csv('../../data/processed/reviews.csv')
-#     data.date = pd.to_datetime(data.date)
-#     data['year_month'] = data.date.dt.to_period('M')
-#     return data
-
-df = pd.read_csv('../../data/processed/reviews.csv')
+df = pd.read_csv('data/processed/reviews.csv')
 df = reformat_data(df)
 
 @on('#sentiments')
@@ -20,16 +15,21 @@ async def page2(q: Q):
     q.page['sidebar'].value = '#sentiments'
     clear_cards(q)  # When routing, drop all the cards except of the main ones (header, sidebar, meta).
 
-    # fig = await sentiment_pie_chart(data=df)
+    # fig = sentiment_pie_chart(data=df)
+    # html = pio.to_html(fig, config=None, auto_play=True, include_plotlyjs="cdn")
     add_card(q, 'piechart1', ui.frame_card(
-        box='horizontal_sentiment',
+        box=ui.box(zone='horizontal_sentiment'),
         title="Overall Sentiment",
         content=await sentiment_pie_chart(data=df),
+        # content= html,
         ))
     
+    # fig1 = sentiment_line_chart_over_time(data=df)
+    # html2 = pio.to_html(fig1, config=None, auto_play=True, include_plotlyjs="cdn")
     add_card(q, 'piechart2', ui.frame_card(
         box='horizontal_sentiment',
-        title="Sentiment Overtime",
+        title="Sentiment Over time",
+        # content= html2,
         content=await sentiment_line_chart_over_time(data=df),
     ))
     
