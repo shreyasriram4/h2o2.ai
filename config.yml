@@ -1,2 +1,20 @@
+BERT: {"dropout": 0.1, 
+      "learning_rate": 0.00003, 
+      "batch_size": 128, 
+      "clipnorm": 1.0, 
+      "epsilon": 0.00000001,
+      "callback_monitor": "val_loss",
+      "callback_patience": 5,
+      "epochs": 20,
+      "text_col": "cleaned_text",
+      "target_col": "sentiment"}
+topics: ["Drinks", "Snacks", "Ingredients", "Flavour", "Baked Goods", "Noodles & Pasta", "Pet Food"]
+topic_mapping: {"Drinks": ['Drinks', 'Tea', 'Coffee', 'Juice', 'Soda'], 
+          "Snacks": ['Snacks', 'Nuts', 'Chips', 'Crackers', 'Protein Bars', 'Cereal'], 
+          "Ingredients": ['Ingredients', 'Sugar', 'Salt', 'Oil', 'Coconut', 'Olive', 'Cocoa', 'Cacao', "Sweetener", "Gluten"],
+          "Flavour": ["Flavour", "Flavor", "Taste", 'Seasoning', 'Spices', 'Sauce', 'Chili'],
+          "Baked Goods": ['Baked Goods', 'Pastries', 'Cookies', 'Bread'],
+          "Noodles & Pasta": ['Noodles',  'Pasta', 'Ramen', 'Udon'],
+          "Pet Food": ["Dog Food", "Cat Food", "Pet Food", "Dog Treat"]}
 custom_stopwords: ['great', 'taste', 'good', 'like', 'product', 'flavor', 'love', 'really', 'buy', 'tastes', 'better', 'best', 'tried', 'use', 'eat', 'food', 'make']
-labels: ['drinks', 'snacks', 'ingredients', 'baked goods', 'spreads', 'noodles & pasta', 'pets']
+labels: ['Drinks', 'Snacks', 'Ingredients', 'Flavour', 'Baked Goods', 'Noodles & Pasta', 'Pet Food']
