@@ -56,11 +56,13 @@ async def topics_pie_chart(data):
 async def visualise_all_topics(data):
     return visualise_top_words(data, labels = CONFIG_PARAMS["labels"], specific = False, custom_sw = CONFIG_PARAMS["custom_stopwords"])
 
-def visualise_all_topics(data, topic):
+async def visualise_all_topics(data, topic):
     return visualise_top_words(data, labels = topic, specific = True, custom_sw = CONFIG_PARAMS["custom_stopwords"])
     
-async def extract_top_reviews(data):
-    return "in progress"
+async def extract_top_reviews(data, topic):
+    topic_df = data[data["pred_topic_label"] == topic]
+    topic_sliced = list(topic_df.sort_values(by = "score").head(5)["partially_cleaned_text"])
+    return topic_sliced
 
 
 
