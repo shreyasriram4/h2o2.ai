@@ -3,7 +3,8 @@ from src.utils.file_util import FileUtil
 from src.models.topic_modelling.test.lbl2vec import Lbl2Vec
 from src.models.topic_modelling.test.zero_shot import ZeroShot
 
-def predict_topic(df, model_name = "Lbl2Vec"):
+
+def predict_topic(df, model_name="Lbl2Vec"):
     assert model_name in ["ZeroShot", "Lbl2Vec"]
 
     config = FileUtil.get_config()
