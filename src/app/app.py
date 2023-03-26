@@ -1,9 +1,9 @@
 
 from h2o_wave import main, app, Q, ui, on, handle_on, data
-from src.app.home import page1
+from src.app.home import page1_upload, page1_preview
 from src.app.sentiments import page2
 from src.app.topics import page3
-from src.app.topic_playground import page4
+from src.app.topic_playground import page4_input, page4_result
 
 
 async def init(q: Q) -> None:
@@ -16,11 +16,9 @@ async def init(q: Q) -> None:
                 ui.zone('sidebar', size='200px'),
                 ui.zone('content', zones=[
                     # Specify various zones and use the one that is currently needed. Empty zones are ignored.
-                    ui.zone('horizontal_sentiment', direction=ui.ZoneDirection.ROW, size = '100%'),
-                    ui.zone('vertical_sentiment', direction=ui.ZoneDirection.COLUMN, size='100%'),
-                    # ui.zone('horizontal', direction=ui.ZoneDirection.ROW),
-                    # ui.zone('horizontal1', direction=ui.ZoneDirection.ROW),
-                    ui.zone('grid', direction=ui.ZoneDirection.ROW, wrap='stretch', justify='center')
+                    ui.zone('horizontal', direction=ui.ZoneDirection.ROW, size='18%'),
+                    ui.zone('horizontal1', direction=ui.ZoneDirection.ROW, size='41%'),
+                    ui.zone('horizontal2', direction=ui.ZoneDirection.ROW, size='41%')
                 ]),
             ])
         ])
@@ -41,9 +39,13 @@ async def init(q: Q) -> None:
         box='header', title='Voice of Customer', subtitle='', icon = 'Microphone', color='primary'
     )
 
-    # If no active hash present, render page1.
-    if q.args['#'] is None:
-        await page1(q)
+    # # If no active hash present, render page1.
+    # if q.args['#'] is None:
+    #     if q.args.file_upload:
+    #         files = q.args.file_upload
+    #         await page1_preview(q, files)
+    #     else:
+    #         await page1_upload(q)
 
 @app('/')
 async def serve(q: Q):
@@ -53,15 +55,32 @@ async def serve(q: Q):
         await init(q)
         q.client.initialized = True
 
+    # # psuedo code for integration
+    # page1_preview will download the test.csv
+    # if test.csv exist:
+    #     save df of predict(test.csv) as predict_test_df
+    #     save df of topic_modelling(test.csv) as topic_modelling_test_df
+    #     merge both df and chose the columns we want
+    # #   thereafter, our page2-page4 functions will take in these df according
+
+        
     route = q.args['#']
-    if route == 'home':
-        await page1(q)
+    if route == 'home' or route == None:
+        if q.args.file_upload:
+            files = q.args.file_upload
+            await page1_preview(q, files)
+        else:
+            await page1_upload(q)
     elif route == 'sentiments':
         await page2(q)
     elif route == 'topics':
         await page3(q)
     elif route == 'topic_playground':
-        await page4(q)
+        if q.args.playground_topic:
+            topics = q.args.playground_topic
+            await page4_result(q, topics)
+        else:
+            await page4_input(q)
 
 
     # Handle routing.

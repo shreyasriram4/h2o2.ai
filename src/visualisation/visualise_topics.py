@@ -20,14 +20,14 @@ def get_top_words(corpus, custom_sw = []):
     words_freq = [(word, sum_words[0, idx]) for word, idx in vec.vocabulary_.items()]
     words_freq =sorted(words_freq, key = lambda x: x[1], reverse=True)
     
-    return pd.DataFrame(words_freq[:6], columns = ["top words", "tf-idf score"])
+    return pd.DataFrame(words_freq[5::-1], columns = ["top words", "tf-idf score"])
 
 def visualise_top_words(df, topics, specific = False, custom_sw = []):
 
     colors = itertools.cycle(["#D55E00", "#0072B2", "#CC79A7", "#E69F00", "#56B4E9", "#009E73", "#F0E442"])
 
     if specific:
-        topic_corpus = df[df["pred_topic_label"] == topics[0]]
+        topic_corpus = df[df["topic"] == topics[0]]
         freq_df = get_top_words(topic_corpus["cleaned_text"], custom_sw)
         fig = px.bar(freq_df, x = "tf-idf score",y= "top words", title = f"Top Words for {topics[0]}")
         
@@ -47,7 +47,7 @@ def visualise_top_words(df, topics, specific = False, custom_sw = []):
         row = 1
         column = 1
         for topic in topics:
-            topic_corpus = df[df["pred_topic_label"] == topic]
+            topic_corpus = df[df["topic"] == topic]
             freq_df = get_top_words(topic_corpus["cleaned_text"], custom_sw)
 
             fig.add_trace(

@@ -66,16 +66,18 @@ async def visualise_all_topics(data):
     html = pio.to_html(fig, config=None, auto_play=True, include_plotlyjs="cdn")
     return html
 
-async def visualise_all_topics(data, topic):
-    fig = visualise_top_words(data, labels = topic, specific = True, custom_sw = CONFIG_PARAMS["custom_stopwords"])
+async def visualise_all_topics_playground(data, topic):
+    fig = visualise_top_words(data, topics = topic, specific = True, custom_sw = CONFIG_PARAMS["custom_stopwords"])
     update_chart(fig)
     html = pio.to_html(fig, config=None, auto_play=True, include_plotlyjs="cdn")
     return html
     
-async def extract_top_reviews(data, topic):
-    topic_df = data[data["topic"] == topic]
-    topic_sliced = list(topic_df.sort_values(by = "score").head(5)["partially_cleaned_text"])
+async def extract_top_reviews(data, topic, sentiment):
+    topic_df = data[(data["topic"] == topic) & (data["sentiment"] == sentiment)]
+    topic_sliced = list(topic_df.sort_values(by = "sentiment_prob")["partially_cleaned_text"])
     return topic_sliced
+
+
 
 # async def topics_bar_chart_by_month(data):
 #     data['year_month'] = data['date'].dt.to_period('M').astype('string')
