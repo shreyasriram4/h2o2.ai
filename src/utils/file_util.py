@@ -5,8 +5,10 @@ import pandas as pd
 import pickle
 import yaml
 
+
 class InvalidExtension(Exception):
     pass
+
 
 def _check_filepath(ext):
     def _decorator(f):
@@ -17,13 +19,15 @@ def _check_filepath(ext):
                 filepath = args[1]
 
             if not filepath.endswith(ext):
-                raise InvalidExtension(f"{filepath} has invalid extension, want {ext}")
+                raise InvalidExtension(
+                    f"{filepath} has invalid extension, want {ext}")
 
             return f(*args, **kwargs)
 
         return _wrapper
 
     return _decorator
+
 
 class FileUtil():
     TRAIN_FILE_NAME = "reviews.csv"
@@ -40,12 +44,17 @@ class FileUtil():
     PROCESSED_DATA_DIR = os.path.join(PROJECT_DIR, "data/processed")
     PREDICTED_DATA_DIR = os.path.join(PROJECT_DIR, "data/predicted")
 
-    SENTIMENT_ANALYSIS_DIR = os.path.join(PROJECT_DIR, "src/models/sentiment_analysis")
-    TOPIC_MODELLING_DIR = os.path.join(PROJECT_DIR, "src/models/topic_modelling")
+    SENTIMENT_ANALYSIS_DIR = os.path.join(PROJECT_DIR,
+                                          "src/models/sentiment_analysis")
+    TOPIC_MODELLING_DIR = os.path.join(PROJECT_DIR,
+                                       "src/models/topic_modelling")
 
-    SENTIMENT_ANALYSIS_TRAIN_DIR = os.path.join(SENTIMENT_ANALYSIS_DIR, "train")
-    BEST_SENTIMENT_MODEL_DIR = os.path.join(SENTIMENT_ANALYSIS_TRAIN_DIR, "best_model")
-    BERT_TRAINING_GRAPH_FILE_PATH = os.path.join(SENTIMENT_ANALYSIS_TRAIN_DIR, BERT_TRAINING_GRAPH_FILE_NAME)
+    SENTIMENT_ANALYSIS_TRAIN_DIR = os.path.join(SENTIMENT_ANALYSIS_DIR,
+                                                "train")
+    BEST_SENTIMENT_MODEL_DIR = os.path.join(SENTIMENT_ANALYSIS_TRAIN_DIR,
+                                            "best_model")
+    BERT_TRAINING_GRAPH_FILE_PATH = os.path.join(SENTIMENT_ANALYSIS_TRAIN_DIR,
+                                                 BERT_TRAINING_GRAPH_FILE_NAME)
 
     @_check_filepath(".csv")
     def get_csv(self, filepath: str) -> pd.DataFrame:
@@ -65,7 +74,8 @@ class FileUtil():
     @_check_filepath(".pkl")
     def put_pkl(self, filepath: str, python_object) -> None:
         if not python_object:
-            raise TypeError("python_object must be non-zero, non-empty, and not None")
+            raise TypeError(
+                "python_object must be non-zero, non-empty, and not None")
         with open(filepath, "wb") as f:
             pickle.dump(python_object, f)
 
@@ -73,14 +83,14 @@ class FileUtil():
     def get_yml(self, filepath: str):
         with open(filepath, "r") as f:
             return yaml.safe_load(f)
-        
+
     @_check_filepath(".json")
     def put_json(self, filepath: str, dic) -> None:
         if not isinstance(dic, dict):
             raise TypeError(f"dic must be of type dict, got {type(dic)}")
         with open(filepath, "w") as f:
             json.dump(dic, f)
-        
+
     @classmethod
     def check_dir_exists(self, dir):
         return os.path.exists(dir)
@@ -96,47 +106,55 @@ class FileUtil():
 
     @classmethod
     def get_raw_train_data(self) -> pd.DataFrame:
-        filepath = os.path.join(FileUtil.RAW_DATA_DIR, FileUtil.TRAIN_FILE_NAME)
+        filepath = os.path.join(FileUtil.RAW_DATA_DIR,
+                                FileUtil.TRAIN_FILE_NAME)
         return self.get_csv(self, filepath)
 
     @classmethod
     def get_processed_train_data(self) -> pd.DataFrame:
-        filepath = os.path.join(FileUtil.PROCESSED_DATA_DIR, FileUtil.TRAIN_FILE_NAME)
+        filepath = os.path.join(FileUtil.PROCESSED_DATA_DIR,
+                                FileUtil.TRAIN_FILE_NAME)
         return self.get_csv(self, filepath)
 
     @classmethod
     def put_processed_train_data(self, df: pd.DataFrame) -> None:
         FileUtil.create_dir_if_not_exists(FileUtil.PROCESSED_DATA_DIR)
-        filepath = os.path.join(FileUtil.PROCESSED_DATA_DIR, FileUtil.TRAIN_FILE_NAME)
+        filepath = os.path.join(FileUtil.PROCESSED_DATA_DIR,
+                                FileUtil.TRAIN_FILE_NAME)
         self.put_csv(self, filepath, df)
 
     @classmethod
     def get_topic_model(self):
-        filepath = os.path.join(FileUtil.TOPIC_MODELLING_DIR, FileUtil.MODEL_FILE_NAME)
+        filepath = os.path.join(FileUtil.TOPIC_MODELLING_DIR,
+                                FileUtil.MODEL_FILE_NAME)
         return self.get_pkl(self, filepath)
 
     @classmethod
     def put_topic_model(self, model) -> None:
         FileUtil.create_dir_if_not_exists(FileUtil.TOPIC_MODELLING_DIR)
-        filepath = os.path.join(FileUtil.TOPIC_MODELLING_DIR, FileUtil.MODEL_FILE_NAME)
+        filepath = os.path.join(FileUtil.TOPIC_MODELLING_DIR,
+                                FileUtil.MODEL_FILE_NAME)
         self.put_pkl(self, filepath, model)
 
     @classmethod
     def get_sentiment_model(self):
-        filepath = os.path.join(FileUtil.SENTIMENT_ANALYSIS_DIR, FileUtil.MODEL_FILE_NAME)
+        filepath = os.path.join(FileUtil.SENTIMENT_ANALYSIS_DIR,
+                                FileUtil.MODEL_FILE_NAME)
         return self.get_pkl(self, filepath)
 
     @classmethod
     def put_sentiment_model(self, model) -> None:
         FileUtil.create_dir_if_not_exists(FileUtil.SENTIMENT_ANALYSIS_DIR)
-        filepath = os.path.join(FileUtil.SENTIMENT_ANALYSIS_DIR, FileUtil.MODEL_FILE_NAME)
+        filepath = os.path.join(FileUtil.SENTIMENT_ANALYSIS_DIR,
+                                FileUtil.MODEL_FILE_NAME)
         self.put_pkl(self, filepath, model)
 
     @classmethod
     def get_config(self):
-        filepath = os.path.join(FileUtil.PROJECT_DIR, FileUtil.CONFIG_FILE_NAME)
+        filepath = os.path.join(FileUtil.PROJECT_DIR,
+                                FileUtil.CONFIG_FILE_NAME)
         return self.get_yml(self, filepath)
-    
+
     @classmethod
     def put_predicted_df(self, df: pd.DataFrame, filename: str) -> None:
         FileUtil.create_dir_if_not_exists(FileUtil.PREDICTED_DATA_DIR)
@@ -146,5 +164,6 @@ class FileUtil():
     @classmethod
     def put_metrics(self, task: str, dic) -> None:
         if task == "sentiment_analysis":
-            filepath = os.path.join(FileUtil.SENTIMENT_ANALYSIS_TRAIN_DIR, FileUtil.METRICS_FILE_NAME)
+            filepath = os.path.join(FileUtil.SENTIMENT_ANALYSIS_TRAIN_DIR,
+                                    FileUtil.METRICS_FILE_NAME)
         self.put_json(self, filepath, dic)
