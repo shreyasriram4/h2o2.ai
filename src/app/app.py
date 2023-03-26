@@ -39,14 +39,6 @@ async def init(q: Q) -> None:
         box='header', title='Voice of Customer', subtitle='', icon = 'Microphone', color='primary'
     )
 
-    # # If no active hash present, render page1.
-    # if q.args['#'] is None:
-    #     if q.args.file_upload:
-    #         files = q.args.file_upload
-    #         await page1_preview(q, files)
-    #     else:
-    #         await page1_upload(q)
-
 @app('/')
 async def serve(q: Q):
     # Run only once per client connection.
