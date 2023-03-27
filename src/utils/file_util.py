@@ -51,8 +51,8 @@ class FileUtil():
 
     SENTIMENT_ANALYSIS_TRAIN_DIR = os.path.join(SENTIMENT_ANALYSIS_DIR,
                                                 "train")
-    BEST_SENTIMENT_MODEL_DIR = os.path.join(SENTIMENT_ANALYSIS_TRAIN_DIR,
-                                            "best_model")
+    BERT_SENTIMENT_MODEL_DIR = os.path.join(SENTIMENT_ANALYSIS_TRAIN_DIR,
+                                            "bert_model")
     BERT_TRAINING_GRAPH_FILE_PATH = os.path.join(SENTIMENT_ANALYSIS_TRAIN_DIR,
                                                  BERT_TRAINING_GRAPH_FILE_NAME)
 
