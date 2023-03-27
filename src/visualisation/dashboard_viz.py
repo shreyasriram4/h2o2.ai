@@ -82,9 +82,9 @@ async def visualise_all_topics_playground(data, topic):
     html = pio.to_html(fig, config=None, auto_play=True, include_plotlyjs="cdn")
     return html
     
-async def extract_top_reviews(data, topic):
-    topic_df = data[data["topic"] == topic]
-    topic_sliced = list(topic_df.sort_values(by = "score").head(5)["partially_cleaned_text"])
+async def extract_top_reviews(data, topic, sentiment):
+    topic_df = data[(data["topic"] == topic) & (data["sentiment"] == sentiment)]
+    topic_sliced = list(topic_df.sort_values(by = "sentiment_prob")["partially_cleaned_text"])
     return topic_sliced
 
 async def topics_line_chart_by_quarter(data):
