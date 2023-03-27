@@ -10,3 +10,6 @@ data/predicted/2023*
 
 # best model saved dir for sentiment analysis
 src/models/sentiment_analysis/train/best_model/
+
+# vscode extension
+.vscode/

@@ -1,5 +1,6 @@
 from src.models.sentiment_analysis.train.bert import BERT
 
+
 def predict_sentiment(df):
     model = BERT(True)
 

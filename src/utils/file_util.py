@@ -5,8 +5,10 @@ import pandas as pd
 import pickle
 import yaml
 
+
 class InvalidExtension(Exception):
     pass
+
 
 def _check_filepath(ext):
     def _decorator(f):
@@ -17,13 +19,15 @@ def _check_filepath(ext):
                 filepath = args[1]
 
             if not filepath.endswith(ext):
-                raise InvalidExtension(f"{filepath} has invalid extension, want {ext}")
+                raise InvalidExtension(
+                    f"{filepath} has invalid extension, want {ext}")
 
             return f(*args, **kwargs)
 
         return _wrapper
 
     return _decorator
+
 
 class FileUtil():
     def __init__(self, config_path = "config.yml"):
@@ -72,7 +76,8 @@ class FileUtil():
     @_check_filepath(".pkl")
     def put_pkl(self, filepath: str, python_object) -> None:
         if not python_object:
-            raise TypeError("python_object must be non-zero, non-empty, and not None")
+            raise TypeError(
+                "python_object must be non-zero, non-empty, and not None")
         with open(filepath, "wb") as f:
             pickle.dump(python_object, f)
 
@@ -80,14 +85,14 @@ class FileUtil():
     def get_yml(self, filepath: str):
         with open(filepath, "r") as f:
             return yaml.safe_load(f)
-        
+
     @_check_filepath(".json")
     def put_json(self, filepath: str, dic) -> None:
         if not isinstance(dic, dict):
             raise TypeError(f"dic must be of type dict, got {type(dic)}")
         with open(filepath, "w") as f:
             json.dump(dic, f)
-        
+
     @classmethod
     def check_dir_exists(self, dir):
         return os.path.exists(dir)
@@ -150,7 +155,7 @@ class FileUtil():
     def get_config(self):
         filepath = os.path.join(FileUtil().PROJECT_DIR, FileUtil().CONFIG_FILE_NAME)
         return self.get_yml(self, filepath)
-    
+
     @classmethod
     def put_predicted_df(self, df: pd.DataFrame, filename: str) -> None:
         FileUtil.create_dir_if_not_exists(FileUtil().PREDICTED_DATA_DIR)
