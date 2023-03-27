@@ -1,13 +1,12 @@
 from h2o_wave import main, app, Q, ui, on, handle_on, data
 from src.app.helper import add_card, clear_cards
-# from helper import add_card, clear_cards
+
 import pandas as pd
 from plotly import graph_objects as go
 from plotly import io as pio
-# from visualisation.dashboard_viz import reformat_data, sentiment_pie_chart, sentiment_line_chart_over_time
-from src.visualisation.dashboard_viz import reformat_data, sentiment_pie_chart, sentiment_line_chart_over_time
+from src.visualisation.dashboard_viz import reformat_data, sentiment_pie_chart, sentiment_line_chart_over_time, topics_bar_chart, extract_most_freq_words_by_sentiment
 
-df = pd.read_csv('data/processed/reviews.csv')
+df = pd.read_csv('data/predicted/reviews.csv')
 df = reformat_data(df)
 
 @on('#sentiments')
@@ -15,71 +14,66 @@ async def page2(q: Q):
     q.page['sidebar'].value = '#sentiments'
     clear_cards(q)  # When routing, drop all the cards except of the main ones (header, sidebar, meta).
 
-    # fig = sentiment_pie_chart(data=df)
-    # html = pio.to_html(fig, config=None, auto_play=True, include_plotlyjs="cdn")
+    add_card(q, 'article', ui.markdown_card(
+        box='horizontal',
+        title='',
+        content= '<div align="center"><h2>Exploring Sentiments</h2></div>',
+    ))
+
     add_card(q, 'piechart1', ui.frame_card(
-        box=ui.box(zone='horizontal_sentiment'),
-        title="Overall Sentiment",
+        box=ui.box(zone='horizontal1', size='1'),
+        title = '',
+        # title=("Overall Sentiment"),
         content=await sentiment_pie_chart(data=df),
-        # content= html,
         ))
     
-    # fig1 = sentiment_line_chart_over_time(data=df)
-    # html2 = pio.to_html(fig1, config=None, auto_play=True, include_plotlyjs="cdn")
-    add_card(q, 'piechart2', ui.frame_card(
-        box='horizontal_sentiment',
-        title="Sentiment Over time",
-        # content= html2,
+    add_card(q, 'chart2', ui.frame_card(
+        box=ui.box(zone='horizontal1', size='2'),
+        title = '',
+        # title="Sentiment Over time",
         content=await sentiment_line_chart_over_time(data=df),
     ))
-    
-    # add_card(q, 'chart3', ui.markdown_card(
-    #     box='horizontal',
-    #     title='Sentiment by Topic',
-    #     content='Placeholder for now',
-    # ))
-    
-    # print(html)
 
-
+    add_card(q, 'chart3', ui.frame_card(
+        box=ui.box(zone='horizontal2', size = '4'),
+        title='',
+        content=await topics_bar_chart(data=df),
+        ))
+    
+    pos_freq_words = await extract_most_freq_words_by_sentiment(data=df,positive=True)
+    add_card(q, 'topic_data_pos_preview', ui.form_card(
+        box=ui.box(zone='horizontal2', size = '1', order='1', width='150px'), 
+        title='Most frequent words appearing in Positive Reviews',
+        items=[ui.table(
+            name='preview',
+            columns=[
+                    ui.table_column(name='Word', 
+                                    label='Word',
+                                    sortable=True,
+                                    cell_overflow='wrap'),
+                    ],
+            rows = [ui.table_row(name = str(i),
+                                cells = [str(i)]) for i in pos_freq_words[0:10]],
+            width='200px'),
+            ]
+        ))
+    
+    neg_freq_words = await extract_most_freq_words_by_sentiment(data=df, positive=False)
+    add_card(q, 'topic_data_neg_preview', ui.form_card(
+        box=ui.box(zone='horizontal2', size = '1', order='2', width='150px'), 
+        title='Most frequent words appearing in Negative Reviews',
+        items=[ui.table(
+            name='preview',
+            columns=[
+                    ui.table_column(name='Word', 
+                                    label='Word',
+                                    sortable=True,
+                                    cell_overflow='wrap'),
+                    ],
+            rows = [ui.table_row(name = str(i),
+                                cells = [str(i)]) for i in neg_freq_words[0:10]],
+            width='200px'),
+            ]
+        ))
 
     await q.page.save()
-
-    # def sentiment_over_time_df(df):
-#     df['date'] = df['date'].dt.strftime("%Y-%m-%d")
-#     time_df = df.groupby(['date', 'sentiment']).count().reset_index()
-#     return time_df
-
-# time_df = sentiment_over_time_df(df)
-
-
-    # pos = (df['sentiment']==1).sum()
-    # neg = (df['sentiment']==0).sum()
-    # total = pos+neg
-    # add_card(q, 'piechart', ui.wide_pie_stat_card(
-    #     box='horizontal',
-    #     title='Overall Sentiment',
-    #     pies=[
-    #         ui.pie(label='Positive', value=f'{round(pos/total * 100, 1)}%', fraction=pos/total, color='$green'),
-    #         ui.pie(label='Negative', value=f'{round(neg/total * 100, 1)}%', fraction=neg/total, color='$red'),
-    #     ]
-    # ))
-
-    # add_card(q, 'time_trend', ui.plot_card(
-    #     box='horizontal',
-    #     title='Sentiment Over Time',
-    #     data=data(fields=time_df.columns.tolist(),rows = time_df.values.tolist()),
-    #     plot = ui.plot(marks=[ui.mark(type='line',x='=date',y='=partially_cleaned_text', color='=sentiment', color_range='$green $red')])
-    # ))
-
-    # add_card(q, 'chart3', ui.markdown_card(
-    #     box='horizontal1',
-    #     title='Sentiment by Topic',
-    #     content='Placeholder for now',
-    # ))
-
-    # add_card(q, 'chart4', ui.markdown_card(
-    #     box='horizontal1',
-    #     title='Top Keywords',
-    #     content='Placeholder for now',
-    # ))

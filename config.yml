@@ -1,2 +1,3 @@
 custom_stopwords: ['great', 'taste', 'good', 'like', 'product', 'flavor', 'love', 'really', 'buy', 'tastes', 'better', 'best', 'tried', 'use', 'eat', 'food', 'make']
 labels: ['drinks', 'snacks', 'ingredients', 'baked goods', 'spreads', 'noodles & pasta', 'pets']
+labels_app: ['Baked goods', 'Snacks', 'Ingredients', 'Sauces', 'Cereal', 'Noodles', 'Pet', 'Drinks']
