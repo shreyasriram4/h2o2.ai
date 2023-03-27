@@ -47,40 +47,41 @@ async def page2(q: Q):
         content=await topics_bar_chart(data=df),
         ))
 
-    pos_freq_words = await extract_most_freq_words(data=df, positive=True)
-    add_card(q, 'topic_data_pos_preview', ui.form_card(
-        box=ui.box(zone='horizontal2', size='1', order='1', width='150px'),
-        title='Most frequent words appearing in Positive Reviews',
-        items=[ui.table(
-            name='preview',
-            columns=[
-                    ui.table_column(name='Word',
-                                    label='Word',
-                                    sortable=True,
-                                    cell_overflow='wrap'),
-                    ],
-            rows=[
-                ui.table_row(name=str(i),
-                             cells=[str(i)]) for i in pos_freq_words[0:10]],
-            width='200px'),
-            ]
-        ))
-    neg_freq_words = await extract_most_freq_words(data=df, positive=False)
-    add_card(q, 'topic_data_neg_preview', ui.form_card(
-        box=ui.box(zone='horizontal2', size='1', order='2', width='150px'),
-        title='Most frequent words appearing in Negative Reviews',
-        items=[ui.table(
-            name='preview',
-            columns=[
-                    ui.table_column(name='Word',
-                                    label='Word',
-                                    sortable=True,
-                                    cell_overflow='wrap'),
-                    ],
-            rows=[ui.table_row(name=str(i),
-                               cells=[str(i)]) for i in neg_freq_words[0:10]],
-            width='200px'),
-            ]
-        ))
+    # pos_freq_words = await extract_most_freq_words(data=df, positive=True)
+    # add_card(q, 'topic_data_pos_preview', ui.form_card(
+    #     box=ui.box(zone='horizontal2', size='1', order='1', width='150px'),
+    #     title='Most frequent words appearing in Positive Reviews',
+    #     items=[ui.table(
+    #         name='preview',
+    #         columns=[
+    #                 ui.table_column(name='Word',
+    #                                 label='Word',
+    #                                 sortable=True,
+    #                                 cell_overflow='wrap'),
+    #                 ],
+    #         rows=[
+    #             ui.table_row(name=str(i),
+    #                          cells=[str(i)]) for i in pos_freq_words[0:10]],
+    #         width='200px'),
+    #         ]
+    #     ))
+    # neg_freq_words = await extract_most_freq_words(data=df, positive=False)
+    # add_card(q, 'topic_data_neg_preview', ui.form_card(
+    #     box=ui.box(zone='horizontal2', size='1', order='2', width='150px'),
+    #     title='Most frequent words appearing in Negative Reviews',
+    #     items=[ui.table(
+    #         name='preview',
+    #         columns=[
+    #                 ui.table_column(name='Word',
+    #                                 label='Word',
+    #                                 sortable=True,
+    #                                 cell_overflow='wrap'),
+    #                 ],
+    #         rows=[ui.table_row(name=str(i),
+    #                            cells=[str(i)])
+    #              for i in neg_freq_words[0:10]],
+    #         width='200px'),
+    #         ]
+    #     ))
 
     await q.page.save()

@@ -19,7 +19,7 @@ async def page4_input(q: Q):
         items=[
             ui.textbox(name='playground_topic',
                        label='Explore a specific topic label:',
-                       placeholder="Enter 'Baked goods' if you would like "
+                       placeholder="Enter 'Baked Goods' if you would like "
                        + "to explore more about this topic"),
             ui.button(name='playground_submit', label='Submit', primary=True)
             ]
@@ -38,7 +38,7 @@ async def page4_result(q: Q, topics):
         items=[
             ui.textbox(name='playground_topic',
                        label='Explore a specific topic label:',
-                       placeholder="Enter 'Baked goods' if you would like "
+                       placeholder="Enter 'Baked Goods' if you would like "
                        + "to explore more about this topic"),
             ui.button(name='playground_submit', label='Submit', primary=True)]
         ))

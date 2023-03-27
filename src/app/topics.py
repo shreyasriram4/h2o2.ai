@@ -24,8 +24,8 @@ async def page3(q: Q):
     add_card(q, 'article', ui.markdown_card(
         box='horizontal',
         title='',
-        content=f'<div align="center"><h2>Exploring Topics </br></br>' +
-        'There are a total of {total_num_topics} topics </h2></div>'
+        content='<div align="center"><h2>Exploring Topics </br></br>' +
+        f'There are a total of {total_num_topics} topics </h2></div>'
     ))
 
     # add_card(q, 'numbers', ui.large_stat_card(

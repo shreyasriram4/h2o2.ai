@@ -23,7 +23,7 @@ def update_chart(fig):
     return fig.update(
         layout=go.Layout(margin=dict(t=20, r=5, b=20, l=5),
                          legend=dict(yanchor="bottom", y=1, xanchor="right",
-                                     x=1.2)
+                                     x=1.2),
                          title_font_family='Verdana',
                          font_family='Century Gothic',
                          template="plotly_white"))
@@ -89,7 +89,7 @@ async def topics_pie_chart(data):
     # fig = px.pie(data, 'topic', title = "Frequency of Topics",
     # color_discrete_sequence=px.colors.qualitative.Safe)
     fig = px.pie(data, 'topic', title="Frequency of Topics",
-                 category_orders={'topic': CONFIG_PARAMS["labels_app"]})
+                 category_orders={'topic': CONFIG_PARAMS["labels"]})
     update_chart(fig)
     html = pio.to_html(fig, config=None, auto_play=True,
                        include_plotlyjs="cdn")
@@ -99,7 +99,7 @@ async def topics_pie_chart(data):
 async def visualise_all_topics(data):
     # fig = visualise_top_words(data, labels = CONFIG_PARAMS["labels"],
     # specific = False, custom_sw = CONFIG_PARAMS["custom_stopwords"])
-    fig = visualise_top_words(data, topics=CONFIG_PARAMS["labels_app"],
+    fig = visualise_top_words(data, topics=CONFIG_PARAMS["labels"],
                               specific=False,
                               custom_sw=CONFIG_PARAMS["custom_stopwords"])
     update_chart(fig)
@@ -109,7 +109,7 @@ async def visualise_all_topics(data):
 
 
 async def visualise_all_topics_playground(data, topic):
-    fig = visualise_top_words(data, labels=topic,
+    fig = visualise_top_words(data, topics=topic,
                               specific=True,
                               custom_sw=CONFIG_PARAMS["custom_stopwords"])
     update_chart(fig)
@@ -133,7 +133,7 @@ async def topics_line_chart_by_quarter(data):
     # labels={"topic": "Topic", 'pct':"Percentage(%)"}, barmode='group')
     fig = px.area(freq_df, x="year_quarter", y="size", color="topic",
                   title="Topics over Time",
-                  category_orders={'topic': CONFIG_PARAMS["labels_app"]},
+                  category_orders={'topic': CONFIG_PARAMS["labels"]},
                   labels={"topic": "Topic", 'size': "Number of reviews"})
     update_chart(fig)
     html = pio.to_html(fig, config=None, auto_play=True,
@@ -148,12 +148,14 @@ async def topics_bar_chart_over_time(data, time_frame=None):
         freq_df = data.groupby(['date_frame', 'topic'], as_index=False).size()
         fig = px.bar(freq_df, x='date_frame', y='size', color='topic',
                      title="Topics over Time",
+                     category_orders={'topic': CONFIG_PARAMS["labels"]},
                      labels={"topic": "Topic", 'size': "Number of reviews"},
                      barmode='group')
     else:
         freq_df = data.groupby(['date', 'topic'], as_index=False).size()
         fig = px.bar(freq_df, x='date', y='size', color='topic',
                      title="Topics over Time",
+                     category_orders={'topic': CONFIG_PARAMS["labels"]},
                      labels={"topic": "Topic", 'size': "Number of reviews"},
                      barmode='group')
     update_chart(fig)
