@@ -18,3 +18,16 @@ topic_mapping: {"Drinks": ['Drinks', 'Tea', 'Coffee', 'Juice', 'Soda'],
           "Pet Food": ["Dog Food", "Cat Food", "Pet Food", "Dog Treat"]}
 custom_stopwords: ['great', 'taste', 'good', 'like', 'product', 'flavor', 'love', 'really', 'buy', 'tastes', 'better', 'best', 'tried', 'use', 'eat', 'food', 'make']
 labels: ['Drinks', 'Snacks', 'Ingredients', 'Flavour', 'Baked Goods', 'Noodles & Pasta', 'Pet Food']
+
+raw_data_path: "data/raw"
+processed_data_path: "data/processed"
+output_path: "data/predicted"
+
+train_filename: "reviews.csv"
+test_filename: ""
+model_filename: "model.pkl"
+metrics_filename: "metrics.json"
+bert_training_graph_filename: "bert_training.png"
+
+sentiment_analysis_path: "src/models/sentiment_analysis"
+topic_modelling_path: "src/models/topic_modelling"

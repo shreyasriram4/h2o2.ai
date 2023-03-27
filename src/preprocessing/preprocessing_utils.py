@@ -3,6 +3,7 @@ import nltk
 import pandas as pd
 import re
 from nltk.corpus import stopwords
+import warnings
 
 nltk.download('stopwords')
 STOP_WORDS = set(stopwords.words('english'))
@@ -75,4 +76,8 @@ def strip_html_tags_df(df: pd.DataFrame, src_col: str = "cleaned_text", dst_col:
     df[dst_col] = df[src_col].apply(
         lambda text: re.sub('<[^<]+?>', ' ', text)
         )
+    return df
+
+def remove_empty_reviews_df(df: pd.DataFrame, src_col: str = "cleaned_text") -> pd.DataFrame:
+    df = df[df[src_col] != ""]
     return df
