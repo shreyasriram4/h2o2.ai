@@ -1,4 +1,4 @@
-# do not push envirnoment stuff
+# do not push environment stuff
 venv/
 __pycache__/
 reports/
@@ -8,3 +8,15 @@ notebooks/predictions_lbl2vec.xlsx
 
 *.xlsx
 *.csv
+
+# topic modelling zero shot model pkl
+src/models/topic_modelling/model.pkl
+
+# test predictions
+data/predicted/2023*
+
+# best model saved dir for sentiment analysis
+src/models/sentiment_analysis/train/best_model/
+
+# vscode extension
+.vscode/
