@@ -30,6 +30,7 @@ def _check_filepath(ext):
 
 
 class FileUtil():
+
     def __init__(self, config_path = "config.yml"):
 
         self.PROJECT_DIR = os.path.abspath(
@@ -45,18 +46,26 @@ class FileUtil():
         self.MODEL_FILE_NAME = self.CONFIG_PARAMS["model_filename"]
         self.METRICS_FILE_NAME = self.CONFIG_PARAMS["metrics_filename"]
         self.BERT_TRAINING_GRAPH_FILE_NAME = self.CONFIG_PARAMS["bert_training_graph_filename"]
+        self.LDA_TOPIC_FILE_NAME = "lda_topics.html"
 
         self.RAW_DATA_DIR = os.path.join(self.PROJECT_DIR, self.CONFIG_PARAMS["raw_data_path"])
-    
         self.PROCESSED_DATA_DIR = os.path.join(self.PROJECT_DIR, self.CONFIG_PARAMS["processed_data_path"])
         self.PREDICTED_DATA_DIR = os.path.join(self.PROJECT_DIR, self.CONFIG_PARAMS["output_path"])
-
+        
         self.SENTIMENT_ANALYSIS_DIR = os.path.join(self.PROJECT_DIR, self.CONFIG_PARAMS["sentiment_analysis_path"])
         self.TOPIC_MODELLING_DIR = os.path.join(self.PROJECT_DIR, self.CONFIG_PARAMS["topic_modelling_path"])
 
         self.SENTIMENT_ANALYSIS_TRAIN_DIR = os.path.join(self.SENTIMENT_ANALYSIS_DIR, "train")
         self.BEST_SENTIMENT_MODEL_DIR = os.path.join(self.SENTIMENT_ANALYSIS_TRAIN_DIR, "best_model")
         self.BERT_TRAINING_GRAPH_FILE_PATH = os.path.join(self.SENTIMENT_ANALYSIS_TRAIN_DIR, self.BERT_TRAINING_GRAPH_FILE_NAME)
+        self.SENTIMENT_ANALYSIS_DIR = os.path.join(self.PROJECT_DIR,
+                                          "src/models/sentiment_analysis")
+        self.TOPIC_MODELLING_DIR = os.path.join(self.PROJECT_DIR,
+                                       "src/models/topic_modelling")
+        self.TOPIC_MODELLING_TRAIN_DIR = os.path.join(self.TOPIC_MODELLING_DIR,
+                                                "train")
+        self.LDA_TOPIC_FILE_PATH = os.path.join(self.TOPIC_MODELLING_TRAIN_DIR,
+                                        self.LDA_TOPIC_FILE_NAME)
 
     @_check_filepath(".csv")
     def get_csv(self, filepath: str) -> pd.DataFrame:
