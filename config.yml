@@ -30,3 +30,4 @@ topic_mapping: {"Drinks": ['Drinks', 'Tea', 'Coffee', 'Juice', 'Soda'],
           "Pet Food": ["Dog Food", "Cat Food", "Pet Food", "Dog Treat"]}
 custom_stopwords: ['great', 'taste', 'good', 'like', 'product', 'flavor', 'love', 'really', 'buy', 'tastes', 'better', 'best', 'tried', 'use', 'eat', 'food', 'make']
 labels: ['Drinks', 'Snacks', 'Ingredients', 'Flavour', 'Baked Goods', 'Noodles & Pasta', 'Pet Food']
+best_sentiment_analysis_model: "BERT"
