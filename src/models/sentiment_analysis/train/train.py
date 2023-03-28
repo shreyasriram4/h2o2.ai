@@ -1,5 +1,6 @@
 from sklearn.model_selection import train_test_split
 from src.models.sentiment_analysis.train.bert import BERT
+from src.models.sentiment_analysis.train.logreg import LOGREG
 from src.utils.file_util import FileUtil
 
 
@@ -18,9 +19,22 @@ def main():
 
     #  LogReg and LSTM training then add to the metrics below
 
+    logreg_model = LOGREG()
+
+    tokenized_df = logreg_model.tokenize(df)
+    train, valid = train_test_split(tokenized_df, test_size=0.2)
+
+    train = train.reset_index(drop=True)
+    valid = valid.reset_index(drop=True)
+
+    trained_logreg_model = logreg_model.fit(train, valid)
+    logreg_ap, logreg_pr_auc = logreg_model.evaluate(train, valid)
+
     FileUtil.put_metrics("sentiment_analysis",
                          {"BERT": {"PR AUC": bert_pr_auc,
-                                   "Average Precision": bert_ap}})
+                                   "Average Precision": bert_ap}},
+                         {"LOGREG": {"PR AUC": logreg_pr_auc,
+                                     "Average Precision": logreg_ap}})
 
 
 if __name__ == "__main__":

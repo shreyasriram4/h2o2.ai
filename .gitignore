@@ -11,5 +11,8 @@ data/predicted/2023*
 # bert model saved dir for sentiment analysis
 src/models/sentiment_analysis/train/bert_model/
 
+# bert model saved dir for sentiment analysis
+src/models/sentiment_analysis/train/logreg_model/
+
 # vscode extension
 .vscode/
