@@ -86,4 +86,6 @@ def visualise_top_words(df, topics, specific=False, custom_sw=[]):
         ),
     )
 
+    fig.update_yaxes(dtick=1)
+
     return fig
