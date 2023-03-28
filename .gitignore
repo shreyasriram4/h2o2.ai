@@ -14,3 +14,7 @@ src/unit-testing.ipynb
 
 # vscode extension
 .vscode/
+
+#incomplete
+notebooks/bertopic.ipynb
+unit-testing.ipynb

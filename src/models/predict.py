@@ -26,3 +26,6 @@ def predict_sentiment_topic(test_filepath = FileUtil().TEST_FILE_NAME, df = File
     FileUtil.put_predicted_df(df, file_name)
 
     return df
+
+if __name__ == "__main__":
+    predict_sentiment_topic()
