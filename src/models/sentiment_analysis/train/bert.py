@@ -16,7 +16,7 @@ from transformers import TFBertForSequenceClassification
 class BERT(Classifier):
     def __init__(self, load_model=False):
         self.load_model = load_model
-        self.saved_model_path = FileUtil.BEST_SENTIMENT_MODEL_DIR
+        self.saved_model_path = FileUtil.BERT_SENTIMENT_MODEL_DIR
         self.tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
         self.bert_config = FileUtil.get_config()["BERT"]
         self.batch_size = self.bert_config["batch_size"]
@@ -80,9 +80,7 @@ class BERT(Classifier):
                                  validation_data=validation_data,
                                  callbacks=[self.callback])
 
-        self.model.save_pretrained(self.saved_model_path)
-
-        return history
+        return self.model, history
 
     def predict(self, test):
         tf_outputs = []
@@ -113,12 +111,7 @@ class BERT(Classifier):
             )
 
         ap = average_precision_score(valid[self.target_col], y_scores)
-
         pr_auc = auc(recall, precision)
-
-        FileUtil.put_metrics("sentiment_analysis",
-                             {"BERT": {"PR AUC": pr_auc,
-                                       "Average Precision": ap}})
 
         return ap, pr_auc
 
@@ -135,8 +128,10 @@ class BERT(Classifier):
             plt.subplot(1, 2, i + 1)
             plt.plot(range(1, epochs + 1), metrics[0],
                      label='Training {}'.format(metrics[2]))
+            plt.title("BERT Training Graph")
             plt.plot(range(1, epochs + 1), metrics[1],
                      label='Validation {}'.format(metrics[2]))
+            plt.title("BERT Training Graph")
             plt.legend()
         plt.show()
         plt.savefig(FileUtil.BERT_TRAINING_GRAPH_FILE_PATH)

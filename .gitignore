@@ -8,8 +8,8 @@ src/models/topic_modelling/model.pkl
 # test predictions
 data/predicted/2023*
 
-# best model saved dir for sentiment analysis
-src/models/sentiment_analysis/train/best_model/
+# bert model saved dir for sentiment analysis
+src/models/sentiment_analysis/train/bert_model/
 
 # vscode extension
 .vscode/

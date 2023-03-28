@@ -35,6 +35,7 @@ class FileUtil():
     CONFIG_FILE_NAME = "config.yml"
     METRICS_FILE_NAME = "metrics.json"
     BERT_TRAINING_GRAPH_FILE_NAME = "bert_training.png"
+    LDA_TOPIC_FILE_NAME = "lda_topics.html"
 
     PROJECT_DIR = os.path.abspath(
         os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)
@@ -51,10 +52,15 @@ class FileUtil():
 
     SENTIMENT_ANALYSIS_TRAIN_DIR = os.path.join(SENTIMENT_ANALYSIS_DIR,
                                                 "train")
-    BEST_SENTIMENT_MODEL_DIR = os.path.join(SENTIMENT_ANALYSIS_TRAIN_DIR,
-                                            "best_model")
+    BERT_SENTIMENT_MODEL_DIR = os.path.join(SENTIMENT_ANALYSIS_TRAIN_DIR,
+                                            "bert_model")
     BERT_TRAINING_GRAPH_FILE_PATH = os.path.join(SENTIMENT_ANALYSIS_TRAIN_DIR,
                                                  BERT_TRAINING_GRAPH_FILE_NAME)
+
+    TOPIC_MODELLING_TRAIN_DIR = os.path.join(TOPIC_MODELLING_DIR,
+                                             "train")
+    LDA_TOPIC_FILE_PATH = os.path.join(TOPIC_MODELLING_TRAIN_DIR,
+                                       LDA_TOPIC_FILE_NAME)
 
     @_check_filepath(".csv")
     def get_csv(self, filepath: str) -> pd.DataFrame:

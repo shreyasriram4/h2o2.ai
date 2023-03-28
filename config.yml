@@ -8,6 +8,18 @@ BERT: {"dropout": 0.1,
       "epochs": 20,
       "text_col": "cleaned_text",
       "target_col": "sentiment"}
+LDA: {"num_topics": 20,
+      "ngram": 2,
+      "bi_min": 15,
+      "no_below": 15,
+      "no_above": 0.5,
+      "min_prob": 0,
+      "common_words": ['great', 'taste', 'good', 'like', 'product',
+                  'flavor', 'love', 'really', 'buy', 'tastes',
+                  'better', 'best', 'tried', 'use', 'eat', 'food',
+                  'make', "would", "one", "get", "tea", "coffee",
+                  "price", "amazon", "bag", "dog", "cup", "much"]
+}
 topics: ["Drinks", "Snacks", "Ingredients", "Flavour", "Baked Goods", "Noodles & Pasta", "Pet Food"]
 topic_mapping: {"Drinks": ['Drinks', 'Tea', 'Coffee', 'Juice', 'Soda'], 
           "Snacks": ['Snacks', 'Nuts', 'Chips', 'Crackers', 'Protein Bars', 'Cereal'], 
@@ -18,3 +30,4 @@ topic_mapping: {"Drinks": ['Drinks', 'Tea', 'Coffee', 'Juice', 'Soda'],
           "Pet Food": ["Dog Food", "Cat Food", "Pet Food", "Dog Treat"]}
 custom_stopwords: ['great', 'taste', 'good', 'like', 'product', 'flavor', 'love', 'really', 'buy', 'tastes', 'better', 'best', 'tried', 'use', 'eat', 'food', 'make']
 labels: ['Drinks', 'Snacks', 'Ingredients', 'Flavour', 'Baked Goods', 'Noodles & Pasta', 'Pet Food']
+best_sentiment_analysis_model: "BERT"
