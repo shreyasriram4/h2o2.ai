@@ -4,11 +4,7 @@ import pandas as pd
 from src.visualisation.dashboard_viz import reformat_data
 
 
-df = pd.read_csv('data/processed/reviews.csv')
-df = reformat_data(df)
-
-
-async def page1_upload(q: Q):
+async def page1_upload(q: Q, input_df):
     q.page['sidebar'].value = '#home'
 
     # When routing, drop all the cards except of the main ones
@@ -28,7 +24,7 @@ async def page1_upload(q: Q):
     await q.page.save()
 
 
-async def page1_preview(q: Q, files):
+async def page1_preview(q: Q, files, input_df):
     q.page['sidebar'].value = '#home'
     clear_cards(q)
     # When routing, drop all the cards except of the main ones
@@ -65,7 +61,7 @@ async def page1_preview(q: Q, files):
                                 max_width='500px',
                                 searchable=True,
                                 cell_overflow='wrap'
-                                ) for x in ['date', 'partially_cleaned_text']],
+                                ) for x in ['Date', 'Reviews']],
                     rows=[ui.table_row(
                             name=str(i),
                             cells=list(map(

@@ -9,12 +9,9 @@ from src.visualisation.dashboard_viz import extract_num_topics
 
 import pandas as pd
 
-df = pd.read_csv('data/predicted/reviews.csv')
-df = reformat_data(df)
-
 
 @on('#topics')
-async def page3(q: Q):
+async def page3(q: Q, df):
     q.page['sidebar'].value = '#topics'
     # When routing, drop all the cards except of the main ones
     # (header, sidebar, meta).
@@ -28,37 +25,28 @@ async def page3(q: Q):
         f'There are a total of {total_num_topics} topics </h2></div>'
     ))
 
-    # add_card(q, 'numbers', ui.large_stat_card(
-    #     box=ui.box(zone='horizontal1', size='1'),
+    # add_card(q, 'linechart', ui.frame_card(
+    #     box=ui.box(zone='horizontal1', size='2'),
     #     title="",
-    #     value=await extract_num_topics(df),
-    #     aux_value='Topics',
-    #     caption=''
+    #     content=await topics_line_chart_by_quarter(df),
     #     ))
 
-    add_card(q, 'linechart', ui.frame_card(
+    add_card(q, 'top_keywords', ui.frame_card(
         box=ui.box(zone='horizontal1', size='2'),
-        title="",
-        content=await topics_line_chart_by_quarter(df),
-        ))
-
-    add_card(q, 'barchart2', ui.frame_card(
-        box=ui.box(zone='horizontal1', size='2'),
-        title="",
-        # content=await topics_bar_chart_by_quarter(df),
-        content=await topics_bar_chart_over_time(df, time_frame='Q')
+        title="Top Words From Each Topic",
+        content=await visualise_all_topics(df),
         ))
 
     add_card(q, 'topic_piechart', ui.frame_card(
         box=ui.box(zone='horizontal2', size='1'),
-        title="",
+        title="Frequency of topics",
         content=await topics_pie_chart(df),
         ))
 
-    add_card(q, 'top_keywords', ui.frame_card(
+    add_card(q, 'barchart2', ui.frame_card(
         box=ui.box(zone='horizontal2', size='2'),
-        title="Top Words",
-        content=await visualise_all_topics(df),
+        title="Topics over time",
+        content=await topics_bar_chart_over_time(df, time_frame='Q')
         ))
 
     await q.page.save()

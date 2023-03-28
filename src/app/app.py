@@ -4,41 +4,53 @@ from src.app.sentiments import page2
 from src.app.topics import page3
 from src.app.topic_playground import page4_input, page4_result
 
+import pandas as pd
+from src.visualisation.dashboard_viz import reformat_data
+
 
 async def init(q: Q) -> None:
     q.page['meta'] = ui.meta_card(
         box='', layouts=[ui.layout(
             breakpoint='xs', min_height='100vh',
-            zones=[
-                ui.zone(
-                    'main', size='1',
-                    direction=ui.ZoneDirection.COLUMN,
-                    zones=[
-                        # Segment out the header
-                        ui.zone('header', size='60px'),
-                        # Segment out sidebar and content
-                        ui.zone(
-                            'body', size='1',
-                            direction=ui.ZoneDirection.ROW,
+            zones=[ui.zone(
+                'main', size='1',
+                direction=ui.ZoneDirection.COLUMN,
+                zones=[
+                    # Segment out the header
+                    ui.zone('header', size='60px'),
+                    # Segment out sidebar and content
+                    ui.zone('body',
+                            size='1', direction=ui.ZoneDirection.ROW,
                             zones=[
                                 ui.zone('sidebar', size='200px'),
-                                ui.zone('content',
-                                        zones=[
-                                            # Specify various zones and use the
-                                            # one that is currently needed.
-                                            # Empty zones are ignored.
+                                ui.zone('content', zones=[
+                                    # Specify various zones and use the
+                                    # one that is currently needed.
+                                    # Empty zones are ignored.
+                                    ui.zone(
+                                        'horizontal',
+                                        direction=ui.ZoneDirection.ROW,
+                                        size='18%'),
+                                    ui.zone(
+                                        'vertical2',
+                                        direction=ui.ZoneDirection.ROW,
+                                        zones=[ui.zone(
+                                            'side1',
+                                            direction=ui.ZoneDirection.COLUMN,
+                                            size='60%'),
                                             ui.zone(
-                                                'horizontal',
-                                                direction=ui.ZoneDirection.ROW,
-                                                size='18%'),
-                                            ui.zone(
-                                                'horizontal1',
-                                                direction=ui.ZoneDirection.ROW,
-                                                size='41%'),
-                                            ui.zone(
-                                                'horizontal2',
-                                                direction=ui.ZoneDirection.ROW,
-                                                size='41%')])]),
+                                            'side2',
+                                            direction=ui.ZoneDirection.COLUMN,
+                                            size='40%')
+                                        ]),
+                                    ui.zone(
+                                        'horizontal1',
+                                        direction=ui.ZoneDirection.ROW,
+                                        size='41%'),
+                                    ui.zone(
+                                        'horizontal2',
+                                        direction=ui.ZoneDirection.ROW,
+                                        size='41%'),])]),
                             ])])])
 
     q.page['sidebar'] = ui.nav_card(
@@ -76,23 +88,31 @@ async def serve(q: Q):
     #     save df of topic_modelling(test.csv) as topic_modelling_test_df
     #     merge both df and chose the columns we want
     # thereafter, our page2-page4 functions will take in these df according
+
+    # can keep this for default (training data)
+    input_df = pd.read_csv('data/processed/reviews.csv')
+    input_df = reformat_data(input_df)
+
+    df = pd.read_csv('data/predicted/reviews.csv')
+    df = reformat_data(df)
+
     route = q.args['#']
     if route == 'home' or route is None:
         if q.args.file_upload:
             files = q.args.file_upload
-            await page1_preview(q, files)
+            await page1_preview(q, files, input_df)
         else:
-            await page1_upload(q)
+            await page1_upload(q, input_df)
     elif route == 'sentiments':
-        await page2(q)
+        await page2(q, df)
     elif route == 'topics':
-        await page3(q)
+        await page3(q, df)
     elif route == 'topic_playground':
         if q.args.playground_topic:
             topics = q.args.playground_topic
-            await page4_result(q, topics)
+            await page4_result(q, topics, df)
         else:
-            await page4_input(q)
+            await page4_input(q, df)
 
     # Handle routing.
     # await handle_on(q)

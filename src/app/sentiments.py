@@ -10,12 +10,8 @@ from src.visualisation.dashboard_viz import topics_bar_chart
 from src.visualisation.dashboard_viz import extract_most_freq_words
 
 
-df = pd.read_csv('data/predicted/reviews.csv')
-df = reformat_data(df)
-
-
 @on('#sentiments')
-async def page2(q: Q):
+async def page2(q: Q, df):
     q.page['sidebar'].value = '#sentiments'
     # When routing, drop all the cards except of the main ones
     # (header, sidebar, meta).
@@ -29,21 +25,21 @@ async def page2(q: Q):
 
     add_card(q, 'piechart1', ui.frame_card(
         box=ui.box(zone='horizontal1', size='1'),
-        title='',
+        title='Overall Sentiment Breakdown',
         # title=("Overall Sentiment"),
         content=await sentiment_pie_chart(data=df),
         ))
 
     add_card(q, 'chart2', ui.frame_card(
         box=ui.box(zone='horizontal1', size='2'),
-        title='',
+        title='Sentiments over Time',
         # title="Sentiment Over time",
         content=await sentiment_line_chart_over_time(data=df),
     ))
 
     add_card(q, 'chart3', ui.frame_card(
         box=ui.box(zone='horizontal2', size='4'),
-        title='',
+        title='Topics by Sentiment',
         content=await topics_bar_chart(data=df),
         ))
 
