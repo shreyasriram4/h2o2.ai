@@ -56,7 +56,7 @@ class FileUtil():
         self.TOPIC_MODELLING_DIR = os.path.join(self.PROJECT_DIR, self.CONFIG_PARAMS["topic_modelling_path"])
 
         self.SENTIMENT_ANALYSIS_TRAIN_DIR = os.path.join(self.SENTIMENT_ANALYSIS_DIR, "train")
-        self.BEST_SENTIMENT_MODEL_DIR = os.path.join(self.SENTIMENT_ANALYSIS_TRAIN_DIR, "best_model")
+        self.BERT_SENTIMENT_MODEL_DIR = os.path.join(self.SENTIMENT_ANALYSIS_TRAIN_DIR, "bert_model")
         self.BERT_TRAINING_GRAPH_FILE_PATH = os.path.join(self.SENTIMENT_ANALYSIS_TRAIN_DIR, self.BERT_TRAINING_GRAPH_FILE_NAME)
         self.SENTIMENT_ANALYSIS_DIR = os.path.join(self.PROJECT_DIR,
                                           "src/models/sentiment_analysis")
@@ -134,7 +134,7 @@ class FileUtil():
 
     @classmethod
     def get_raw_test_data(self) -> pd.DataFrame:
-        if FileUtil().TEST_FILE_NAME != "":
+        if self.TEST_FILE_NAME != "":
             filepath = os.path.join(FileUtil().RAW_DATA_DIR, FileUtil().TEST_FILE_NAME)
         return filepath
 
@@ -156,7 +156,7 @@ class FileUtil():
 
     @classmethod
     def put_sentiment_model(self, model) -> None:
-        FileUtil.create_dir_if_not_exists(FileUtil().SENTIMENT_ANALYSIS_DIR)
+        FileUtil.create_dir_if_not_exists(self.SENTIMENT_ANALYSIS_DIR)
         filepath = os.path.join(FileUtil().SENTIMENT_ANALYSIS_DIR, FileUtil().MODEL_FILE_NAME)
         self.put_pkl(self, filepath, model)
 
