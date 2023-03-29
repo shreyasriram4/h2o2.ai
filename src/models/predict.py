@@ -9,7 +9,7 @@ from src.preprocessing.transformations import apply_cleaning_test
 def predict_sentiment_topic(file_path,
                             df=FileUtil.get_raw_train_data()):
 
-    df.drop("Sentiment", errors="ignore", inplace=True)
+    df.drop(["Sentiment"], errors="ignore", inplace=True)
 
     if file_path:
         df = pd.read_csv(file_path)
