@@ -10,13 +10,17 @@ def main():
     train = train.reset_index(drop=True)
     valid = valid.reset_index(drop=True)
 
-    model = BERT()
+    bert_model = BERT()
+    trained_bert_model, history = bert_model.fit(train, valid)
+    trained_bert_model.save_pretrained(FileUtil.BERT_SENTIMENT_MODEL_DIR)
+    bert_ap, bert_pr_auc = bert_model.evaluate(valid)
+    bert_model.plot_training_acc_loss(history)
 
-    history = model.fit(train, valid)
+    #  LogReg and LSTM training then add to the metrics below
 
-    ap, pr_auc = model.evaluate(valid)
-
-    model.plot_training_acc_loss(history)
+    FileUtil.put_metrics("sentiment_analysis",
+                         {"BERT": {"PR AUC": bert_pr_auc,
+                                   "Average Precision": bert_ap}})
 
 
 if __name__ == "__main__":
