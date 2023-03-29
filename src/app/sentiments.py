@@ -16,7 +16,7 @@ async def page2(q: Q, df):
     # When routing, drop all the cards except of the main ones
     # (header, sidebar, meta).
     clear_cards(q)
-
+    print(df)
     add_card(q, 'article', ui.markdown_card(
         box='horizontal',
         title='',

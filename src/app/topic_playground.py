@@ -27,16 +27,6 @@ async def page4_input(q: Q, df):
                           primary=True)]
     ))
 
-    # add_card(q, 'inserttopic', ui.form_card(
-    #     box=ui.box(zone='horizontal', height='132px', width='100%'),
-    #     items=[
-    #         ui.textbox(name='playground_topic',
-    #                    label='Explore a specific topic label:',
-    #                    placeholder="Enter 'Baked Goods' if you would like "
-    #                    + "to explore more about this topic"),
-    #         ui.button(name='playground_submit', label='Submit', primary=True)
-    #         ]
-    #     ))
     await q.page.save()
 
 
@@ -56,26 +46,6 @@ async def page4_result(q: Q, topics, df):
                 ui.button(name='playground_submit', label='Submit',
                           primary=True)]
     ))
-
-    # add_card(q, 'inserttopic', ui.form_card(
-    #     box=ui.box(zone='horizontal', height='132px', width='100%'),
-    #     items=[
-    #         ui.textbox(name='playground_topic',
-    #                    label='Explore a specific topic label:',
-    #                    placeholder="Enter 'Baked Goods' if you would like "
-    #                    + "to explore more about this topic"),
-    #         ui.button(name='playground_submit', label='Submit',
-    # primary=True)]
-    #     ))
-
-    # print what users keyed in
-    print('look here', topics)
-
-    # search for the positive and negative reviews based on specific topics
-    # extracted_neg = await extract_top_reviews(df, topics, 'negative')
-    # extracted_pos = await extract_top_reviews(df, topics, 'positive')
-    # print('done')
-
     extracted = await extract_top_topic_reviews(df, topics)
     print(extracted)
     add_card(q, 'topic_data_reviews', ui.form_card(
@@ -115,79 +85,17 @@ async def page4_result(q: Q, topics, df):
                                         'sentiment'
                                         ]].values.tolist()[i]
                                         ))) for i in extracted.index[:100]],
-            # height='400px',
+            height='550px',
             ),
             ]
         ))
 
-    # add_card(q, 'topic_data_pos_preview', ui.form_card(
-    #     box=ui.box(zone='horizontal1', size='1'),
-    #     title='Top 10 positive notable reviews from specific topic: '
-    # + topics,
-    #     items=[ui.table(
-    #         name='preview',
-    #         columns=[
-    #             ui.table_column(name='Reviews',
-    #                             label='Reviews',
-    #                             sortable=True,
-    #                             max_width='500px',
-    #                             searchable = True,
-    #                             cell_overflow='wrap'),
-    #             ui.table_column(name='tag',
-    #                             label='Predicted Sentiment',
-    #                             min_width='140px',
-    #                             cell_type=ui.tag_table_cell_type(
-    #                                                 name='tags',
-    #                                                 tags=[ui.tag(
-    #                                                     label='POSITIVE',
-    #                                                     color='$mint')])
-    #                             )
-    #                 ],
-    #         rows=[
-    #             ui.table_row(name=str(i),
-    #                          cells=[i, 'POSITIVE']
-    #                          ) for i in extracted_pos[0:10]],
-    #         height='265px'),
-    #         # ),
-    #         ]
-    #     ))
     add_card(q, 'Subtopic', ui.frame_card(
         # box=ui.box(zone='horizontal1', size='1'),
         box=ui.box(zone='side2', order='1'),
         title=f"Subtopics from specific topic: {topics}",
         content=await get_subtopics(df, topics)),
         )
-
-    # add_card(q, 'topic_data_neg_preview', ui.form_card(
-    #     box=ui.box(zone='horizontal2', size='1'),
-    #     title='Top 10 negative notable reviews from specific topic: '
-    #              + topics,
-    #     items=[ui.table(
-    #         name='preview',
-    #         columns=[
-    #             ui.table_column(name='Reviews',
-    #                             label='Reviews',
-    #                             sortable=True,
-    #                             max_width='500px',
-    #                             searchable = True,
-    #                             cell_overflow='wrap'),
-    #             ui.table_column(name='tag',
-    #                             label='Predicted Sentiment',
-    #                             min_width='140px',
-    #                             cell_type=ui.tag_table_cell_type(
-    #                                                     name='tags',
-    #                                                     tags=[ui.tag(
-    #                                                         label='NEGATIVE',
-    #                                                         color='$red')])
-    #                             )],
-    #         rows=[
-    #             ui.table_row(name=str(i),
-    #                          cells=[i, 'NEGATIVE']
-    #                          ) for i in extracted_neg[0:10]],
-    #         height='265px'),
-    #         # ),
-    #         ]
-    #     ))
 
     add_card(q, 'sentimentbreakdown_playground', ui.frame_card(
         # box=ui.box(zone='horizontal2', size='1', width='12%'),

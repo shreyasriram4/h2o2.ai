@@ -52,7 +52,8 @@ async def sentiment_line_chart_over_time(data):
     freq_df = data.groupby(['date', 'sentiment'], as_index=False).size()
     fig = px.line(freq_df, x="date", y="size", color="sentiment",
                   labels={'date': 'Date', 'size': 'Number of Reviews'},
-                  color_discrete_sequence=px.colors.qualitative.Plotly[1:3])
+                  color_discrete_sequence=px.colors.qualitative.Plotly[1:3],
+                  category_orders={'sentiment': ['negative', 'positive']})
     update_chart(fig)
     html = pio.to_html(fig, config=None, auto_play=True,
                        include_plotlyjs="cdn")
@@ -66,7 +67,8 @@ async def topics_bar_chart(data):
                                     lambda x: np.round(x*100/x.sum(), 1))
     fig = px.bar(freq_df, x='topic', y='pct', color='sentiment',
                  labels={"topic": "Topic", 'pct': "Percentage(%)"},
-                 color_discrete_sequence=px.colors.qualitative.Plotly[1:3])
+                 color_discrete_sequence=px.colors.qualitative.Plotly[1:3],
+                 category_orders={'sentiment': ['negative', 'positive']})
     update_chart(fig)
     fig.update_layout(xaxis={"dtick": 1})
     html = pio.to_html(fig, config=None, auto_play=True,

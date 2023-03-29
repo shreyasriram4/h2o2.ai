@@ -3,7 +3,9 @@ from src.app.home import page1_upload, page1_preview
 from src.app.sentiments import page2
 from src.app.topics import page3
 from src.app.topic_playground import page4_input, page4_result
+from src.models.predict import predict_sentiment_topic
 
+import os
 import pandas as pd
 from src.visualisation.dashboard_viz import reformat_data
 
@@ -81,38 +83,44 @@ async def serve(q: Q):
         await init(q)
         q.client.initialized = True
 
-    # # psuedo code for integration
-    # page1_preview will download the test.csv
-    # if test.csv exist:
-    #     save df of predict(test.csv) as predict_test_df
-    #     save df of topic_modelling(test.csv) as topic_modelling_test_df
-    #     merge both df and chose the columns we want
-    # thereafter, our page2-page4 functions will take in these df according
-
-    # can keep this for default (training data)
-    input_df = pd.read_csv('data/processed/reviews.csv')
-    input_df = reformat_data(input_df)
-
-    df = pd.read_csv('data/predicted/reviews.csv')
-    df = reformat_data(df)
+    if q.args.file_upload:
+        q.client.working_file_path = await q.site.download(
+                                        url=q.args.file_upload[0],
+                                        path='data/test')
+        q.client.input_df = pd.read_csv(q.client.working_file_path)
+        predict_df = predict_sentiment_topic(
+                        file_path=q.client.working_file_path)
+        q.client.predict_df = reformat_data(predict_df)
+    else:
+        input_df = pd.read_csv('data/processed/reviews.csv')
+        predict_df = pd.read_csv('data/predicted/reviews.csv')
+        predict_df = reformat_data(predict_df)
 
     route = q.args['#']
     if route == 'home' or route is None:
         if q.args.file_upload:
-            files = q.args.file_upload
-            await page1_preview(q, files, input_df)
+            if q.client.input_df is not None:
+                input_df = q.client.input_df
+            await page1_preview(q, input_df)
         else:
-            await page1_upload(q, input_df)
+            await page1_upload(q)
+
     elif route == 'sentiments':
-        await page2(q, df)
+        if q.client.predict_df is not None:
+            predict_df = q.client.predict_df
+        await page2(q, predict_df)
     elif route == 'topics':
-        await page3(q, df)
+        if q.client.predict_df is not None:
+            predict_df = q.client.predict_df
+        await page3(q, predict_df)
     elif route == 'topic_playground':
+        if q.client.predict_df is not None:
+            predict_df = q.client.predict_df
         if q.args.playground_topic:
             topics = q.args.playground_topic
-            await page4_result(q, topics, df)
+            await page4_result(q, topics, predict_df)
         else:
-            await page4_input(q, df)
+            await page4_input(q, predict_df)
 
     # Handle routing.
     # await handle_on(q)
