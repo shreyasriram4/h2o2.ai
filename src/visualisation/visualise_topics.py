@@ -1,4 +1,5 @@
 import itertools
+
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -8,30 +9,28 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction import text
 
 
-def get_top_words(corpus, custom_sw=[]):
+
+def get_top_words(corpus, custom_sw = []):
+
     my_stop_words = list(text.ENGLISH_STOP_WORDS.union(custom_sw))
 
-    vec = TfidfVectorizer(stop_words=my_stop_words).fit(corpus)
+    vec = TfidfVectorizer(stop_words = my_stop_words).fit(corpus)
     bag_of_words = vec.transform(corpus)
-    sum_words = bag_of_words.sum(axis=0)
-    words_freq = [(word, sum_words[0, idx])
-                  for word, idx in vec.vocabulary_.items()]
-    words_freq = sorted(words_freq, key=lambda x: x[1], reverse=True)
-    return pd.DataFrame(words_freq[5::-1],
-                        columns=["top words", "tf-idf score"])
+    sum_words = bag_of_words.sum(axis=0) 
+    words_freq = [(word, sum_words[0, idx]) for word, idx in vec.vocabulary_.items()]
+    words_freq =sorted(words_freq, key = lambda x: x[1], reverse=True)
+    
+    return pd.DataFrame(words_freq[:6], columns = ["top words", "tf-idf score"])
 
+def visualise_top_words(df, topics, specific = False, custom_sw = []):
 
-def visualise_top_words(df, topics, specific=False, custom_sw=[]):
-    colors = itertools.cycle(px.colors.qualitative.Plotly)
-    # colors = itertools.cycle(["#D55E00", "#0072B2", "#CC79A7", "#E69F00",
-    # "#56B4E9", "#009E73", "#F0E442"])
+    colors = itertools.cycle(["#D55E00", "#0072B2", "#CC79A7", "#E69F00", "#56B4E9", "#009E73", "#F0E442"])
 
     if specific:
-        topic_corpus = df[df["topic"] == topics[0]]
+        topic_corpus = df[df["pred_topic_label"] == topics[0]]
         freq_df = get_top_words(topic_corpus["cleaned_text"], custom_sw)
-        fig = px.bar(freq_df, x="tf-idf score", y="top words",
-                     title=f"Top Words for {topics[0]}")
-
+        fig = px.bar(freq_df, x = "tf-idf score",y= "top words", title = f"Top Words for {topics[0]}")
+        
         rows = 1
         columns = 1
     else:
@@ -48,14 +47,14 @@ def visualise_top_words(df, topics, specific=False, custom_sw=[]):
         row = 1
         column = 1
         for topic in topics:
-            topic_corpus = df[df["topic"] == topic]
+            topic_corpus = df[df["pred_topic_label"] == topic]
             freq_df = get_top_words(topic_corpus["cleaned_text"], custom_sw)
 
             fig.add_trace(
-                go.Bar(x=freq_df["tf-idf score"],
-                       y=freq_df["top words"],
-                       orientation='h',
-                       marker_color=next(colors)),
+                go.Bar(x = freq_df["tf-idf score"],
+                    y= freq_df["top words"],
+                    orientation='h',
+                    marker_color=next(colors)),
                 row=row, col=column)
 
             if column == columns:
@@ -67,18 +66,17 @@ def visualise_top_words(df, topics, specific=False, custom_sw=[]):
     fig.update_layout(
         template="plotly_white",
         showlegend=False,
-        # title={
-        #     'text': "Top Words",
-        #     'x': 0,
-        #     'y': 1,
-        #     'xanchor': 'left',
-        #     'yanchor': 'top',
-        #     'font': dict(
-        #         size=22,
-        #         color="Black")
-        # },
-        # width= 1000 if columns > 1 else 400,
-        # height=250*rows if rows > 1 else 250 * 1.3,
+        title={
+            'text': "Top Words",
+            'x': .5,
+            'xanchor': 'center',
+            'yanchor': 'top',
+            'font': dict(
+                size=22,
+                color="Black")
+        },
+        width= 1000 if columns > 1 else 400,
+        height=250*rows if rows > 1 else 250 * 1.3,
         hoverlabel=dict(
             bgcolor="white",
             font_size=16,
@@ -87,3 +85,5 @@ def visualise_top_words(df, topics, specific=False, custom_sw=[]):
     )
 
     return fig
+
+

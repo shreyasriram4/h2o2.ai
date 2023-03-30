@@ -1,86 +1,53 @@
 import pandas as pd
+from bertopic import BERTopic
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from hdbscan import HDBSCAN
+
 from src.models.classifier import Classifier
 from src.utils.file_util import FileUtil
 from src.visualisation.visualise_topics import visualise_top_words
 
-nltk.download('wordnet')
-
-
-class LDA(Classifier):
+class BERTopic_Module(Classifier):
     def __init__(self):
         self.config_params = FileUtil.get_config()
-        self.lda_config = self.config_params["LDA"]
-        self.num_topics = self.lda_config["num_topics"]
-        self.ngram = self.lda_config["ngram"]
-        self.bi_min = self.lda_config["bi_min"]
-        self.no_below = self.lda_config["no_below"]
-        self.no_above = self.lda_config["no_above"]
-        self.min_prob = self.lda_config["min_prob"]
-        self.common_words = self.lda_config["common_words"]
+        self.bertopic_config = self.config_params["BERTopic"]
+        self.nr_topics = self.bertopic_config['nr_topics']
 
-    def preprocess(self, df, column):
-        df[column] = df["cleaned_text"].apply(self.lemmatize)
-        df[column] = df[column].apply(self.generate_bigrams)
-        df[column] = df[column].apply(self.remove_common_words)
+        if 'vectorizer_model' in self.bertopic_config.keys():
+            if self.bertopic_config["vectorizer_model"] in ['CountVectorizer', 'TfidfVectorizer']:
+                self.vectorizer_model = self.bertopic_config['vectorizer_model']
+                if 'vectorizer_args' in self.bertopic_config.keys():
+                    self.vectorizer_args = self.bertopic_config['vectorizer_args']
 
-        return df
+        if 'hdbscan_args' in self.bertopic_config.keys():
+            self.hdbscan_args = self.bertopic_config['hdbscan_args']
 
-    def lemmatize(self, text):
-        return " ".join(list(map(WordNetLemmatizer().lemmatize,
-                                 text.split(" "))))
+    def get_corpus(self, df):
+        corpus = list(df["partially_cleaned_text"])
+        return corpus
 
-    def remove_common_words(self, text):
-        return " ".join(list(filter(lambda x: x not in self.common_words,
-                                    text.split(" "))))
+    def fit(self):
+        pass
+    
+    def predict(self, df):
+        bertopic_args = {}
+        bertopic_args['nr_topics'] = self.nr_topics
+        
+        corpus = self.get_corpus(df)
 
-    def generate_bigrams(self, text):
-        result = text
-        for w in ngrams(text.split(" "), self.ngram):
-            result += " " + "_".join(w)
-        return result
+        if self.vectorizer_model:
+            if self.vectorizer_model == 'CountVectorizer':
+                vectorizer_model = CountVectorizer(**self.vectorizer_args)
+            elif self.vectorizer_model == 'TfidfVectorizer':
+                vectorizer_model = TfidfVectorizer(**self.vectorizer_args)
+            bertopic_args["vectorizer_model"] = vectorizer_model
 
-    def sent_to_words(self, sentences):
-        for sentence in sentences:
-            yield (gensim.utils.simple_preprocess(str(sentence), deacc=True))
+        if self.hdbscan_args:
+            hdbscan_model = HDBSCAN(**self.hdbscan_args)
+            bertopic_args["hdbscan_model"] = hdbscan_model
 
-    def bigrams(self, words):
-        bigram = gensim.models.Phrases(words, min_count=self.bi_min)
-        bigram_mod = gensim.models.phrases.Phraser(bigram)
-        return bigram_mod
-
-    def get_corpus(self, df, column):
-        words = list(self.sent_to_words(df[column]))
-        bigram_mod = self.bigrams(words)
-        bigram = [bigram_mod[word] for word in words]
-        id2word = gensim.corpora.Dictionary(bigram)
-        id2word.filter_extremes(no_below=self.no_below, no_above=self.no_above)
-        id2word.compactify()
-        corpus = [id2word.doc2bow(text) for text in bigram]
-
-        return corpus, id2word, bigram
-
-    def fit(self, df):
-        df_corpus, df_id2word, df_bigram = self.get_corpus(df, "review")
-
-        with warnings.catch_warnings():
-            warnings.simplefilter('ignore')
-            lda = gensim.models.ldamulticore.LdaMulticore(
-                                corpus=df_corpus,
-                                num_topics=self.num_topics,
-                                id2word=df_id2word,
-                                per_word_topics=True)
-
-        return lda, df_corpus, df_id2word, df_bigram
-
-    def predict(self, df, lda, df_corpus):
-        topic_vec = []
-        for i in range(len(df)):
-            top_topics = lda.get_document_topics(
-                df_corpus[i], minimum_probability=self.min_prob)
-            topic_values = sorted(top_topics, key=lambda x: x[1])[-1]
-            topic_vec += [topic_values]
-
-        topics = list(map(lambda x: str(x[0]), topic_vec))
+        model = BERTopic(**bertopic_args)
+        topics, probs = model.fit_transform(corpus)
 
         df["topic"] = topics
 

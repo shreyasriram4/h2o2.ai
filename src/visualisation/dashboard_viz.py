@@ -10,7 +10,7 @@ from plotly import io as pio
 
 from src.visualisation.visualise_topics import visualise_top_words
 
-with open(os.path.join(os.getcwd(), "config.yml"), "r") as ymlfile:
+with open(os.path.join(os.getcwd(),"config.yml"), "r") as ymlfile:
     CONFIG_PARAMS = yaml.safe_load(ymlfile)
 
 def update_chart(fig):
@@ -20,8 +20,7 @@ def update_chart(fig):
     )
 
 def reformat_data(data):
-    data = data.assign(sentiment=data.sentiment.map({1: "positive",
-                                                     0: "negative"}))
+    data = data.assign(sentiment = data.sentiment.map({1: "positive", 0: "negative"}))
     data["date"] = pd.to_datetime(data["date"])
     return data
 
@@ -66,6 +65,5 @@ async def extract_top_reviews(data, topic):
     return topic_sliced
 
 
-def visualise_all_topics(data, topic):
-    return visualise_top_words(data, labels=topic, specific=True,
-                               custom_sw=CONFIG_PARAMS["custom_stopwords"])
+
+
