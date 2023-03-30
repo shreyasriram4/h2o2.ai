@@ -7,6 +7,7 @@ from src.models.classifier import Classifier
 from src.utils.file_util import FileUtil
 from src.visualisation.visualise_topics import visualise_top_words
 
+
 class BERTopic_Module(Classifier):
     def __init__(self):
         self.config_params = FileUtil.get_config()
@@ -14,10 +15,17 @@ class BERTopic_Module(Classifier):
         self.nr_topics = self.bertopic_config['nr_topics']
 
         if 'vectorizer_model' in self.bertopic_config.keys():
-            if self.bertopic_config["vectorizer_model"] in ['CountVectorizer', 'TfidfVectorizer']:
-                self.vectorizer_model = self.bertopic_config['vectorizer_model']
+            if self.bertopic_config["vectorizer_model"] in (
+                                        ['CountVectorizer',
+                                         'TfidfVectorizer']
+            ):
+                self.vectorizer_model = self.bertopic_config[
+                                            'vectorizer_model'
+                                            ]
                 if 'vectorizer_args' in self.bertopic_config.keys():
-                    self.vectorizer_args = self.bertopic_config['vectorizer_args']
+                    self.vectorizer_args = self.bertopic_config[
+                                            'vectorizer_args'
+                                            ]
 
         if 'hdbscan_args' in self.bertopic_config.keys():
             self.hdbscan_args = self.bertopic_config['hdbscan_args']
@@ -28,11 +36,11 @@ class BERTopic_Module(Classifier):
 
     def fit(self):
         pass
-    
+
     def predict(self, df):
         bertopic_args = {}
         bertopic_args['nr_topics'] = self.nr_topics
-        
+
         corpus = self.get_corpus(df)
 
         if self.vectorizer_model:
@@ -58,5 +66,5 @@ class BERTopic_Module(Classifier):
         fig = visualise_top_words(
             df, topics,
             custom_sw=self.common_words
-            )
+        )
         return fig

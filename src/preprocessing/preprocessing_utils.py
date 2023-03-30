@@ -110,6 +110,8 @@ def strip_html_tags_df(df: pd.DataFrame,
         )
     return df
 
-def remove_empty_reviews_df(df: pd.DataFrame, src_col: str = "cleaned_text") -> pd.DataFrame:
+
+def remove_empty_reviews_df(df: pd.DataFrame,
+                            src_col: str = "cleaned_text") -> pd.DataFrame:
     df = df[df[src_col] != ""]
     return df

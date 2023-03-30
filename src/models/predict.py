@@ -7,14 +7,17 @@ from src.models.sentiment_analysis.test.predict import predict_sentiment
 from src.models.topic_modelling.test.predict import predict_topic
 from src.preprocessing.transformations import apply_cleaning
 
-def predict_sentiment_topic(test_filepath = FileUtil().TEST_FILE_NAME, df = FileUtil.get_raw_train_data()):
+
+def predict_sentiment_topic(test_filepath=FileUtil().TEST_FILE_NAME,
+                            df=FileUtil.get_raw_train_data()):
     if test_filepath:
         df = pd.read_csv(test_filepath)
-    
+
     df = apply_cleaning(df)
 
     if len(df) == 0:
-        warnings.warn("Dataset has no entries after cleaning. Returning empty dataframe.")
+        warnings.warn(
+            "No entries after cleaning. Returning empty dataframe.")
 
     # df = df.iloc[:10,] #uncomment to predict just the first 10 rows
     else:
@@ -26,6 +29,7 @@ def predict_sentiment_topic(test_filepath = FileUtil().TEST_FILE_NAME, df = File
     FileUtil.put_predicted_df(df, file_name)
 
     return df
+
 
 if __name__ == "__main__":
     predict_sentiment_topic()

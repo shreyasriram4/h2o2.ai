@@ -66,7 +66,7 @@ train_filename: "reviews.csv"
 test_filename: ""
 model_filename: "model.pkl"
 metrics_filename: "metrics.json"
-bert_training_graph_filename: "bert_training.png"
+bert_training_graph: "bert_training.png"
 
 sentiment_analysis_path: "src/models/sentiment_analysis"
 topic_modelling_path: "src/models/topic_modelling"
