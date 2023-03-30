@@ -9,6 +9,16 @@ from sklearn.feature_extraction import text
 
 
 def get_top_words(corpus, custom_sw=[]):
+    '''
+    Computes the Tf-idf scores of the list of the words in the corpus.
+    ------------
+    Parameters:
+        corpus (list): list
+        custom_sw (list): list of custom stopwords
+    Returns:
+        dataframe (dataframe): dataframe consisting top words and
+                            its tf-idf score
+    '''
     my_stop_words = list(text.ENGLISH_STOP_WORDS.union(custom_sw))
 
     vec = TfidfVectorizer(stop_words=my_stop_words).fit(corpus)
@@ -22,6 +32,18 @@ def get_top_words(corpus, custom_sw=[]):
 
 
 def visualise_top_words(df, topics, specific=False, custom_sw=[]):
+    '''
+    Plots bar chart showing distribution of top words in each topic
+    using the tf-idf scores.
+    ------------
+    Parameters:
+        df (dataframe): dataframe
+        topics (list): list of topics
+        specific (boolean): specifying whether to create plot for a selected
+                        topic or all the topics in the list.
+    Returns:
+        fig (graph object): plotly figure
+    '''
     colors = itertools.cycle(px.colors.qualitative.Plotly)
     # colors = itertools.cycle(["#D55E00", "#0072B2", "#CC79A7", "#E69F00",
     # "#56B4E9", "#009E73", "#F0E442"])
