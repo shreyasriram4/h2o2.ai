@@ -51,7 +51,7 @@ async def page4_result(q: Q, topics, df):
     add_card(q, 'topic_data_reviews', ui.form_card(
         # box=ui.box(zone='side1', size='1', width='50%'),
         box=ui.box(zone='side1'),
-        title='Notable reviews from specific topic: ' + topics,
+        title='Top 100 Notable reviews from specific topic: ' + topics,
         items=[ui.table(
             name='preview',
             columns=[
