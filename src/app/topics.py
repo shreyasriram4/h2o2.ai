@@ -1,7 +1,5 @@
 from h2o_wave import main, app, Q, ui, on, handle_on, data
 from src.app.helper import add_card, clear_cards
-from src.visualisation.dashboard_viz import reformat_data
-from src.visualisation.dashboard_viz import topics_line_chart_by_quarter
 from src.visualisation.dashboard_viz import topics_pie_chart
 from src.visualisation.dashboard_viz import visualise_all_topics
 from src.visualisation.dashboard_viz import topics_bar_chart_over_time

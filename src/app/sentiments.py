@@ -4,10 +4,9 @@ from src.app.helper import add_card, clear_cards
 import pandas as pd
 from plotly import graph_objects as go
 from plotly import io as pio
-from src.visualisation.dashboard_viz import reformat_data, sentiment_pie_chart
+from src.visualisation.dashboard_viz import sentiment_pie_chart
 from src.visualisation.dashboard_viz import sentiment_line_chart_over_time
 from src.visualisation.dashboard_viz import topics_bar_chart
-from src.visualisation.dashboard_viz import extract_most_freq_words
 
 
 @on('#sentiments')
