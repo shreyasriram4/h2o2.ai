@@ -14,7 +14,10 @@ async def page1_upload(q: Q):
             box=ui.box(zone='horizontal', height='135px',
                        width='100%'),
             items=[
-                ui.file_upload(name='file_upload', label='Upload reviews',
+                ui.file_upload(name='file_upload',
+                               label="Upload reviews here (Recommended format"
+                               + ": csv file with 2 columns 'Time' and" +
+                               " 'Text')",
                                compact=True, multiple=False,
                                file_extensions=['csv']),
                 ui.button(name='form_submit', label='Submit', primary=True)
