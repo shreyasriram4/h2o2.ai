@@ -70,10 +70,10 @@ class LDA(Classifier):
         with warnings.catch_warnings():
             warnings.simplefilter('ignore')
             lda = gensim.models.ldamulticore.LdaMulticore(
-                                corpus=df_corpus,
-                                num_topics=self.num_topics,
-                                id2word=df_id2word,
-                                per_word_topics=True)
+                corpus=df_corpus,
+                num_topics=self.num_topics,
+                id2word=df_id2word,
+                per_word_topics=True)
 
         return lda, df_corpus, df_id2word, df_bigram
 
@@ -96,5 +96,5 @@ class LDA(Classifier):
         fig = visualise_top_words(
             df, topics,
             custom_sw=self.common_words
-            )
+        )
         return fig
