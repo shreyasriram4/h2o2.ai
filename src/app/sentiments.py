@@ -22,14 +22,12 @@ async def page2(q: Q, df):
     add_card(q, 'piechart1', ui.frame_card(
         box=ui.box(zone='horizontal1', size='1'),
         title='Overall Sentiment Breakdown',
-        # title=("Overall Sentiment"),
         content=await sentiment_pie_chart(data=df),
         ))
 
     add_card(q, 'chart2', ui.frame_card(
         box=ui.box(zone='horizontal1', size='2'),
         title='Sentiments over Time',
-        # title="Sentiment Over time",
         content=await sentiment_line_chart_over_time(data=df),
     ))
 

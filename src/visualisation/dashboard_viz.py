@@ -285,6 +285,7 @@ async def topics_bar_chart_over_time(data, time_frame=None):
                      labels={"topic": "Topic", 'size': "Number of reviews"},
                      barmode='group')
     update_chart(fig)
+    fig.update_layout(xaxis=dict(categoryorder='category ascending'))
     html = pio.to_html(fig, config=None, auto_play=True,
                        include_plotlyjs="cdn")
     return html

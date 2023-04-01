@@ -1,7 +1,6 @@
 from h2o_wave import main, app, Q, ui, on, handle_on, data
 from src.app.helper import add_card, clear_cards
 import pandas as pd
-from src.visualisation.dashboard_viz import reformat_data
 
 
 async def page1_upload(q: Q):
