@@ -92,7 +92,8 @@ class LDA(Classifier):
         return df
 
     def evaluate(self, df):
-        topics = list(df["topic"].unique())
+        topics = list(set(df["topic"]))
+        topics.sort()
         fig = visualise_top_words(
             df, topics,
             custom_sw=self.common_words

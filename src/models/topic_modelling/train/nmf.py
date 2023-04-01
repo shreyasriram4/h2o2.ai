@@ -22,7 +22,6 @@ class Tfidf_NMF_Module(Classifier):
         self.num_topics = self.nmf_args["n_components"]
 
     def tokenize_df(self, df):
-        df = apply_cleaning_train(df)
         df['tokenized_text'] = df["cleaned_text"].str.split()
         return df
 

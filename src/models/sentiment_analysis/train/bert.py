@@ -16,7 +16,7 @@ from transformers import TFBertForSequenceClassification
 class BERT(Classifier):
     def __init__(self, load_model=False):
         self.load_model = load_model
-        self.saved_model_path = FileUtil.BERT_SENTIMENT_MODEL_DIR
+        self.saved_model_path = FileUtil().BERT_SENTIMENT_MODEL_DIR
         self.tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
         self.bert_config = FileUtil.get_config()["BERT"]
         self.batch_size = self.bert_config["batch_size"]
@@ -134,7 +134,7 @@ class BERT(Classifier):
             plt.title("BERT Training Graph")
             plt.legend()
         plt.show()
-        plt.savefig(FileUtil.BERT_TRAINING_GRAPH_FILE_PATH)
+        plt.savefig(FileUtil().BERT_TRAINING_GRAPH_FILE_PATH)
 
     def convert_data_to_examples(self, train, test, DATA_COLUMN, LABEL_COLUMN):
         train_InputExamples = train.apply(
