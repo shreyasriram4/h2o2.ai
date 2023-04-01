@@ -7,6 +7,7 @@ from sklearn.pipeline import Pipeline
 from src.models.classifier import Classifier
 from src.utils.file_util import FileUtil
 from src.visualisation.visualise_topics import visualise_top_words
+from src.preprocessing.transformations import apply_cleaning
 
 
 class Tfidf_NMF(Classifier):
@@ -21,51 +22,49 @@ class Tfidf_NMF(Classifier):
         self.num_topics = self.nmf_args["n_components"]
 
     def tokenize_df(self, df):
-        return df["cleaned_text"].str.split()
-
-    def get_corpus(self, df):
-        tokenized_corpus = self.tokenize_df(df)
-        return tokenized_corpus
-
-    def get_n_topics(self, tfidf):
-        nmf = NMF(**self.nmf_args).fit(tfidf)
-
-        return nmf
-
-    def get_top_n_words(self, nmf_df, tfidf_vectorizer, n):
-        components_df = pd.DataFrame(
-            nmf_df.components_,
-            columns=tfidf_vectorizer.get_feature_names_out())
-        topic_value = components_df.reset_index().rename(
-            columns={'index': 'topic'})
-        topic_value = pd.melt(topic_value, id_vars='topic',
-                              var_name='word', value_name='score')
-        topic_value = topic_value.sort_values(
-                                    ['topic',
-                                     'score'],
-                                    ascending=[True,
-                                               False]).groupby('topic').head(n)
-        return topic_value
+        df = apply_cleaning(df)
+        df['tokenized_text'] = df["cleaned_text"].str.split()
+        return df
 
     def fit(self, df):
-        corpus = self.get_corpus(df)
-        self.vectorizer_model = TfidfVectorizer(
+
+        df = self.tokenize_df(df)
+
+        tfidf_vectorizer = TfidfVectorizer(
             preprocessor=' '.join, **self.vectorizer_args)
-        tfidf = self.vectorizer_model.fit_transform(corpus)
-        nmf = self.get_n_topics(tfidf)
-        self.nmf = nmf.fit(tfidf)
+        
+        tfidf = tfidf_vectorizer.fit_transform(df["tokenized_text"])
 
-        return nmf
+        nmf = NMF(**self.nmf_args).fit(tfidf)
+        
+        self.nmf = nmf
+        self.tfidf_vectorizer = tfidf_vectorizer
 
-    def predict(self):
-        self.top_n_words_df = self.get_top_n_words(
-            self.nmf, self.vectorizer_model, 6)
-        return self.top_n_words_df
+        return tfidf, nmf
+
+    def predict(self, df):
+
+        nmf = self.nmf
+        tfidf_vectorizer = self.tfidf_vectorizer
+
+        # Transform the TF-IDF: review_topics matrix
+
+        df = self.tokenize_df(df)
+
+        X = tfidf_vectorizer.transform(df["tokenized_text"])
+
+        review_topics = nmf.transform(X)
+
+        # assigning topics to reviews (final predicted df with additional column for topic)
+        topics = pd.DataFrame(review_topics).idxmax(axis=1).astype('string')
+        df['topic'] = topics
+
+        return df
 
     def evaluate(self, df):
-        topics = list(df["topic"].unique())
-        fig = visualise_top_words(
-            self.top_n_words_df, topics,
-            custom_sw=self.custom_stopwords
-        )
-        return fig
+            topics = list(df["topic"].unique())
+            fig = visualise_top_words(
+                df, topics,
+                custom_sw=self.custom_stopwords
+            )
+            return fig

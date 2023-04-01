@@ -45,7 +45,8 @@ class FileUtil():
         self.TRAIN_FILE_NAME = self.CONFIG_PARAMS["train_filename"]
         self.MODEL_FILE_NAME = self.CONFIG_PARAMS["model_filename"]
         self.METRICS_FILE_NAME = self.CONFIG_PARAMS["metrics_filename"]
-        self.BERT_TRAINING_GRAPH = self.CONFIG_PARAMS["bert_training_graph"]
+        self.BERT_TRAINING_GRAPH_FILENAME = self.CONFIG_PARAMS[
+                                        "bert_training_graph_filename"]
         self.LDA_TOPIC_FILE_NAME = "lda_topics.html"
 
         self.RAW_DATA_DIR = os.path.join(
@@ -65,7 +66,8 @@ class FileUtil():
         self.BERT_SENTIMENT_MODEL_DIR = os.path.join(
             self.SENTIMENT_ANALYSIS_TRAIN_DIR, "bert_model")
         self.BERT_TRAINING_GRAPH_FILE_PATH = os.path.join(
-            self.SENTIMENT_ANALYSIS_TRAIN_DIR, self.BERT_TRAINING_GRAPH)
+            self.SENTIMENT_ANALYSIS_TRAIN_DIR, 
+            self.BERT_TRAINING_GRAPH_FILENAME)
         self.SENTIMENT_ANALYSIS_DIR = os.path.join(
                                             self.PROJECT_DIR,
                                             "src/models/sentiment_analysis")
