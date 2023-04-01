@@ -12,6 +12,7 @@ data/predicted/2023*
 # best model saved dir for sentiment analysis
 src/models/sentiment_analysis/train/bert_model/
 src/unit-testing.ipynb
+src/models/topic_modelling/train/viz/
 
 # vscode extension
 .vscode/
