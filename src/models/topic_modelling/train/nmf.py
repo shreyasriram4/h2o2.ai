@@ -7,10 +7,10 @@ from sklearn.pipeline import Pipeline
 from src.models.classifier import Classifier
 from src.utils.file_util import FileUtil
 from src.visualisation.visualise_topics import visualise_top_words
-from src.preprocessing.transformations import apply_cleaning
+from src.preprocessing.transformations import apply_cleaning_train
 
 
-class Tfidf_NMF(Classifier):
+class Tfidf_NMF_Module(Classifier):
 
     def __init__(self):
         self.config_params = FileUtil.get_config()
@@ -22,7 +22,7 @@ class Tfidf_NMF(Classifier):
         self.num_topics = self.nmf_args["n_components"]
 
     def tokenize_df(self, df):
-        df = apply_cleaning(df)
+        #df = apply_cleaning_train(df)
         df['tokenized_text'] = df["cleaned_text"].str.split()
         return df
 
@@ -32,11 +32,11 @@ class Tfidf_NMF(Classifier):
 
         tfidf_vectorizer = TfidfVectorizer(
             preprocessor=' '.join, **self.vectorizer_args)
-        
+
         tfidf = tfidf_vectorizer.fit_transform(df["tokenized_text"])
 
         nmf = NMF(**self.nmf_args).fit(tfidf)
-        
+
         self.nmf = nmf
         self.tfidf_vectorizer = tfidf_vectorizer
 
@@ -55,16 +55,17 @@ class Tfidf_NMF(Classifier):
 
         review_topics = nmf.transform(X)
 
-        # assigning topics to reviews (final predicted df with additional column for topic)
+        # assigning topics to reviews in df
         topics = pd.DataFrame(review_topics).idxmax(axis=1).astype('string')
         df['topic'] = topics
 
         return df
 
     def evaluate(self, df):
-            topics = list(df["topic"].unique())
-            fig = visualise_top_words(
-                df, topics,
-                custom_sw=self.custom_stopwords
-            )
-            return fig
+        topics = list(set(df["topic"]))
+        topics.sort()
+        fig = visualise_top_words(
+            df, topics,
+            custom_sw=self.custom_stopwords
+        )
+        return fig

@@ -1,8 +1,7 @@
-import pytest
 import pandas as pd
 
 from src.models.predict import predict_sentiment_topic
-from src.preprocessing.transformations import apply_cleaning
+from src.preprocessing.transformations import apply_cleaning_test, apply_cleaning_train
 from src.preprocessing.preprocessing_utils import (
                                             remove_punctuations_df,
                                             remove_trailing_leading_spaces_df,
@@ -22,7 +21,7 @@ def test_cleaning_when_date_is_string():
                                                'partially_cleaned_text',
                                                'sentiment',
                                                'cleaned_text'])
-    return pd.testing.assert_frame_equal(apply_cleaning(df=df),
+    return pd.testing.assert_frame_equal(apply_cleaning_train(df=df),
                                          df_expected_output,
                                          check_index_type=False)
 
@@ -40,7 +39,7 @@ def test_cleaning_when_date_is_datetime():
                                                'sentiment',
                                                'cleaned_text'])
     df_expected_output = df_expected_output.astype({'date': 'datetime64[ns]'})
-    return pd.testing.assert_frame_equal(apply_cleaning(df=df),
+    return pd.testing.assert_frame_equal(apply_cleaning_train(df=df),
                                          df_expected_output,
                                          check_index_type=False)
 
@@ -99,7 +98,6 @@ def test_predict_when_null_reviews():
     df = pd.DataFrame(columns=["Sentiment", "Time", "Text"])
     df_expected_output = pd.DataFrame(columns=['date',
                                                'partially_cleaned_text',
-                                               'sentiment',
                                                'cleaned_text'])
     return pd.testing.assert_frame_equal(
                                         predict_sentiment_topic(
@@ -114,9 +112,8 @@ def test_predict_when_all_stopwords():
                       columns=["Sentiment", "Time", "Text"])
     df_expected_output = pd.DataFrame(columns=['date',
                                                'partially_cleaned_text',
-                                               'sentiment',
                                                'cleaned_text'])
-    df_expected_output = df_expected_output.astype({'sentiment': 'int64'})
+    #df_expected_output = df_expected_output.astype({'sentiment': 'int64'})
     return pd.testing.assert_frame_equal(
                                         predict_sentiment_topic(
                                                 test_filepath="",
@@ -142,9 +139,6 @@ def test_predict_when_empty_review():
 
 
 # test cleaning html tags
-# test app response if no dataframe
-# test app response if non csv uploaded
-# test app response if column names wrong
 
 if __name__ == "__main__":
     test_cleaning_when_date_is_string()

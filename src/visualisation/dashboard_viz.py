@@ -106,7 +106,7 @@ async def topics_bar_chart(data):
     freq_df = data.groupby(['topic', 'sentiment'], as_index=False).size()
     freq_df['pct'] = freq_df.groupby('topic',
                                      group_keys=False)['size'].apply(
-                                    lambda x: np.round(x*100/x.sum(), 1))
+        lambda x: np.round(x*100/x.sum(), 1))
     fig = px.bar(freq_df, x='topic', y='pct', color='sentiment',
                  labels={"topic": "Topic", 'pct': "Percentage(%)"},
                  color_discrete_sequence=px.colors.qualitative.Plotly[1:3],
@@ -251,14 +251,14 @@ async def topics_bar_chart_over_time(data, time_frame=None):
     ------------
     Parameters:
         data (dataframe): dataframe
-        time_frame (str): String of the timeframe required 
+        time_frame (str): String of the timeframe required
                         (eg. "M" for months or "Q" for quarter)
     Returns:
         html (html): html of the plotly figure
     '''
     if time_frame is not None:
         data['date_frame'] = data['date'].dt.to_period(
-                                            time_frame).astype('string')
+            time_frame).astype('string')
         freq_df = data.groupby(['date_frame', 'topic'], as_index=False).size()
         fig = px.bar(freq_df, x='date_frame', y='size', color='topic',
                      category_orders={'topic': CONFIG_PARAMS["labels"]},

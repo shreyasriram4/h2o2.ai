@@ -48,6 +48,8 @@ class FileUtil():
         self.BERT_TRAINING_GRAPH_FILENAME = self.CONFIG_PARAMS[
                                         "bert_training_graph_filename"]
         self.LDA_TOPIC_FILE_NAME = "lda_topics.html"
+        self.BERTOPIC_TOPIC_FILE_NAME = "bertopic_topics.html"
+        self.NMF_TOPIC_FILE_NAME = "nmf_topics.html"
 
         self.RAW_DATA_DIR = os.path.join(
             self.PROJECT_DIR, self.CONFIG_PARAMS["raw_data_path"])
@@ -66,7 +68,7 @@ class FileUtil():
         self.BERT_SENTIMENT_MODEL_DIR = os.path.join(
             self.SENTIMENT_ANALYSIS_TRAIN_DIR, "bert_model")
         self.BERT_TRAINING_GRAPH_FILE_PATH = os.path.join(
-            self.SENTIMENT_ANALYSIS_TRAIN_DIR, 
+            self.SENTIMENT_ANALYSIS_TRAIN_DIR,
             self.BERT_TRAINING_GRAPH_FILENAME)
         self.SENTIMENT_ANALYSIS_DIR = os.path.join(
                                             self.PROJECT_DIR,
@@ -76,7 +78,14 @@ class FileUtil():
         self.TOPIC_MODELLING_TRAIN_DIR = os.path.join(self.TOPIC_MODELLING_DIR,
                                                       "train")
         self.LDA_TOPIC_FILE_PATH = os.path.join(self.TOPIC_MODELLING_TRAIN_DIR,
+                                                "eval",
                                                 self.LDA_TOPIC_FILE_NAME)
+        self.BERTOPIC_TOPIC_FILE_PATH = os.path.join(self.TOPIC_MODELLING_TRAIN_DIR,
+                                                    "eval",
+                                                self.BERTOPIC_TOPIC_FILE_NAME)
+        self.NMF_TOPIC_FILE_PATH = os.path.join(self.TOPIC_MODELLING_TRAIN_DIR,
+                                                "eval",
+                                                self.NMF_TOPIC_FILE_NAME)
 
     @_check_filepath(".csv")
     def get_csv(self, filepath: str) -> pd.DataFrame:

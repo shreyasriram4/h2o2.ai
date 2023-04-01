@@ -5,7 +5,7 @@ import re
 from nltk.corpus import stopwords
 import warnings
 
-nltk.download('stopwords')
+nltk.download('stopwords', quiet=True)
 STOP_WORDS = set(stopwords.words('english'))
 
 

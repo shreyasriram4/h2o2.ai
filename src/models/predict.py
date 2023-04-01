@@ -5,7 +5,7 @@ import warnings
 from src.utils.file_util import FileUtil
 from src.models.sentiment_analysis.test.predict import predict_sentiment
 from src.models.topic_modelling.test.predict import predict_topic
-from src.preprocessing.transformations import apply_cleaning
+from src.preprocessing.transformations import apply_cleaning_test
 
 
 def predict_sentiment_topic(test_filepath=FileUtil().TEST_FILE_NAME,
@@ -13,7 +13,7 @@ def predict_sentiment_topic(test_filepath=FileUtil().TEST_FILE_NAME,
     if test_filepath:
         df = pd.read_csv(test_filepath)
 
-    df = apply_cleaning(df)
+    df = apply_cleaning_test(df)
 
     if len(df) == 0:
         warnings.warn(
