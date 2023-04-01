@@ -15,7 +15,6 @@ class BERTopic_Module(Classifier):
         self.custom_stopwords = self.config_params['custom_stopwords']
         self.bertopic_config = self.config_params["BERTopic"]
         self.nr_topics = self.bertopic_config['nr_topics']
-        
 
         if 'vectorizer_model' in self.bertopic_config.keys():
             if self.bertopic_config["vectorizer_model"] in (
@@ -32,7 +31,7 @@ class BERTopic_Module(Classifier):
 
         if 'hdbscan_args' in self.bertopic_config.keys():
             self.hdbscan_args = self.bertopic_config['hdbscan_args']
-    
+
     def preprocessing(self, df):
         df = apply_cleaning_train(df)
         return df
