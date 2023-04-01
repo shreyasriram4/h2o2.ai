@@ -53,7 +53,7 @@ async def page1_preview(q: Q, df):
                                 max_width='500px',
                                 searchable=True,
                                 cell_overflow='wrap'
-                                ) for x in ['Date', 'Reviews']],
+                                ) for x in df.columns],
                     rows=[ui.table_row(
                             name=str(i),
                             cells=list(map(
