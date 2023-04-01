@@ -64,10 +64,9 @@ async def sentiment_pie_chart(data):
     '''
     fig = px.pie(data, names='sentiment',
                  color='sentiment',
-                 color_discrete_map = {'negative': px.colors.qualitative.Plotly[1],
-                                        'positive': px.colors.qualitative.Plotly[2]})
-                #  color_discrete_sequence=px.colors.qualitative.Plotly[1:3],
-                #  category_orders={'sentiment': ['negative', 'positive']})
+                 color_discrete_map={
+                    'negative': px.colors.qualitative.Plotly[1],
+                    'positive': px.colors.qualitative.Plotly[2]})
     update_chart(fig)
     html = pio.to_html(fig, config=None, auto_play=True,
                        include_plotlyjs="cdn")
@@ -84,13 +83,12 @@ async def sentiment_line_chart_over_time(data):
         html (html): html of the plotly figure
     '''
     freq_df = data.groupby(['date', 'sentiment'], as_index=False).size()
-    fig = px.line(freq_df, x="date", y="size", 
+    fig = px.line(freq_df, x="date", y="size",
                   labels={'date': 'Date', 'size': 'Number of Reviews'},
                   color="sentiment",
-                  color_discrete_map = {'negative': px.colors.qualitative.Plotly[1],
-                                        'positive': px.colors.qualitative.Plotly[2]})
-                #   color_discrete_sequence=px.colors.qualitative.Plotly[1:3],
-                #   category_orders={'sentiment': ['negative', 'positive']})
+                  color_discrete_map={
+                    'negative': px.colors.qualitative.Plotly[1],
+                    'positive': px.colors.qualitative.Plotly[2]})
     update_chart(fig)
     html = pio.to_html(fig, config=None, auto_play=True,
                        include_plotlyjs="cdn")
@@ -114,10 +112,9 @@ async def topics_bar_chart(data):
     fig = px.bar(freq_df, x='topic', y='pct',
                  labels={"topic": "Topic", 'pct': "Percentage(%)"},
                  color='sentiment',
-                 color_discrete_map = {'negative': px.colors.qualitative.Plotly[1],
-                                        'positive': px.colors.qualitative.Plotly[2]})
-                #  color_discrete_sequence=px.colors.qualitative.Plotly[1:3],
-                #  category_orders={'sentiment': ['negative', 'positive']})
+                 color_discrete_map={
+                    'negative': px.colors.qualitative.Plotly[1],
+                    'positive': px.colors.qualitative.Plotly[2]})
     update_chart(fig)
     fig.update_layout(xaxis={"dtick": 1})
     html = pio.to_html(fig, config=None, auto_play=True,
@@ -264,7 +261,7 @@ async def topics_bar_chart_over_time(data, time_frame=None):
     ------------
     Parameters:
         data (dataframe): dataframe
-        time_frame (str): String of the timeframe required 
+        time_frame (str): String of the timeframe required
                         (eg. "M" for months or "Q" for quarter)
     Returns:
         html (html): html of the plotly figure
