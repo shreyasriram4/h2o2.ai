@@ -6,4 +6,11 @@ matplotlib==3.6.3
 numpy==1.24.2
 plotly==5.13.0
 spacy==3.5.0
-top2vec==1.0.28
+contractions
+nltk
+yaml
+hdbscan
+sklearn
+tensorflow
+transformers
+lbl2vec

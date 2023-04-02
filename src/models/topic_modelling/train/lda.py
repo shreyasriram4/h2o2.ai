@@ -4,6 +4,7 @@ import pandas as pd
 import warnings
 from nltk.stem import WordNetLemmatizer
 from nltk.util import ngrams
+
 from src.models.classifier import Classifier
 from src.utils.file_util import FileUtil
 from src.visualisation.visualise_topics import visualise_top_words
@@ -15,13 +16,13 @@ class LDA(Classifier):
     def __init__(self):
         self.config_params = FileUtil.get_config()
         self.lda_config = self.config_params["LDA"]
+        self.common_words = self.lda_config["common_words"]
         self.num_topics = self.lda_config["num_topics"]
         self.ngram = self.lda_config["ngram"]
         self.bi_min = self.lda_config["bi_min"]
         self.no_below = self.lda_config["no_below"]
         self.no_above = self.lda_config["no_above"]
         self.min_prob = self.lda_config["min_prob"]
-        self.common_words = self.lda_config["common_words"]
 
     def preprocess(self, df, column):
         df[column] = df["cleaned_text"].apply(self.lemmatize)
@@ -70,10 +71,10 @@ class LDA(Classifier):
         with warnings.catch_warnings():
             warnings.simplefilter('ignore')
             lda = gensim.models.ldamulticore.LdaMulticore(
-                                corpus=df_corpus,
-                                num_topics=self.num_topics,
-                                id2word=df_id2word,
-                                per_word_topics=True)
+                corpus=df_corpus,
+                num_topics=self.num_topics,
+                id2word=df_id2word,
+                per_word_topics=True)
 
         return lda, df_corpus, df_id2word, df_bigram
 
@@ -92,9 +93,10 @@ class LDA(Classifier):
         return df
 
     def evaluate(self, df):
-        topics = list(df["topic"].unique())
+        topics = list(set(df["topic"]))
+        topics.sort()
         fig = visualise_top_words(
             df, topics,
             custom_sw=self.common_words
-            )
+        )
         return fig
