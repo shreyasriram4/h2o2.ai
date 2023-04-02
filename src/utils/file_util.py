@@ -79,8 +79,8 @@ class FileUtil():
         self.LDA_TOPIC_FILE_PATH = os.path.join(self.TOPIC_MODELLING_EVAL_DIR,
                                                 self.LDA_TOPIC_FILE_NAME)
         self.BERTOPIC_TOPIC_FILE_PATH = os.path.join(
-                                                self.TOPIC_MODELLING_EVAL_DIR,
-                                                self.BERTOPIC_TOPIC_FILE_NAME)
+            self.TOPIC_MODELLING_EVAL_DIR,
+            self.BERTOPIC_TOPIC_FILE_NAME)
         self.NMF_TOPIC_FILE_PATH = os.path.join(self.TOPIC_MODELLING_EVAL_DIR,
                                                 self.NMF_TOPIC_FILE_NAME)
 
@@ -152,13 +152,6 @@ class FileUtil():
         self.put_csv(self, filepath, df)
 
     @classmethod
-    def get_raw_test_data(self) -> pd.DataFrame:
-        if self.TEST_FILE_NAME != "":
-            filepath = os.path.join(
-                FileUtil().RAW_DATA_DIR, FileUtil().TEST_FILE_NAME)
-        return filepath
-
-    @classmethod
     def get_topic_model(self):
         filepath = os.path.join(
             FileUtil().TOPIC_MODELLING_DIR, FileUtil().MODEL_FILE_NAME)
@@ -169,19 +162,6 @@ class FileUtil():
         FileUtil.create_dir_if_not_exists(FileUtil().TOPIC_MODELLING_DIR)
         filepath = os.path.join(
             FileUtil().TOPIC_MODELLING_DIR, FileUtil().MODEL_FILE_NAME)
-        self.put_pkl(self, filepath, model)
-
-    @classmethod
-    def get_sentiment_model(self):
-        filepath = os.path.join(
-            FileUtil().SENTIMENT_ANALYSIS_DIR, FileUtil().MODEL_FILE_NAME)
-        return self.get_pkl(self, filepath)
-
-    @classmethod
-    def put_sentiment_model(self, model) -> None:
-        FileUtil.create_dir_if_not_exists(self.SENTIMENT_ANALYSIS_DIR)
-        filepath = os.path.join(
-            FileUtil().SENTIMENT_ANALYSIS_DIR, FileUtil().MODEL_FILE_NAME)
         self.put_pkl(self, filepath, model)
 
     @classmethod
