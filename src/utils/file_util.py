@@ -9,12 +9,13 @@ import yaml
 
 class InvalidExtensionException(Exception):
     """An Exception for invalid filepath extension."""
+
     pass
 
 
 def _check_filepath(ext):
     """
-    Pre-checks whether the filepath ends with ext extension.
+    Pre-check whether the filepath ends with ext extension.
 
     Args:
       ext: extension to check.
@@ -38,9 +39,7 @@ def _check_filepath(ext):
 
 
 class FileUtil():
-    """
-    A class to access storage.
-    """
+    """A class to access storage."""
 
     def __init__(self, config_path="config.yml"):
         """
@@ -50,7 +49,6 @@ class FileUtil():
           config_path (str, optional): path to config file.
           Default is config.yml
         """
-
         self.PROJECT_DIR = os.path.abspath(
             os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)
         )
@@ -104,7 +102,7 @@ class FileUtil():
     @_check_filepath(".csv")
     def get_csv(self, filepath: str) -> pd.DataFrame:
         """
-        Gets the csv from filepath.
+        Get the csv from filepath.
 
         Args:
           filepath (str): csv filepath
@@ -120,7 +118,7 @@ class FileUtil():
     @_check_filepath(".csv")
     def put_csv(self, filepath: str, df: pd.DataFrame) -> None:
         """
-        Puts the dataframe to csv in filepath.
+        Put the dataframe to csv in filepath.
 
         Args:
           filepath (str): csv filepath
@@ -137,7 +135,7 @@ class FileUtil():
     @_check_filepath(".pkl")
     def get_pkl(self, filepath: str):
         """
-        Gets the pickle file from filepath.
+        Get the pickle file from filepath.
 
         Args:
           filepath (str): pickle filepath
@@ -154,7 +152,7 @@ class FileUtil():
     @_check_filepath(".pkl")
     def put_pkl(self, filepath: str, python_object) -> None:
         """
-        Puts the pickle to filepath.
+        Put the pickle to filepath.
 
         Args:
           filepath (str): pickle filepath
@@ -173,7 +171,7 @@ class FileUtil():
     @_check_filepath(".yml")
     def get_yml(self, filepath: str):
         """
-        Gets the yaml file from filepath.
+        Get the yaml file from filepath.
 
         Args:
           filepath (str): yaml filepath
@@ -190,7 +188,7 @@ class FileUtil():
     @_check_filepath(".json")
     def put_json(self, filepath: str, dic) -> None:
         """
-        Puts the json to filepath.
+        Put the json to filepath.
 
         Args:
           filepath (str): json filepath
@@ -208,7 +206,7 @@ class FileUtil():
     @classmethod
     def check_dir_exists(self, dir):
         """
-        Checks if directory exists.
+        Check if directory exists.
 
         Args:
           dir (str): directory to check
@@ -232,7 +230,7 @@ class FileUtil():
     @classmethod
     def check_filepath_exists(self, filepath):
         """
-        Checks if file path exists.
+        Check if file path exists.
 
         Args:
           filepath (str): file path to check
@@ -245,7 +243,7 @@ class FileUtil():
     @classmethod
     def get_raw_train_data(self) -> pd.DataFrame:
         """
-        Gets raw train data.
+        Get raw train data.
 
         Returns:
           pandas dataframe of the raw train data
@@ -257,7 +255,7 @@ class FileUtil():
     @classmethod
     def get_processed_train_data(self) -> pd.DataFrame:
         """
-        Gets processed train data.
+        Get processed train data.
 
         Returns:
           pandas dataframe of the processed train data
@@ -269,7 +267,7 @@ class FileUtil():
     @classmethod
     def put_processed_train_data(self, df: pd.DataFrame) -> None:
         """
-        Gets processed train data.
+        Get processed train data.
 
         Returns:
           pandas dataframe of the processed train data
@@ -282,7 +280,7 @@ class FileUtil():
     @classmethod
     def get_raw_test_data(self) -> pd.DataFrame:
         """
-        Gets raw test data.
+        Get raw test data.
 
         Returns:
           filepath: file path to raw test data
@@ -295,7 +293,7 @@ class FileUtil():
     @classmethod
     def get_topic_model(self):
         """
-        Gets topic model from a pickle file.
+        Get topic model from a pickle file.
 
         Returns:
           pickle file of the model
@@ -307,7 +305,7 @@ class FileUtil():
     @classmethod
     def put_topic_model(self, model) -> None:
         """
-        Puts topic model into a pickle file.
+        Put topic model into a pickle file.
 
         Args:
           model: topic model to save
@@ -320,7 +318,7 @@ class FileUtil():
     @classmethod
     def get_sentiment_model(self):
         """
-        Gets sentiment model.
+        Get sentiment model.
 
         Returns:
           pickle file of the model
@@ -332,7 +330,7 @@ class FileUtil():
     @classmethod
     def put_sentiment_model(self, model) -> None:
         """
-        Puts sentiment model.
+        Put sentiment model.
 
         Args:
           model: sentiment model to save
@@ -345,7 +343,7 @@ class FileUtil():
     @classmethod
     def get_config(self):
         """
-        Gets config file.
+        Get config file.
 
         Returns:
           dictionary of config
@@ -357,7 +355,7 @@ class FileUtil():
     @classmethod
     def put_predicted_df(self, df: pd.DataFrame, filename: str) -> None:
         """
-        Puts predicted df into a csv file.
+        Put predicted df into a csv file.
 
         Args:
           df (pd.DataFrame): dataframe to save
@@ -370,7 +368,7 @@ class FileUtil():
     @classmethod
     def put_metrics(self, task: str, dic) -> None:
         """
-        Puts metrics into a json file.
+        Put metrics into a json file.
 
         Args:
           task (str): VOC task
