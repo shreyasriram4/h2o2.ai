@@ -1,3 +1,5 @@
+"""This module contains main function for topic model training."""
+
 import plotly
 
 from src.models.topic_modelling.train.lda import LDA
@@ -7,6 +9,12 @@ from src.utils.file_util import FileUtil
 
 
 def main():
+    """
+    Train topic models on training data.
+
+    LDA, BERTopic, and NMF models will be fitted on training data.
+    All 3 models' topics plot will be saved to eval folder.
+    """
     df = FileUtil.get_processed_train_data()
 
     # LDA
