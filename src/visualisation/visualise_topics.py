@@ -104,8 +104,6 @@ def visualise_top_words(df,
         #         size=22,
         #         color="Black")
         # },
-        # width= 1000 if columns > 1 else 400,
-        # height=250*rows if rows > 1 else 250 * 1.3,
         hoverlabel=dict(
             bgcolor="white",
             font_size=16,
