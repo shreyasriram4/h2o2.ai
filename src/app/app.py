@@ -52,7 +52,7 @@ async def init(q: Q) -> None:
                                     ui.zone(
                                         'horizontal2',
                                         direction=ui.ZoneDirection.ROW,
-                                        size='41%'),])]),
+                                        size='41%'), ])]),
                             ])])])
 
     q.page['sidebar'] = ui.nav_card(
