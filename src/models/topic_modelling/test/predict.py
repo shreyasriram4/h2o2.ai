@@ -1,5 +1,7 @@
-"""This module contains predict_topic function that
-does topic prediction."""
+"""
+This module contains predict_topic function that
+does topic prediction.
+"""
 
 import pandas as pd
 
