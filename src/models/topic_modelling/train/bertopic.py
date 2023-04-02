@@ -6,7 +6,6 @@ from hdbscan import HDBSCAN
 from src.models.classifier import Classifier
 from src.utils.file_util import FileUtil
 from src.visualisation.visualise_topics import visualise_top_words
-from src.preprocessing.transformations import apply_cleaning_train
 
 
 class BERTopic_Module(Classifier):
@@ -32,18 +31,12 @@ class BERTopic_Module(Classifier):
         if 'hdbscan_args' in self.bertopic_config.keys():
             self.hdbscan_args = self.bertopic_config['hdbscan_args']
 
-    #def preprocessing(self, df):
-        #df = apply_cleaning_train(df)
-    #    return df
-
     def fit(self):
         pass
 
     def predict(self, df):
         bertopic_args = {}
         bertopic_args['nr_topics'] = self.nr_topics
-
-        #df = self.preprocessing(df)
 
         if self.vectorizer_model:
             if self.vectorizer_model == 'CountVectorizer':

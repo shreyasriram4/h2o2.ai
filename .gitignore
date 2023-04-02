@@ -12,10 +12,17 @@ data/predicted/2023*
 # best model saved dir for sentiment analysis
 src/models/sentiment_analysis/train/bert_model/
 src/unit-testing.ipynb
+
+#hide evaluation images temporarily
 src/models/topic_modelling/train/eval/
 
 # vscode extension
 .vscode/
+
+#incomplete
+notebooks/bertopic.ipynb
+unit-testing.ipynb
+test.ipynb
 
 #incomplete
 notebooks/bertopic.ipynb

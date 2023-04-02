@@ -7,7 +7,6 @@ from sklearn.pipeline import Pipeline
 from src.models.classifier import Classifier
 from src.utils.file_util import FileUtil
 from src.visualisation.visualise_topics import visualise_top_words
-from src.preprocessing.transformations import apply_cleaning_train
 
 
 class Tfidf_NMF_Module(Classifier):
@@ -22,7 +21,6 @@ class Tfidf_NMF_Module(Classifier):
         self.num_topics = self.nmf_args["n_components"]
 
     def tokenize_df(self, df):
-        #df = apply_cleaning_train(df)
         df['tokenized_text'] = df["cleaned_text"].str.split()
         return df
 

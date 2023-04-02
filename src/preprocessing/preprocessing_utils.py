@@ -1,7 +1,8 @@
+import re
+
 import contractions
 import nltk
 import pandas as pd
-import re
 from nltk.corpus import stopwords
 import warnings
 
@@ -14,7 +15,7 @@ def convert_sentiment_df(df: pd.DataFrame,
                          dst_col: str = "sentiment") -> pd.DataFrame:
     df[dst_col] = df[src_col].apply(
         lambda x: 1 if x == "positive" else 0
-        )
+    )
 
     if src_col != dst_col:
         df = df.drop([src_col], axis=1)
@@ -42,7 +43,7 @@ def lowercase_string_df(df: pd.DataFrame,
                         dst_col: str = "cleaned_text") -> pd.DataFrame:
     df[dst_col] = df[src_col].apply(
         lambda text: text.lower()
-        )
+    )
     return df
 
 
@@ -51,7 +52,7 @@ def remove_numbers_df(df: pd.DataFrame,
                       dst_col: str = "cleaned_text") -> pd.DataFrame:
     df[dst_col] = df[src_col].apply(
         lambda text: ''.join([i for i in text if not i.isdigit()])
-        )
+    )
     return df
 
 
@@ -60,7 +61,7 @@ def remove_punctuations_df(df: pd.DataFrame,
                            dst_col: str = "cleaned_text") -> pd.DataFrame:
     df[dst_col] = df[src_col].apply(
         lambda text: re.sub(r'[^\w\s]', ' ', text)
-        )
+    )
     return df
 
 
@@ -80,10 +81,10 @@ def remove_stopwords_text(text: str) -> str:
 def remove_trailing_leading_spaces_df(df: pd.DataFrame,
                                       src_col: str = "cleaned_text",
                                       dst_col: str = "cleaned_text") \
-                                        -> pd.DataFrame:
+        -> pd.DataFrame:
     df[dst_col] = df[src_col].apply(
         lambda text: text.strip()
-        )
+    )
     return df
 
 
@@ -107,7 +108,7 @@ def strip_html_tags_df(df: pd.DataFrame,
                        dst_col: str = "cleaned_text") -> pd.DataFrame:
     df[dst_col] = df[src_col].apply(
         lambda text: re.sub('<[^<]+?>', ' ', text)
-        )
+    )
     return df
 
 

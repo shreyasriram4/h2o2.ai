@@ -1,8 +1,9 @@
 import functools
 import json
 import os
-import pandas as pd
 import pickle
+
+import pandas as pd
 import yaml
 
 
@@ -46,7 +47,7 @@ class FileUtil():
         self.MODEL_FILE_NAME = self.CONFIG_PARAMS["model_filename"]
         self.METRICS_FILE_NAME = self.CONFIG_PARAMS["metrics_filename"]
         self.BERT_TRAINING_GRAPH_FILENAME = self.CONFIG_PARAMS[
-                                        "bert_training_graph_filename"]
+            "bert_training_graph_filename"]
         self.LDA_TOPIC_FILE_NAME = "lda_topics.html"
         self.BERTOPIC_TOPIC_FILE_NAME = "bertopic_topics.html"
         self.NMF_TOPIC_FILE_NAME = "nmf_topics.html"
@@ -70,21 +71,17 @@ class FileUtil():
         self.BERT_TRAINING_GRAPH_FILE_PATH = os.path.join(
             self.SENTIMENT_ANALYSIS_TRAIN_DIR,
             self.BERT_TRAINING_GRAPH_FILENAME)
-        self.SENTIMENT_ANALYSIS_DIR = os.path.join(
-                                            self.PROJECT_DIR,
-                                            "src/models/sentiment_analysis")
-        self.TOPIC_MODELLING_DIR = os.path.join(self.PROJECT_DIR,
-                                                "src/models/topic_modelling")
+
         self.TOPIC_MODELLING_TRAIN_DIR = os.path.join(self.TOPIC_MODELLING_DIR,
                                                       "train")
-        self.LDA_TOPIC_FILE_PATH = os.path.join(self.TOPIC_MODELLING_TRAIN_DIR,
-                                                "eval",
+        self.TOPIC_MODELLING_EVAL_DIR = os.path.join(self.TOPIC_MODELLING_DIR,
+                                                     "eval")
+        self.LDA_TOPIC_FILE_PATH = os.path.join(self.TOPIC_MODELLING_EVAL_DIR,
                                                 self.LDA_TOPIC_FILE_NAME)
-        self.BERTOPIC_TOPIC_FILE_PATH = os.path.join(self.TOPIC_MODELLING_TRAIN_DIR,
-                                                    "eval",
-                                                self.BERTOPIC_TOPIC_FILE_NAME)
-        self.NMF_TOPIC_FILE_PATH = os.path.join(self.TOPIC_MODELLING_TRAIN_DIR,
-                                                "eval",
+        self.BERTOPIC_TOPIC_FILE_PATH = os.path.join(
+            self.TOPIC_MODELLING_EVAL_DIR,
+            self.BERTOPIC_TOPIC_FILE_NAME)
+        self.NMF_TOPIC_FILE_PATH = os.path.join(self.TOPIC_MODELLING_EVAL_DIR,
                                                 self.NMF_TOPIC_FILE_NAME)
 
     @_check_filepath(".csv")
@@ -155,13 +152,6 @@ class FileUtil():
         self.put_csv(self, filepath, df)
 
     @classmethod
-    def get_raw_test_data(self) -> pd.DataFrame:
-        if self.TEST_FILE_NAME != "":
-            filepath = os.path.join(
-                FileUtil().RAW_DATA_DIR, FileUtil().TEST_FILE_NAME)
-        return filepath
-
-    @classmethod
     def get_topic_model(self):
         filepath = os.path.join(
             FileUtil().TOPIC_MODELLING_DIR, FileUtil().MODEL_FILE_NAME)
@@ -172,19 +162,6 @@ class FileUtil():
         FileUtil.create_dir_if_not_exists(FileUtil().TOPIC_MODELLING_DIR)
         filepath = os.path.join(
             FileUtil().TOPIC_MODELLING_DIR, FileUtil().MODEL_FILE_NAME)
-        self.put_pkl(self, filepath, model)
-
-    @classmethod
-    def get_sentiment_model(self):
-        filepath = os.path.join(
-            FileUtil().SENTIMENT_ANALYSIS_DIR, FileUtil().MODEL_FILE_NAME)
-        return self.get_pkl(self, filepath)
-
-    @classmethod
-    def put_sentiment_model(self, model) -> None:
-        FileUtil.create_dir_if_not_exists(self.SENTIMENT_ANALYSIS_DIR)
-        filepath = os.path.join(
-            FileUtil().SENTIMENT_ANALYSIS_DIR, FileUtil().MODEL_FILE_NAME)
         self.put_pkl(self, filepath, model)
 
     @classmethod

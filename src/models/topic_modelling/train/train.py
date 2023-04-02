@@ -1,4 +1,5 @@
 import plotly
+
 from src.models.topic_modelling.train.lda import LDA
 from src.models.topic_modelling.train.bertopic import BERTopic_Module
 from src.models.topic_modelling.train.nmf import Tfidf_NMF_Module
@@ -10,24 +11,27 @@ def main():
 
     # LDA
     lda_model = LDA()
-    df = lda_model.preprocess(df, "review")
-    lda, df_corpus, df_id2word, df_bigram = lda_model.fit(df)
-    df = lda_model.predict(df, lda, df_corpus)
-    fig = lda_model.evaluate(df)
+    df_preproc = lda_model.preprocess(df, "review")
+    lda, df_corpus, df_id2word, df_bigram = lda_model.fit(df_preproc)
+    df_pred = lda_model.predict(df_preproc, lda, df_corpus)
+    fig = lda_model.evaluate(df_pred)
+    FileUtil.create_dir_if_not_exists(FileUtil().TOPIC_MODELLING_EVAL_DIR)
     plotly.offline.plot(fig, filename=FileUtil().LDA_TOPIC_FILE_PATH)
 
     # BERTopic
     bertopic_model = BERTopic_Module()
-    df = bertopic_model.predict(df)
-    fig = bertopic_model.evaluate(df)
+    df_pred = bertopic_model.predict(df)
+    fig = bertopic_model.evaluate(df_pred)
     plotly.offline.plot(fig, filename=FileUtil().BERTOPIC_TOPIC_FILE_PATH)
 
     # NMF
     nmf = Tfidf_NMF_Module()
     nmf.fit(df)
-    df = nmf.predict(df)
-    fig = nmf.evaluate(df)
+    df_pred = nmf.predict(df)
+    fig = nmf.evaluate(df_pred)
     plotly.offline.plot(fig, filename=FileUtil().NMF_TOPIC_FILE_PATH)
 
+
 if __name__ == "__main__":
+
     main()

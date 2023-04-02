@@ -12,7 +12,7 @@ def main():
 
     bert_model = BERT()
     trained_bert_model, history = bert_model.fit(train, valid)
-    trained_bert_model.save_pretrained(FileUtil.BERT_SENTIMENT_MODEL_DIR)
+    trained_bert_model.save_pretrained(FileUtil().BERT_SENTIMENT_MODEL_DIR)
     bert_ap, bert_pr_auc = bert_model.evaluate(valid)
     bert_model.plot_training_acc_loss(history)
 
