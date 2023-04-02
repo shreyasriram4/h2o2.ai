@@ -4,7 +4,21 @@ from src.models.classifier import Classifier
 
 
 class Lbl2Vec(Classifier):
+    """Lbl2Vec topic model class."""
+
     def fit(self, df, column, candidate_labels):
+        """
+        Fit Lbl2TransformerVec on df with candidate_labels.
+
+        Args:
+          df (pd.DataFrame): dataframe to fit
+          column (str): text column in df
+          candidate_labels (list): list of lists
+          containing subtopics
+
+        Returns:
+          model: fitted Lbl2TransformerVec model
+        """
         model = Lbl2TransformerVec(
             keywords_list=list(map(lambda subtopic: [subtopic],
                                    candidate_labels.keys())),
@@ -16,6 +30,18 @@ class Lbl2Vec(Classifier):
         return model
 
     def predict(self, df, column, candidate_labels):
+        """
+        Predict the topic for df.
+
+        Args:
+          df (pd.DataFrame): dataframe to predict
+          column (str): text column in df
+          candidate_labels (list): list of lists
+          containing subtopics
+
+        Returns:
+          dataframe (pd.Dataframe): prediction result dataframe
+        """
         preds = self.fit(df, column, candidate_labels).predict_model_docs()
         df["subtopic"] = preds['most_similar_label']
 
@@ -29,4 +55,5 @@ class Lbl2Vec(Classifier):
         return df
 
     def evaluate(self):
+        """Evaluate topic classification."""
         pass
