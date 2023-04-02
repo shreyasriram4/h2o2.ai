@@ -10,7 +10,7 @@ def main():
     Train sentiment analysis models on training data.
 
     Processed dataset will be split into 80% train and 20% valid.
-    BERT, Logistic Regression, and LSTM model will be fitted on
+    BERT, Logistic Regression, and LSTM models will be fitted on
     training data and evaluated on validation data.
     All 3 models and metrics, and BERT training graph will be saved to storage.
     """
