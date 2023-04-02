@@ -74,15 +74,14 @@ class FileUtil():
 
         self.TOPIC_MODELLING_TRAIN_DIR = os.path.join(self.TOPIC_MODELLING_DIR,
                                                       "train")
-        self.LDA_TOPIC_FILE_PATH = os.path.join(self.TOPIC_MODELLING_TRAIN_DIR,
-                                                "eval",
+        self.TOPIC_MODELLING_EVAL_DIR = os.path.join(self.TOPIC_MODELLING_DIR,
+                                                     "eval")
+        self.LDA_TOPIC_FILE_PATH = os.path.join(self.TOPIC_MODELLING_EVAL_DIR,
                                                 self.LDA_TOPIC_FILE_NAME)
         self.BERTOPIC_TOPIC_FILE_PATH = os.path.join(
-                                                self.TOPIC_MODELLING_TRAIN_DIR,
-                                                "eval",
+                                                self.TOPIC_MODELLING_EVAL_DIR,
                                                 self.BERTOPIC_TOPIC_FILE_NAME)
-        self.NMF_TOPIC_FILE_PATH = os.path.join(self.TOPIC_MODELLING_TRAIN_DIR,
-                                                "eval",
+        self.NMF_TOPIC_FILE_PATH = os.path.join(self.TOPIC_MODELLING_EVAL_DIR,
                                                 self.NMF_TOPIC_FILE_NAME)
 
     @_check_filepath(".csv")
