@@ -4,13 +4,14 @@ import tensorflow as tf
 from sklearn.metrics import auc
 from sklearn.metrics import average_precision_score
 from sklearn.metrics import precision_recall_curve
-from src.models.classifier import Classifier
-from src.utils.file_util import FileUtil
 from transformers import BertTokenizer
 from transformers import BertConfig
 from transformers import InputExample
 from transformers import InputFeatures
 from transformers import TFBertForSequenceClassification
+
+from src.models.classifier import Classifier
+from src.utils.file_util import FileUtil
 
 
 class BERT(Classifier):

@@ -1,5 +1,6 @@
 import pandas as pd
 from datetime import datetime
+
 from src.utils.file_util import FileUtil
 from src.models.sentiment_analysis.test.predict import predict_sentiment
 from src.models.topic_modelling.test.predict import predict_topic

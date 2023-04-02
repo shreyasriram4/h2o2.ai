@@ -1,7 +1,8 @@
+import re
+
 import contractions
 import nltk
 import pandas as pd
-import re
 from nltk.corpus import stopwords
 
 nltk.download('stopwords')

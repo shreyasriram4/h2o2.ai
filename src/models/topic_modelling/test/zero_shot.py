@@ -1,8 +1,9 @@
 import os
 import pandas as pd
+from transformers import pipeline
+
 from src.models.classifier import Classifier
 from src.utils.file_util import FileUtil
-from transformers import pipeline
 
 
 class ZeroShot(Classifier):

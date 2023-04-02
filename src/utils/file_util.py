@@ -1,8 +1,9 @@
 import functools
 import json
 import os
-import pandas as pd
 import pickle
+
+import pandas as pd
 import yaml
 
 
@@ -70,11 +71,7 @@ class FileUtil():
         self.BERT_TRAINING_GRAPH_FILE_PATH = os.path.join(
             self.SENTIMENT_ANALYSIS_TRAIN_DIR,
             self.BERT_TRAINING_GRAPH_FILENAME)
-        self.SENTIMENT_ANALYSIS_DIR = os.path.join(
-            self.PROJECT_DIR,
-            "src/models/sentiment_analysis")
-        self.TOPIC_MODELLING_DIR = os.path.join(self.PROJECT_DIR,
-                                                "src/models/topic_modelling")
+
         self.TOPIC_MODELLING_TRAIN_DIR = os.path.join(self.TOPIC_MODELLING_DIR,
                                                       "train")
         self.LDA_TOPIC_FILE_PATH = os.path.join(self.TOPIC_MODELLING_TRAIN_DIR,

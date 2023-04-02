@@ -1,16 +1,12 @@
 import os
-
-import pandas as pd
-import plotly.express as px
-import numpy as np
-import yaml
 import collections
 
+import pandas as pd
+import numpy as np
+import yaml
+import plotly.express as px
 from plotly import graph_objects as go
 from plotly import io as pio
-
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.feature_extraction import text
 
 from src.visualisation.visualise_topics import visualise_top_words
 

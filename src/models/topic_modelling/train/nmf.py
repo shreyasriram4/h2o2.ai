@@ -7,7 +7,6 @@ from sklearn.pipeline import Pipeline
 from src.models.classifier import Classifier
 from src.utils.file_util import FileUtil
 from src.visualisation.visualise_topics import visualise_top_words
-from src.preprocessing.transformations import apply_cleaning_train
 
 
 class Tfidf_NMF_Module(Classifier):

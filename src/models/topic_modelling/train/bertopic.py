@@ -6,7 +6,6 @@ from hdbscan import HDBSCAN
 from src.models.classifier import Classifier
 from src.utils.file_util import FileUtil
 from src.visualisation.visualise_topics import visualise_top_words
-from src.preprocessing.transformations import apply_cleaning_train
 
 
 class BERTopic_Module(Classifier):
