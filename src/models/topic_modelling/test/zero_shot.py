@@ -67,7 +67,7 @@ class ZeroShot(Classifier):
         return df
 
     def fit(self):
-        """Fit ZeroShot topic model"""
+        """Fit ZeroShot topic model."""
         pass
 
     def evaluate(self):
