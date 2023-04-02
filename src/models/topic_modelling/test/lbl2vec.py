@@ -1,3 +1,5 @@
+"""This module contains Lbl2Vec topic model class"""
+
 from lbl2vec import Lbl2TransformerVec
 
 from src.models.classifier import Classifier

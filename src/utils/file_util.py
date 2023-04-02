@@ -1,3 +1,6 @@
+"""This module contains FileUtil and InvalidExtensionException classes,
+and _check_filepath function."""
+
 import functools
 import json
 import os
