@@ -1,4 +1,5 @@
 import itertools
+
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -31,7 +32,11 @@ def get_top_words(corpus, custom_sw=[]):
                         columns=["top words", "tf-idf score"])
 
 
-def visualise_top_words(df, topics, specific=False, custom_sw=[]):
+def visualise_top_words(df,
+                        topics,
+                        specific=False,
+                        custom_sw=[],
+                        inc_size=False):
     '''
     Plots bar chart showing distribution of top words in each topic
     using the tf-idf scores.
@@ -57,7 +62,7 @@ def visualise_top_words(df, topics, specific=False, custom_sw=[]):
         rows = 1
         columns = 1
     else:
-        subplot_titles = [topic for topic in topics]
+        subplot_titles = [str(topic) for topic in topics]
         columns = 4
         rows = int(np.ceil(len(topics)/columns))
         fig = make_subplots(rows=rows,
@@ -99,14 +104,18 @@ def visualise_top_words(df, topics, specific=False, custom_sw=[]):
         #         size=22,
         #         color="Black")
         # },
-        # width= 1000 if columns > 1 else 400,
-        # height=250*rows if rows > 1 else 250 * 1.3,
         hoverlabel=dict(
             bgcolor="white",
             font_size=16,
             font_family="Rockwell"
         ),
     )
+
+    if inc_size:
+        fig.update_layout(
+            width=1000 if columns > 1 else 400,
+            height=250*rows if rows > 1 else 250 * 1.3
+        )
 
     fig.update_yaxes(dtick=1)
 

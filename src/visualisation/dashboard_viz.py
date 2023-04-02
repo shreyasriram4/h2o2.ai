@@ -1,11 +1,10 @@
 import os
-
 import pandas as pd
-import plotly.express as px
 import numpy as np
 import yaml
 import collections
 
+import plotly.express as px
 from plotly import graph_objects as go
 from plotly import io as pio
 
