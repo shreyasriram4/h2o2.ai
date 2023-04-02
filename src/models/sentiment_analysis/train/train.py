@@ -1,4 +1,4 @@
-"""This module contains main function for training."""
+"""This module contains main function for sentiment analysis training."""
 
 from sklearn.model_selection import train_test_split
 from src.models.sentiment_analysis.train.bert import BERT
