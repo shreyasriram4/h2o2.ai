@@ -11,9 +11,9 @@ def main():
     valid = valid.reset_index(drop=True)
 
     bert_model = BERT()
-    trained_bert_model, history = bert_model.fit(train, valid)
+    trained_bert_model, history = bert_model.fit(train.copy(), valid.copy())
     trained_bert_model.save_pretrained(FileUtil().BERT_SENTIMENT_MODEL_DIR)
-    bert_ap, bert_pr_auc = bert_model.evaluate(valid)
+    bert_ap, bert_pr_auc = bert_model.evaluate(valid.copy())
     bert_model.plot_training_acc_loss(history)
 
     #  LogReg and LSTM training then add to the metrics below
