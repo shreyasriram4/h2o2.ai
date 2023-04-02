@@ -15,6 +15,7 @@ def main():
     lda, df_corpus, df_id2word, df_bigram = lda_model.fit(df_preproc)
     df_pred = lda_model.predict(df_preproc, lda, df_corpus)
     fig = lda_model.evaluate(df_pred)
+    FileUtil.create_dir_if_not_exists(FileUtil().TOPIC_MODELLING_EVAL_DIR)
     plotly.offline.plot(fig, filename=FileUtil().LDA_TOPIC_FILE_PATH)
 
     # BERTopic
