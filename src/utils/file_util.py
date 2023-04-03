@@ -358,7 +358,8 @@ class FileUtil():
           dic (dict): dictionary of metrics
         """
         if task == "sentiment_analysis":
-            FileUtil.create_dir_if_not_exists(FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
+            FileUtil.create_dir_if_not_exists(
+              FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
             filepath = os.path.join(
                 FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR,
                 FileUtil().METRICS_FILE_NAME)
@@ -377,7 +378,7 @@ class FileUtil():
                 FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR,
                 FileUtil().METRICS_FILE_NAME)
             return self.get_json(self, filepath)
-    
+
     @classmethod
     def put_topics_html(self, model_name: str, fig) -> None:
         """
@@ -394,7 +395,8 @@ class FileUtil():
         if model_name == "LDA":
             plotly.offline.plot(fig, filename=FileUtil().LDA_TOPIC_FILE_PATH)
         elif model_name == "BERTopic":
-            plotly.offline.plot(fig, filename=FileUtil().BERTOPIC_TOPIC_FILE_PATH)
+            plotly.offline.plot(fig,
+                                filename=FileUtil().BERTOPIC_TOPIC_FILE_PATH)
         else:
             plotly.offline.plot(fig, filename=FileUtil().NMF_TOPIC_FILE_PATH)
 
@@ -405,7 +407,7 @@ class FileUtil():
 
         Args:
           model_name (str): model name of the topics
-        
+
         Returns:
           Plotly figure of the topics
         """
@@ -425,5 +427,5 @@ class FileUtil():
 
         call_arg_str = re.findall(r'Plotly\.newPlot\((.*)\)', html[-2**16:])[0]
         call_args = json.loads(f'[{call_arg_str}]')
-        plotly_json = {'data': call_args[1], 'layout': call_args[2]}    
+        plotly_json = {'data': call_args[1], 'layout': call_args[2]}
         return plotly.io.from_json(json.dumps(plotly_json))
