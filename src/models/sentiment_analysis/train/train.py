@@ -28,7 +28,7 @@ def sentiment_analysis_train():
     bert_ap, bert_pr_auc = bert_model.evaluate(valid.copy())
     bert_model.plot_training_acc_loss(history)
 
-     LogReg and LSTM training then add to the metrics below
+    #  LogReg and LSTM training then add to the metrics below
 
     logreg_model = LOGREG()
     df_logreg = df.copy()
@@ -44,9 +44,9 @@ def sentiment_analysis_train():
     logreg_ap, logreg_pr_auc = logreg_model.evaluate(valid)
 
     FileUtil.put_metrics("sentiment_analysis",
-                          {"BERT": {"PR AUC": bert_pr_auc,
-                                    "Average Precision": bert_ap}},
-                         {"LOGREG": {"PR AUC": logreg_pr_auc,
+                         {"BERT": {"PR AUC": bert_pr_auc,
+                                   "Average Precision": bert_ap},
+                          "LOGREG": {"PR AUC": logreg_pr_auc,
                                      "Average Precision": logreg_ap}})
 
 
