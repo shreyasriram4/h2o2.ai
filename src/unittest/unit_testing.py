@@ -507,8 +507,7 @@ def test_sentiment_analysis_train_module():
 
 # TEST FILE UTIL ????
 
-
-if __name__ == "__main__":
+def unit_test():
     # Testing preprocessing utils
     test_convert_sentiment_df()
     test_expand_contractions_df()
@@ -548,3 +547,7 @@ if __name__ == "__main__":
     # Test model-specific training functions
 
     # Test FileUtil module
+
+
+if __name__ == "__main__":
+    unit_test()
