@@ -20,7 +20,8 @@ import keras
 from keras.preprocessing.text import one_hot, Tokenizer, text_to_word_sequence
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from keras.models import Model, Sequential, load_model
-from keras.layers import Dense, Flatten, Embedding, Input, LSTM, ReLU, Dropout, Bidirectional
+from keras.layers import Dense, Flatten, Embedding, Input, LSTM, ReLU, Dropout
+from keras.layers import Bidirectional
 import tensorflow
 from keras.utils import np_utils
 from tensorflow.keras import optimizers
