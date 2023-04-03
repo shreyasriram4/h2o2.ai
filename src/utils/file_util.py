@@ -5,6 +5,8 @@ import functools
 import json
 import os
 import pickle
+import plotly
+import re
 
 import pandas as pd
 import yaml
@@ -84,10 +86,12 @@ class FileUtil():
 
         self.SENTIMENT_ANALYSIS_TRAIN_DIR = os.path.join(
             self.SENTIMENT_ANALYSIS_DIR, "train")
+        self.SENTIMENT_ANALYSIS_EVAL_DIR = os.path.join(
+            self.SENTIMENT_ANALYSIS_DIR, "eval")
         self.BERT_SENTIMENT_MODEL_DIR = os.path.join(
             self.SENTIMENT_ANALYSIS_TRAIN_DIR, "bert_model")
         self.BERT_TRAINING_GRAPH_FILE_PATH = os.path.join(
-            self.SENTIMENT_ANALYSIS_TRAIN_DIR,
+            self.SENTIMENT_ANALYSIS_EVAL_DIR,
             self.BERT_TRAINING_GRAPH_FILENAME)
 
         self.LOGREG_SENTIMENT_MODEL_DIR = os.path.join(
@@ -208,6 +212,20 @@ class FileUtil():
             raise TypeError(f"dic must be of type dict, got {type(dic)}")
         with open(filepath, "w") as f:
             json.dump(dic, f)
+
+    @_check_filepath(".json")
+    def get_json(self, filepath: str):
+        """
+        Get the json from filepath.
+
+        Args:
+          filepath (str): json filepath
+
+        Raises:
+          InvalidExtensionException: If filepath doesn't have json extension
+        """
+        with open(filepath) as json_file:
+            return json.load(json_file)
 
     @classmethod
     def check_dir_exists(self, dir):
@@ -336,14 +354,81 @@ class FileUtil():
     @classmethod
     def put_metrics(self, task: str, dic) -> None:
         """
-        Put metrics into a json file.
+        Put metrics into json file.
 
         Args:
           task (str): VOC task
           dic (dict): dictionary of metrics
         """
         if task == "sentiment_analysis":
+            FileUtil.create_dir_if_not_exists(
+              FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
             filepath = os.path.join(
-                FileUtil().SENTIMENT_ANALYSIS_TRAIN_DIR,
+                FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR,
                 FileUtil().METRICS_FILE_NAME)
-        self.put_json(self, filepath, dic)
+            self.put_json(self, filepath, dic)
+
+    @classmethod
+    def get_metrics(self, task: str):
+        """
+        Get metrics from json file.
+
+        Args:
+          task (str): VOC task
+        """
+        if task == "sentiment_analysis":
+            filepath = os.path.join(
+                FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR,
+                FileUtil().METRICS_FILE_NAME)
+            return self.get_json(self, filepath)
+
+    @classmethod
+    def put_topics_html(self, model_name: str, fig) -> None:
+        """
+        Put topics html into topic modelling eval folder
+
+        Args:
+          model_name (str): model name of the topics
+          fig: Plotly figure
+        """
+        assert model_name in ["LDA", "BERTopic", "NMF"]
+
+        FileUtil.create_dir_if_not_exists(FileUtil().TOPIC_MODELLING_EVAL_DIR)
+
+        if model_name == "LDA":
+            plotly.offline.plot(fig, filename=FileUtil().LDA_TOPIC_FILE_PATH)
+        elif model_name == "BERTopic":
+            plotly.offline.plot(fig,
+                                filename=FileUtil().BERTOPIC_TOPIC_FILE_PATH)
+        else:
+            plotly.offline.plot(fig, filename=FileUtil().NMF_TOPIC_FILE_PATH)
+
+    @classmethod
+    def get_topics_html(self, model_name: str) -> None:
+        """
+        Get topics html from topic modelling eval folder
+
+        Args:
+          model_name (str): model name of the topics
+
+        Returns:
+          Plotly figure of the topics
+        """
+        assert model_name in ["LDA", "BERTopic", "NMF"]
+
+        FileUtil.create_dir_if_not_exists(FileUtil().TOPIC_MODELLING_EVAL_DIR)
+
+        if model_name == "LDA":
+            filepath = FileUtil().LDA_TOPIC_FILE_PATH
+        elif model_name == "BERTopic":
+            filepath = FileUtil().BERTOPIC_TOPIC_FILE_PATH
+        else:
+            filepath = FileUtil().NMF_TOPIC_FILE_PATH
+
+        with open(filepath, encoding="utf8") as f:
+            html = f.read()
+
+        call_arg_str = re.findall(r'Plotly\.newPlot\((.*)\)', html[-2**16:])[0]
+        call_args = json.loads(f'[{call_arg_str}]')
+        plotly_json = {'data': call_args[1], 'layout': call_args[2]}
+        return plotly.io.from_json(json.dumps(plotly_json))

@@ -16,7 +16,7 @@ from src.preprocessing.preprocessing_utils import (
 )
 
 
-def main():
+def preprocess_train():
     df = FileUtil.get_raw_train_data()
     df = apply_cleaning_train(df)
 
@@ -65,4 +65,4 @@ def apply_cleaning_test(df: pd.DataFrame) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    main()
+    preprocess_train()

@@ -1,4 +1,4 @@
-"""This module contains main function for sentiment analysis training."""
+"""This module contains sentiment_analysis_train function."""
 
 from sklearn.model_selection import train_test_split
 # from src.models.sentiment_analysis.train.bert import BERT
@@ -7,7 +7,7 @@ from src.utils.file_util import FileUtil
 import joblib
 
 
-def main():
+def sentiment_analysis_train():
     """
     Train sentiment analysis models on training data.
 
@@ -51,4 +51,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    sentiment_analysis_train()
