@@ -112,8 +112,10 @@ class Lstm(Classifier):
     def build_model(self):
         # Build the LSTM Model
         model = Sequential()
-        model.add(Embedding(input_dim=self.vocab_size, output_dim=self.vector_size,
-                            input_length=self.input_length, weights=[self.embed_matrix]))
+        model.add(Embedding(input_dim=self.vocab_size,
+                            output_dim=self.vector_size,
+                            input_length=self.input_length,
+                            weights=[self.embed_matrix]))
         # embeddings_initializer = Constant(embed_matrix)))
         model.add(LSTM(128))
         model.add(Flatten())
@@ -122,7 +124,9 @@ class Lstm(Classifier):
         model.add(Dense(2, activation='sigmoid'))
 
         model.compile(optimizer=tensorflow.keras.optimizers.RMSprop(
-            learning_rate=self.lr), loss='binary_crossentropy', metrics=['accuracy'])
+            learning_rate=self.lr),
+            loss='binary_crossentropy',
+            metrics=['accuracy'])
 
         checkpoint = ModelCheckpoint(
             self.saved_model_path, monitor="val_accuracy", verbose=1,
