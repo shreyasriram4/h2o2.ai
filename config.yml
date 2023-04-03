@@ -16,6 +16,7 @@ LOGREG: {"sg": 0,
       "vector_size": 100,
       "text_col": "cleaned_text_new",
       "target_col": "sentiment"}
+      
 BERTopic: {
       "vectorizer_model" : 'CountVectorizer',
       "vectorizer_args": {'stop_words': 'english'},
