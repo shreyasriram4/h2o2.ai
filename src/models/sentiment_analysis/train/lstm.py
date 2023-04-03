@@ -22,16 +22,18 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from keras.models import Model, Sequential, load_model
 from keras.layers import Dense, Flatten, Embedding, Input, LSTM, ReLU, Dropout, Bidirectional
 import tensorflow
+from keras.utils import np_utils
+from tensorflow.keras import optimizers
 from tensorflow.compat.v1.keras.layers import CuDNNLSTM
 from keras.initializers import Constant
 from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, EarlyStopping
 
 
-class LSTM(Classifier):
+class Lstm(Classifier):
     def __init__(self, load_model=False):
         self.load_model = load_model
         self.saved_model_path = FileUtil().LSTM_SENTIMENT_MODEL_DIR
-        self.LSTM_cofig = FileUtil.get_config()["LSTM"]
+        self.LSTM_config = FileUtil.get_config()["LSTM"]
         self.batch_size = self.LSTM_config["batch_size"]
         self.target_col = self.LSTM_config["target_col"]
         self.text_col = self.LSTM_config["text_col"]
@@ -43,7 +45,7 @@ class LSTM(Classifier):
         self.patience = self.LSTM_config["patience"]
         self.min_delta = self.LSTM_config["min_delta"]
         self.epochs = self.LSTM_config["epochs"]
-        self.lr = self.LSTM_config["learning rate"]
+        self.lr = self.LSTM_config["learning_rate"]
         self.input_length = self.LSTM_config["input_length"]
         self.history_embedding = ""
         self.callbacks_list = []
@@ -69,10 +71,10 @@ class LSTM(Classifier):
 
         X = df[self.text_col]
         w2v_model = gensim.models.Word2Vec(X,
-                                           self.vector_size,
-                                           self.window,
-                                           self.min_count,
-                                           self.sg)
+                                           vector_size=self.vector_size,
+                                           window=self.window,
+                                           min_count=self.min_count,
+                                           sg=self.sg)
         self.w2v_model = w2v_model
 
         self.tokenizer.fit_on_texts(df['cleaned_text'])
@@ -119,7 +121,7 @@ class LSTM(Classifier):
         model.add(Dropout(0.20))
         model.add(Dense(2, activation='sigmoid'))
 
-        model.compile(optimizer=keras.optimizers.RMSprop(
+        model.compile(optimizer=tensorflow.keras.optimizers.RMSprop(
             learning_rate=self.lr), loss='binary_crossentropy', metrics=['accuracy'])
 
         checkpoint = ModelCheckpoint(
@@ -144,11 +146,11 @@ class LSTM(Classifier):
         X_train_vect = self.get_word_vectors(train)
         X_val_vect = self.get_word_vectors(val)
 
-        y_train = keras.utils.to_categorical(train[self.target_col])
-        y_val = keras.utils.to_categorical(val[self.target_col])
+        y_train = keras.utils.np_utils.to_categorical(train[self.target_col])
+        y_val = keras.utils.np_utils.to_categorical(val[self.target_col])
         history_embedding = self.model.fit(
             X_train_vect, y_train, epochs=self.epochs,
-            batch_size=self.batch_size_lstm, validation_data=(
+            batch_size=self.batch_size, validation_data=(
                 X_val_vect, y_val),
             callbacks=self.callbacks_list)
         self.history_embedding = history_embedding
@@ -159,24 +161,24 @@ class LSTM(Classifier):
         accs = self.history_embedding.history['accuracy']
         val_accs = self.history_embedding.history['val_accuracy']
 
+        plt.figure(figsize=(12, 4))
         plt.plot(accs, c='b', label='train accuracy')
         plt.plot(val_accs, c='r', label='validation accuracy')
         plt.legend(loc='upper right')
-        plt.show()
-
         plt.savefig(FileUtil().LSTM_TRAINING_ACC_GRAPH_FILE_PATH)
+        plt.show()
 
     def plot_training_loss(self):
 
         losses = self.history_embedding.history['loss']
         val_losses = self.history_embedding.history['val_loss']
 
+        plt.figure(figsize=(12, 4))
         plt.plot(losses, c='b', label='train loss')
         plt.plot(val_losses, c='r', label='validation loss')
         plt.legend(loc='upper right')
+        plt.savefig(FileUtil().LSTM_TRAINING_LOSS_GRAPH_FILE_PATH)
         plt.show()
-
-        plt.savefig(FileUtil().LSTM_TRAINING_LOSSES_GRAPH_FILE_PATH)
 
     def predict(self, valid):
 
@@ -196,7 +198,7 @@ class LSTM(Classifier):
 
     def evaluate(self, valid):
         LSTM_test_pred, y_pred = self.predict(valid)
-        y_test = keras.utils.to_categorical(valid[self.target_col])
+        y_test = tensorflow.keras.utils.to_categorical(valid[self.target_col])
 
         # get actual test response
         test_actual = []

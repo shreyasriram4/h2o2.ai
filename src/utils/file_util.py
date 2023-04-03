@@ -71,7 +71,7 @@ class FileUtil():
         self.LSTM_TRAINING_LOSS_GRAPH_FILENAME = self.CONFIG_PARAMS[
             "lstm_training_loss_graph_filename"]
         self.LSTM_TRAINING_ACC_GRAPH_FILENAME = self.CONFIG_PARAMS[
-            "lstm_training_acc__graph_filename"]
+            "lstm_training_acc_graph_filename"]
         self.LDA_TOPIC_FILE_NAME = "lda_topics.html"
         self.BERTOPIC_TOPIC_FILE_NAME = "bertopic_topics.html"
         self.NMF_TOPIC_FILE_NAME = "nmf_topics.html"
