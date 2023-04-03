@@ -219,7 +219,7 @@ class FileUtil():
         Raises:
           InvalidExtensionException: If filepath doesn't have json extension
         """
-        with open('data.json') as json_file:
+        with open(filepath) as json_file:
             return json.load(json_file)
 
     @classmethod
