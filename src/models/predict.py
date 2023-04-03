@@ -1,20 +1,30 @@
+import warnings
+
 import pandas as pd
 from datetime import datetime
+
 from src.utils.file_util import FileUtil
 from src.models.sentiment_analysis.test.predict import predict_sentiment
 from src.models.topic_modelling.test.predict import predict_topic
-from src.preprocessing.transformations import apply_cleaning
+from src.preprocessing.transformations import apply_cleaning_test
 
 
-def predict_sentiment_topic(file_path,
+def predict_sentiment_topic(test_filepath=FileUtil().TEST_FILE_NAME,
                             df=FileUtil.get_raw_train_data()):
-    if file_path:
-        df = pd.read_csv(file_path)
 
-    df = apply_cleaning(df)
+    df.drop(["Sentiment"], errors="ignore", inplace=True, axis=1)
+
+    if test_filepath:
+        df = pd.read_csv(test_filepath)
+
+    df = apply_cleaning_test(df)
+
+    if len(df) == 0:
+        warnings.warn(
+            "No entries in dataframe. Returning empty dataframe.")
+        return df
 
     # df = df.iloc[:10,] #uncomment to predict just the first 10 rows
-
     df = predict_sentiment(df)
     df = predict_topic(df)
 
@@ -26,4 +36,4 @@ def predict_sentiment_topic(file_path,
 
 
 if __name__ == "__main__":
-    predict_sentiment_topic("")
+    predict_sentiment_topic()

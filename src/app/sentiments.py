@@ -1,134 +1,77 @@
 from h2o_wave import main, app, Q, ui, on, handle_on, data
-from helper import add_card, clear_cards
-import pandas as pd
+from src.app.helper import add_card, clear_cards
 
-
-def load_data():
-    data = pd.read_csv('../../../reviews.csv')
-    data.Time = pd.to_datetime(data.Time)
-    data['year_month'] = data.Time.dt.to_period('M')
-    return data
-
-
-df = load_data()
-
-
-def sentiment_over_time_df(df):
-    df['Time'] = df['Time'].dt.strftime("%Y-%m-%d")
-    time_df = df.groupby(['Time', 'Sentiment']).count().reset_index()
-    return time_df
-
-
-time_df = sentiment_over_time_df(df)
+from src.visualisation.dashboard_viz import sentiment_pie_chart
+from src.visualisation.dashboard_viz import sentiment_line_chart_over_time
+from src.visualisation.dashboard_viz import topics_bar_chart
 
 
 @on('#sentiments')
-async def page2(q: Q):
+async def page2(q: Q, df):
     q.page['sidebar'].value = '#sentiments'
     # When routing, drop all the cards except of the main ones
     # (header, sidebar, meta).
     clear_cards(q)
-
-    pos = df.Sentiment.value_counts()['positive']
-    neg = df.Sentiment.value_counts()['negative']
-    total = pos+neg
-    add_card(q, 'piechart', ui.wide_pie_stat_card(
+    print(df)
+    add_card(q, 'article', ui.markdown_card(
         box='horizontal',
-        title='Overall Sentiment',
-        pies=[
-            ui.pie(label='Positive', value=f'{round(pos/total * 100, 1)}%',
-                   fraction=pos/total, color='$green'),
-            ui.pie(label='Negative', value=f'{round(neg/total * 100, 1)}%',
-                   fraction=neg/total, color='$red'),
-        ]
+        title='',
+        content='<div align="center"><h2>Exploring Sentiments</h2></div>',
     ))
 
-    add_card(q, 'time_trend', ui.plot_card(
-        box='horizontal',
-        title='Sentiment Over Time',
-        data=data(fields=time_df.columns.tolist(),
-                  rows=time_df.values.tolist()),
-        plot=ui.plot(marks=[ui.mark(
-            type='line', x='=Time', y='=Text',
-            color='=Sentiment', color_range='$green $red',
-            color_domain=['positive', 'negative'])])
+    add_card(q, 'piechart1', ui.frame_card(
+        box=ui.box(zone='horizontal1', size='1'),
+        title='Overall Sentiment Breakdown',
+        content=await sentiment_pie_chart(data=df),
+        ))
+
+    add_card(q, 'chart2', ui.frame_card(
+        box=ui.box(zone='horizontal1', size='2'),
+        title='Sentiments over Time',
+        content=await sentiment_line_chart_over_time(data=df),
     ))
 
-    add_card(q, 'chart3', ui.markdown_card(
-        box='horizontal1',
-        title='Sentiment by Topic',
-        content='Placeholder for now',
-    ))
+    add_card(q, 'chart3', ui.frame_card(
+        box=ui.box(zone='horizontal2', size='4'),
+        title='Topics by Sentiment',
+        content=await topics_bar_chart(data=df),
+        ))
 
-    add_card(q, 'chart4', ui.markdown_card(
-        box='horizontal1',
-        title='Top Keywords',
-        content='Placeholder for now',
-    ))
-
-    # add_card(q, 'chart1', ui.plot_card(
-    #     box='horizontal',
-    #     title='Chart 1',
-    #     data=data('category country product price', 10, rows=[
-    #         ('G1', 'USA', 'P1', 124),
-    #         ('G1', 'China', 'P2', 580),
-    #         ('G1', 'USA', 'P3', 528),
-    #         ('G1', 'China', 'P1', 361),
-    #         ('G1', 'USA', 'P2', 228),
-    #         ('G2', 'China', 'P3', 418),
-    #         ('G2', 'USA', 'P1', 824),
-    #         ('G2', 'China', 'P2', 539),
-    #         ('G2', 'USA', 'P3', 712),
-    #         ('G2', 'USA', 'P1', 213),
-    #     ]),
-    #     plot=ui.plot([ui.mark(type='interval', x='=product', y='=price',
-    #                           color='=country', stack='auto',
-    #                           dodge='=category', y_min=0)])
-    # ))
-    # add_card(q, 'chart2', ui.plot_card(
-    #     box='horizontal',
-    #     title='Chart 2',
-    #     data=data('date price', 10, rows=[
-    #         ('2020-03-20', 124),
-    #         ('2020-05-18', 580),
-    #         ('2020-08-24', 528),
-    #         ('2020-02-12', 361),
-    #         ('2020-03-11', 228),
-    #         ('2020-09-26', 418),
-    #         ('2020-11-12', 824),
-    #         ('2020-12-21', 539),
-    #         ('2020-03-18', 712),
-    #         ('2020-07-11', 213),
-    #     ]),
-    #     plot=ui.plot([ui.mark(type='line', x_scale='time', x='=date',
-    #                           y='=price', y_min=0)])
-    # ))
-    # add_card(q, 'table', ui.form_card(box='vertical', items=[ui.table(
-    #     name='table',
-    #     downloadable=True,
-    #     resettable=True,
-    #     groupable=True,
-    #     columns=[
-    #         ui.table_column(name='text', label='Process', searchable=True),
-    #         ui.table_column(name='tag', label='Status', filterable=True,
-    #                         cell_type=ui.tag_table_cell_type(
-    #             name='tags',
-    #             tags=[
-    #                 ui.tag(label='FAIL', color='$red'),
-    #                 ui.tag(label='DONE', color='#D2E3F8',
-    #                        label_color='#053975'),
-    #                 ui.tag(label='SUCCESS', color='$mint'),
-    #             ]
-    #         ))
-    #     ],
-    #     rows=[
-    #         ui.table_row(name='row1', cells=['Process 1', 'FAIL']),
-    #         ui.table_row(name='row2', cells=['Process 2', 'SUCCESS,DONE']),
-    #         ui.table_row(name='row3', cells=['Process 3', 'DONE']),
-    #         ui.table_row(name='row4', cells=['Process 4', 'FAIL']),
-    #         ui.table_row(name='row5', cells=['Process 5', 'SUCCESS,DONE']),
-    #         ui.table_row(name='row6', cells=['Process 6', 'DONE']),
-    #     ])
-    # ]))
+    # pos_freq_words = await extract_most_freq_words(data=df, positive=True)
+    # add_card(q, 'topic_data_pos_preview', ui.form_card(
+    #     box=ui.box(zone='horizontal2', size='1', order='1', width='150px'),
+    #     title='Most frequent words appearing in Positive Reviews',
+    #     items=[ui.table(
+    #         name='preview',
+    #         columns=[
+    #                 ui.table_column(name='Word',
+    #                                 label='Word',
+    #                                 sortable=True,
+    #                                 cell_overflow='wrap'),
+    #                 ],
+    #         rows=[
+    #             ui.table_row(name=str(i),
+    #                          cells=[str(i)]) for i in pos_freq_words[0:10]],
+    #         width='200px'),
+    #         ]
+    #     ))
+    # neg_freq_words = await extract_most_freq_words(data=df, positive=False)
+    # add_card(q, 'topic_data_neg_preview', ui.form_card(
+    #     box=ui.box(zone='horizontal2', size='1', order='2', width='150px'),
+    #     title='Most frequent words appearing in Negative Reviews',
+    #     items=[ui.table(
+    #         name='preview',
+    #         columns=[
+    #                 ui.table_column(name='Word',
+    #                                 label='Word',
+    #                                 sortable=True,
+    #                                 cell_overflow='wrap'),
+    #                 ],
+    #         rows=[ui.table_row(name=str(i),
+    #                            cells=[str(i)])
+    #              for i in neg_freq_words[0:10]],
+    #         width='200px'),
+    #         ]
+    #     ))
 
     await q.page.save()

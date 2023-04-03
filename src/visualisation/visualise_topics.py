@@ -1,4 +1,5 @@
 import itertools
+
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -9,6 +10,16 @@ from sklearn.feature_extraction import text
 
 
 def get_top_words(corpus, custom_sw=[]):
+    '''
+    Computes the Tf-idf scores of the list of the words in the corpus.
+    ------------
+    Parameters:
+        corpus (list): list
+        custom_sw (list): list of custom stopwords
+    Returns:
+        dataframe (dataframe): dataframe consisting top words and
+                            its tf-idf score
+    '''
     my_stop_words = list(text.ENGLISH_STOP_WORDS.union(custom_sw))
 
     vec = TfidfVectorizer(stop_words=my_stop_words).fit(corpus)
@@ -21,7 +32,23 @@ def get_top_words(corpus, custom_sw=[]):
                         columns=["top words", "tf-idf score"])
 
 
-def visualise_top_words(df, topics, specific=False, custom_sw=[]):
+def visualise_top_words(df,
+                        topics,
+                        specific=False,
+                        custom_sw=[],
+                        inc_size=False):
+    '''
+    Plots bar chart showing distribution of top words in each topic
+    using the tf-idf scores.
+    ------------
+    Parameters:
+        df (dataframe): dataframe
+        topics (list): list of topics
+        specific (boolean): specifying whether to create plot for a selected
+                        topic or all the topics in the list.
+    Returns:
+        fig (graph object): plotly figure
+    '''
     colors = itertools.cycle(px.colors.qualitative.Plotly)
     # colors = itertools.cycle(["#D55E00", "#0072B2", "#CC79A7", "#E69F00",
     # "#56B4E9", "#009E73", "#F0E442"])
@@ -35,7 +62,7 @@ def visualise_top_words(df, topics, specific=False, custom_sw=[]):
         rows = 1
         columns = 1
     else:
-        subplot_titles = [topic for topic in topics]
+        subplot_titles = [str(topic) for topic in topics]
         columns = 4
         rows = int(np.ceil(len(topics)/columns))
         fig = make_subplots(rows=rows,
@@ -77,13 +104,19 @@ def visualise_top_words(df, topics, specific=False, custom_sw=[]):
         #         size=22,
         #         color="Black")
         # },
-        # width= 1000 if columns > 1 else 400,
-        # height=250*rows if rows > 1 else 250 * 1.3,
         hoverlabel=dict(
             bgcolor="white",
             font_size=16,
             font_family="Rockwell"
         ),
     )
+
+    if inc_size:
+        fig.update_layout(
+            width=1000 if columns > 1 else 400,
+            height=250*rows if rows > 1 else 250 * 1.3
+        )
+
+    fig.update_yaxes(dtick=1)
 
     return fig

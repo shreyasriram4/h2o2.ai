@@ -1,6 +1,7 @@
 # do not push environment stuff
 venv/
 __pycache__/
+.DS_Store
 
 # topic modelling zero shot model pkl
 src/models/topic_modelling/model.pkl
@@ -11,8 +12,13 @@ data/predicted/2023*
 # bert model saved dir for sentiment analysis
 src/models/sentiment_analysis/train/bert_model/
 
-# bert model saved dir for sentiment analysis
+# logreg model saved dir for sentiment analysis
 src/models/sentiment_analysis/train/logreg_model/
+#hide evaluation images temporarily
+src/models/topic_modelling/train/eval/
 
 # vscode extension
 .vscode/
+
+#incomplete
+test.ipynb
