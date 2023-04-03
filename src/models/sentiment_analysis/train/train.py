@@ -38,7 +38,7 @@ def sentiment_analysis_train():
 
     w2v_model = lstm_model.train_w2v_model(tokenized_df)
     lstm_model.get_embedding_matrix()
-    
+
     lstm_model.build_model()
     lstm_model.fit(train, valid)
     lstm_model.plot_training_acc()
@@ -48,9 +48,9 @@ def sentiment_analysis_train():
     #  LogReg and LSTM training then add to the metrics below
 
     FileUtil.put_metrics("sentiment_analysis",
-                          {"BERT": {"PR AUC": bert_pr_auc,
-                                    "Average Precision": bert_ap},
-                         {"LSTM": {"PR AUC": lstm_pr_auc,
+                         {"BERT": {"PR AUC": bert_pr_auc,
+                                   "Average Precision": bert_ap},
+                          "LSTM": {"PR AUC": lstm_pr_auc,
                                    "Average Precision": lstm_ap}})
 
 
