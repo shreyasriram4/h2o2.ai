@@ -2,6 +2,7 @@ from sklearn.model_selection import train_test_split
 from src.models.sentiment_analysis.train.bert import BERT
 from src.models.sentiment_analysis.train.logreg import LOGREG
 from src.utils.file_util import FileUtil
+import joblib
 
 
 def main():
@@ -27,8 +28,9 @@ def main():
     train = train.reset_index(drop=True)
     valid = valid.reset_index(drop=True)
 
-    trained_logreg_model = logreg_model.fit(train, valid)
-    logreg_ap, logreg_pr_auc = logreg_model.evaluate(train, valid)
+    trained_logreg_model = logreg_model.fit(train)
+    joblib.dump(trained_logreg_model, FileUtil().LOGREG_SENTIMENT_MODEL_DIR)
+    logreg_ap, logreg_pr_auc = logreg_model.evaluate(valid)
 
     FileUtil.put_metrics("sentiment_analysis",
                          {"BERT": {"PR AUC": bert_pr_auc,
