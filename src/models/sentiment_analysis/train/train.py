@@ -1,3 +1,5 @@
+"""This module contains main function for sentiment analysis training."""
+
 from sklearn.model_selection import train_test_split
 from src.models.sentiment_analysis.train.bert import BERT
 from src.models.sentiment_analysis.train.logreg import LOGREG
@@ -6,6 +8,14 @@ import joblib
 
 
 def main():
+    """
+    Train sentiment analysis models on training data.
+
+    Processed dataset will be split into 80% train and 20% valid.
+    BERT, Logistic Regression, and LSTM models will be fitted on
+    training data and evaluated on validation data.
+    All 3 models and metrics, and BERT training graph will be saved to storage.
+    """
     df = FileUtil.get_processed_train_data()
     train, valid = train_test_split(df, test_size=0.2)
 
