@@ -28,7 +28,6 @@ def sentiment_analysis_train():
 
     #  LogReg and LSTM training then add to the metrics below
 
-    FileUtil.create_dir_if_not_exists(FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
     FileUtil.put_metrics("sentiment_analysis",
                          {"BERT": {"PR AUC": bert_pr_auc,
                                    "Average Precision": bert_ap}})
