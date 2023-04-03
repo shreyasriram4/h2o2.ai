@@ -1,4 +1,4 @@
-"""This module contains main function for topic model training."""
+"""This module contains topic_modelling_train function."""
 
 import plotly
 
@@ -8,7 +8,7 @@ from src.models.topic_modelling.train.nmf import Tfidf_NMF_Module
 from src.utils.file_util import FileUtil
 
 
-def main():
+def topic_modelling_train():
     """
     Train topic models on training data.
 
@@ -41,4 +41,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    topic_modelling_train()
