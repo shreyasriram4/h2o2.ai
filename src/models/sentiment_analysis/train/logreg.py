@@ -41,7 +41,6 @@ class LOGREG(Classifier):
             self.model = joblib.load(self.saved_model_path)
 
     def tokenize(self, df):
-        nltk.download('punkt')
         df['cleaned_text_new'] = df['cleaned_text'].apply(
             lambda x: word_tokenize(x))
 
