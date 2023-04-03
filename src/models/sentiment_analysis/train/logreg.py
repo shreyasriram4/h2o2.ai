@@ -23,7 +23,6 @@ class LOGREG(Classifier):
         self.load_model = load_model
         self.saved_model_path = FileUtil().LOGREG_SENTIMENT_MODEL_DIR
         self.logreg_config = FileUtil.get_config()["LOGREG"]
-        self.batch_size = self.logreg_config["batch_size"]
         self.target_col = self.logreg_config["target_col"]
         self.text_col = self.logreg_config["text_col"]
         self.vector_size = self.logreg_config["vector_size"]
@@ -49,12 +48,15 @@ class LOGREG(Classifier):
     def train_w2v_model(self, train):
 
         X_train = train[self.text_col]
+
         w2v_model = gensim.models.Word2Vec(X_train,
-                                           self.vector_size,
-                                           self.window,
-                                           self.min_count,
-                                           self.sg)
+                                           vector_size=self.vector_size,
+                                           window=self.window,
+                                           min_count=self.min_count,
+                                           sg=self.sg)
+
         self.w2v_model = w2v_model
+
         return w2v_model
 
     def get_word_vectors(self, df):
@@ -68,7 +70,7 @@ class LOGREG(Classifier):
         # train data
         X_vect = np.array([np.array(
             [self.w2v_model.wv[i] for i in ls if i in words])
-            for ls in X_train])
+            for ls in X_train], dtype=object)
 
         X_vect_avg = []
         for v in X_vect:
@@ -81,8 +83,6 @@ class LOGREG(Classifier):
                 # size of vector that we initially set is 100
                 X_vect_avg.append(np.zeros(self.vector_size,
                                            dtype=float))
-
-        self.train_word_vector = X_vect_avg
 
         return X_vect_avg
 
