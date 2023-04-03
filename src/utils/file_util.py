@@ -359,7 +359,7 @@ class FileUtil():
         """
         if task == "sentiment_analysis":
             FileUtil.create_dir_if_not_exists(
-              FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
+                FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
             filepath = os.path.join(
                 FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR,
                 FileUtil().METRICS_FILE_NAME)
