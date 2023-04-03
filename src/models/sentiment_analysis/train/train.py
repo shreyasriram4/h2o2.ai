@@ -2,6 +2,7 @@
 
 from sklearn.model_selection import train_test_split
 from src.models.sentiment_analysis.train.bert import BERT
+from src.models.sentiment_analysis.train.bert import LSTM
 from src.utils.file_util import FileUtil
 
 
@@ -26,11 +27,24 @@ def main():
     bert_ap, bert_pr_auc = bert_model.evaluate(valid.copy())
     bert_model.plot_training_acc_loss(history)
 
+    lstm_model = LSTM()
+    df_lstm = FileUtil.get_processed_train_data()
+    tokenized_df = lstm_model.tokenize(df_lstm)
+    w2v_model = lstm_model.train_w2v_model(tokenized_df)
+    lstm_model.get_embedding_matrix()
+    lstm_model.build_model()
+    lstm_model.fit(train, valid)
+    lstm_model.plot_training_acc()
+    lstm_model.plot_training_loss()
+    lstm_ap, lstm_pr_auc = lstm_model.evaluate(valid)
+
     #  LogReg and LSTM training then add to the metrics below
 
     FileUtil.put_metrics("sentiment_analysis",
                          {"BERT": {"PR AUC": bert_pr_auc,
-                                   "Average Precision": bert_ap}})
+                                   "Average Precision": bert_ap},
+                          "LSTM": {"PR AUC": lstm_pr_auc,
+                                   "Average Precision": lstm_ap}})
 
 
 if __name__ == "__main__":

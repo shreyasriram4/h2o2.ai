@@ -66,6 +66,10 @@ class FileUtil():
         self.METRICS_FILE_NAME = self.CONFIG_PARAMS["metrics_filename"]
         self.BERT_TRAINING_GRAPH_FILENAME = self.CONFIG_PARAMS[
             "bert_training_graph_filename"]
+        self.LSTM_TRAINING_LOSS_GRAPH_FILENAME = self.CONFIG_PARAMS[
+            "lstm_training_loss_graph_filename"]
+        self.LSTM_TRAINING_ACC_GRAPH_FILENAME = self.CONFIG_PARAMS[
+            "lstm_training_acc__graph_filename"]
         self.LDA_TOPIC_FILE_NAME = "lda_topics.html"
         self.BERTOPIC_TOPIC_FILE_NAME = "bertopic_topics.html"
         self.NMF_TOPIC_FILE_NAME = "nmf_topics.html"
@@ -89,6 +93,15 @@ class FileUtil():
         self.BERT_TRAINING_GRAPH_FILE_PATH = os.path.join(
             self.SENTIMENT_ANALYSIS_TRAIN_DIR,
             self.BERT_TRAINING_GRAPH_FILENAME)
+
+        self.LSTM_SENTIMENT_MODEL_DIR = os.path.join(
+            self.SENTIMENT_ANALYSIS_TRAIN_DIR, "lstm_model")
+        self.LSTM_TRAINING_LOSS_GRAPH_FILE_PATH = os.path.join(
+            self.SENTIMENT_ANALYSIS_TRAIN_DIR,
+            self.LSTM_TRAINING_LOSS_GRAPH_FILENAME)
+        self.LSTM_TRAINING_ACC_GRAPH_FILE_PATH = os.path.join(
+            self.SENTIMENT_ANALYSIS_TRAIN_DIR,
+            self.LSTM_TRAINING_ACC_GRAPH_FILENAME)
 
         self.TOPIC_MODELLING_TRAIN_DIR = os.path.join(self.TOPIC_MODELLING_DIR,
                                                       "train")

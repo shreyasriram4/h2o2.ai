@@ -9,6 +9,21 @@ BERT: {"dropout": 0.1,
       "text_col": "cleaned_text",
       "target_col": "sentiment"}
 
+LSTM: {"vector_size": 100, 
+      "learning_rate": 5e-4, 
+      "batch_size": 128, 
+      "window" : 5,
+      "min_count" : 2,
+      "sg": 0,
+      "verbose": 2,
+      "patience": 3,
+      "min_delta": 1e-2,
+      "epochs": 15,
+      "batch_size": 64,
+      "input_length": 50,
+      "text_col": "cleaned_text_new",
+      "target_col": "sentiment"}
+
 BERTopic: {
       "vectorizer_model" : 'CountVectorizer',
       "vectorizer_args": {'stop_words': 'english'},
@@ -67,6 +82,8 @@ test_filename: ""
 model_filename: "model.pkl"
 metrics_filename: "metrics.json"
 bert_training_graph_filename: "bert_training.png"
+lstm_training_loss_graph_filename: "lstm_training_loss.png"
+lstm_training_acc_graph_filename: "lstm_training_acc.png"
 
 sentiment_analysis_path: "src/models/sentiment_analysis"
 topic_modelling_path: "src/models/topic_modelling"
