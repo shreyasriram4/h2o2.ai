@@ -101,10 +101,10 @@ class FileUtil():
         self.LSTM_SENTIMENT_MODEL_DIR = os.path.join(
             self.SENTIMENT_ANALYSIS_TRAIN_DIR, "lstm_model")
         self.LSTM_TRAINING_LOSS_GRAPH_FILE_PATH = os.path.join(
-            self.SENTIMENT_ANALYSIS_TRAIN_DIR,
+            self.SENTIMENT_ANALYSIS_EVAL_DIR,
             self.LSTM_TRAINING_LOSS_GRAPH_FILENAME)
         self.LSTM_TRAINING_ACC_GRAPH_FILE_PATH = os.path.join(
-            self.SENTIMENT_ANALYSIS_TRAIN_DIR,
+            self.SENTIMENT_ANALYSIS_EVAL_DIR,
             self.LSTM_TRAINING_ACC_GRAPH_FILENAME)
 
         self.TOPIC_MODELLING_TRAIN_DIR = os.path.join(self.TOPIC_MODELLING_DIR,
@@ -372,7 +372,7 @@ class FileUtil():
         """
         if task == "sentiment_analysis":
             FileUtil.create_dir_if_not_exists(
-              FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
+                FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
             filepath = os.path.join(
                 FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR,
                 FileUtil().METRICS_FILE_NAME)

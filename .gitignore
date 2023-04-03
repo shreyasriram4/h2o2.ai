@@ -12,6 +12,9 @@ data/predicted/2023*
 # bert model saved dir for sentiment analysis
 src/models/sentiment_analysis/train/bert_model/
 
+# lstm model saved dir for sentiment analysis
+src/models/sentiment_analysis/train/lstm_model/
+
 #hide evaluation images temporarily
 src/models/topic_modelling/train/eval/
 
