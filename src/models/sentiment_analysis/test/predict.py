@@ -31,6 +31,7 @@ def predict_sentiment(df, model_name=model_name):
         df["sentiment_prob"] = probs
     elif model_name == "Logistic Regression":
         model = LOGREG(True)
+        df = model.tokenize(df)
         label, probs = model.predict(df)
         df["sentiment"] = label
         df["sentiment_prob"] = probs
