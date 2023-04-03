@@ -17,6 +17,8 @@ from gensim.models import Word2Vec
 from src.models.classifier import Classifier
 from src.utils.file_util import FileUtil
 
+nltk.download('punkt')
+
 
 class LOGREG(Classifier):
     def __init__(self, load_model=False):
