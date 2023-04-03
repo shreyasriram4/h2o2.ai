@@ -15,7 +15,7 @@ async def page1_upload(q: Q):
                        width='100%'),
             items=[
                 ui.file_upload(name='file_upload',
-                               label="Upload reviews here (Recommended format"
+                               label="Upload reviews here (Required format"
                                + ": csv file with 2 columns 'Time' and" +
                                " 'Text')",
                                compact=True, multiple=False,
