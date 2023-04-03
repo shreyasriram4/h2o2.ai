@@ -63,5 +63,5 @@ async def page1_preview(q: Q, df):
                                     str,
                                     df[df.columns].values.tolist(
                                         )[i]))) for i in df.index[0:30]],
-                    height='570px'),]))
+                    height='570px'), ]))
     await q.page.save()
