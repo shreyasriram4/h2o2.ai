@@ -11,7 +11,8 @@ from src.preprocessing.preprocessing_utils import (
     remove_trailing_leading_spaces_df,
     rename_column_df,
     replace_multiple_spaces_df,
-    strip_html_tags_df
+    strip_html_tags_df,
+    remove_empty_reviews_df
 )
 
 
@@ -27,6 +28,9 @@ def apply_cleaning_train(df: pd.DataFrame) -> pd.DataFrame:
         df.pipe(convert_sentiment_df)
         .pipe(strip_html_tags_df, src_col="Text", dst_col="Text")
         .pipe(replace_multiple_spaces_df, src_col="Text", dst_col="Text")
+        .pipe(remove_trailing_leading_spaces_df,
+              src_col="Text",
+              dst_col="Text")
         .pipe(lowercase_string_df, src_col="Text")
         .pipe(expand_contractions_df)
         .pipe(remove_numbers_df)
@@ -34,6 +38,7 @@ def apply_cleaning_train(df: pd.DataFrame) -> pd.DataFrame:
         .pipe(remove_stopwords_df)
         .pipe(replace_multiple_spaces_df)
         .pipe(remove_trailing_leading_spaces_df)
+        .pipe(remove_empty_reviews_df)
         .pipe(rename_column_df, "Time", "date")
         .pipe(rename_column_df, "Text", "partially_cleaned_text")
     )
@@ -43,6 +48,9 @@ def apply_cleaning_test(df: pd.DataFrame) -> pd.DataFrame:
     return (
         df.pipe(strip_html_tags_df, src_col="Text", dst_col="Text")
         .pipe(replace_multiple_spaces_df, src_col="Text", dst_col="Text")
+        .pipe(remove_trailing_leading_spaces_df,
+              src_col="Text",
+              dst_col="Text")
         .pipe(lowercase_string_df, src_col="Text")
         .pipe(expand_contractions_df)
         .pipe(remove_numbers_df)
@@ -50,6 +58,7 @@ def apply_cleaning_test(df: pd.DataFrame) -> pd.DataFrame:
         .pipe(remove_stopwords_df)
         .pipe(replace_multiple_spaces_df)
         .pipe(remove_trailing_leading_spaces_df)
+        .pipe(remove_empty_reviews_df)
         .pipe(rename_column_df, "Time", "date")
         .pipe(rename_column_df, "Text", "partially_cleaned_text")
     )

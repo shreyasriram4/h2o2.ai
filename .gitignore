@@ -19,6 +19,4 @@ src/models/topic_modelling/train/eval/
 .vscode/
 
 #incomplete
-notebooks/bertopic.ipynb
-unit-testing.ipynb
 test.ipynb
