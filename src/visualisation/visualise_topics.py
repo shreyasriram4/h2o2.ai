@@ -10,16 +10,17 @@ from sklearn.feature_extraction import text
 
 
 def get_top_words(corpus, custom_sw=[]):
-    '''
-    Computes the Tf-idf scores of the list of the words in the corpus.
-    ------------
-    Parameters:
+    """
+    Extract top words according to their tf-idf scores
+
+    Args:
         corpus (list): list
         custom_sw (list): list of custom stopwords
+
     Returns:
-        dataframe (dataframe): dataframe consisting top words and
-                            its tf-idf score
-    '''
+        dataframe (pd.Dataframe): dataframe consisting top words and
+                            its tf-idf score in descending order
+    """
     my_stop_words = list(text.ENGLISH_STOP_WORDS.union(custom_sw))
 
     vec = TfidfVectorizer(stop_words=my_stop_words).fit(corpus)
@@ -37,21 +38,22 @@ def visualise_top_words(df,
                         specific=False,
                         custom_sw=[],
                         inc_size=False):
-    '''
-    Plots bar chart showing distribution of top words in each topic
+    """
+    Plots bar charts showing distribution of top words in each topic
     using the tf-idf scores.
-    ------------
-    Parameters:
-        df (dataframe): dataframe
+
+    Args:
+        df (pd.Dataframe): dataframe
         topics (list): list of topics
-        specific (boolean): specifying whether to create plot for a selected
-                        topic or all the topics in the list.
+        specific (boolean): If True, create plot for a selected
+                        topic. Else, for all topics in the list.
+        custom_sw (list): list of custom stopwords
+        inc_size (boolean): If True, update layout of fig. Defaults to False.
+
     Returns:
         fig (graph object): plotly figure
-    '''
+    """
     colors = itertools.cycle(px.colors.qualitative.Plotly)
-    # colors = itertools.cycle(["#D55E00", "#0072B2", "#CC79A7", "#E69F00",
-    # "#56B4E9", "#009E73", "#F0E442"])
 
     if specific:
         topic_corpus = df[df["topic"] == topics[0]]
