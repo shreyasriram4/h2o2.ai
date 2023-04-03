@@ -78,7 +78,7 @@ async def sentiment_pie_chart(data):
 
 async def sentiment_line_chart_over_time(data):
     """
-    Plots a line plot of positive and negative sentiments in the data overtime.
+    Plots a line chart of positive and negative sentiments over time.
 
     Args:
         data (pd.Dataframe): dataframe
@@ -101,7 +101,7 @@ async def sentiment_line_chart_over_time(data):
 
 async def topics_bar_chart(data):
     """
-    Bar chart to visualise of the distribution of positive and
+    Bar chart to visualise the distribution of positive and
     negative sentiments for each topic in the data.
 
     Args:
@@ -129,7 +129,7 @@ async def topics_bar_chart(data):
 
 async def topics_line_chart_over_time(data):
     """
-    Plots distribution of topics overtime.
+    Plots trend (number of reviews) of each topic over time.
 
     Args:
         data (pd.Dataframe): dataframe
@@ -213,7 +213,7 @@ async def visualise_all_topics_playground(data, topic):
 async def extract_top_reviews(data, topic, sentiment):
     """
     Extract reviews in the selected topic based on predicted
-    sentiment probability
+    sentiment probability.
 
     Args:
         data (pd.Dataframe): dataframe
