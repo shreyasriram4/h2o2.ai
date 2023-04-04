@@ -54,7 +54,7 @@ def reformat_data(data):
     return data
 
 
-async def sentiment_pie_chart(data):
+def sentiment_pie_chart(data):
     """
     Plots a pie chart to show distribution of positive and negative
     sentiments in the data.
@@ -71,12 +71,12 @@ async def sentiment_pie_chart(data):
                     'negative': px.colors.qualitative.Plotly[1],
                     'positive': px.colors.qualitative.Plotly[2]})
     update_chart(fig)
-    html = pio.to_html(fig, config=None, auto_play=True,
-                       include_plotlyjs="cdn")
-    return html
+    # html = pio.to_html(fig, config=None, auto_play=True,
+    #                    include_plotlyjs="cdn")
+    return fig
 
 
-async def sentiment_line_chart_over_time(data):
+def sentiment_line_chart_over_time(data):
     """
     Plots a line chart of positive and negative sentiments over time.
 
@@ -94,12 +94,12 @@ async def sentiment_line_chart_over_time(data):
                     'negative': px.colors.qualitative.Plotly[1],
                     'positive': px.colors.qualitative.Plotly[2]})
     update_chart(fig)
-    html = pio.to_html(fig, config=None, auto_play=True,
-                       include_plotlyjs="cdn")
-    return html
+    # html = pio.to_html(fig, config=None, auto_play=True,
+    #                    include_plotlyjs="cdn")
+    return fig
 
 
-async def topics_bar_chart(data):
+def topics_bar_chart(data):
     """
     Bar chart to visualise the distribution of positive and
     negative sentiments for each topic in the data.
@@ -122,12 +122,12 @@ async def topics_bar_chart(data):
                     'positive': px.colors.qualitative.Plotly[2]})
     update_chart(fig)
     fig.update_layout(xaxis={"dtick": 1})
-    html = pio.to_html(fig, config=None, auto_play=True,
-                       include_plotlyjs="cdn")
-    return html
+    # html = pio.to_html(fig, config=None, auto_play=True,
+    #                    include_plotlyjs="cdn")
+    return fig
 
 
-async def topics_line_chart_over_time(data):
+def topics_line_chart_over_time(data):
     """
     Plots trend (number of reviews) of each topic over time.
 
@@ -140,12 +140,12 @@ async def topics_line_chart_over_time(data):
     freq_df = data.groupby(['date', 'topic'], as_index=False).size()
     fig = px.area(freq_df, x="date", y="size", color="topic")
     update_chart(fig)
-    html = pio.to_html(fig, config=None, auto_play=True,
-                       include_plotlyjs="cdn")
-    return html
+    # html = pio.to_html(fig, config=None, auto_play=True,
+    #                    include_plotlyjs="cdn")
+    return fig
 
 
-async def topics_pie_chart(data):
+def topics_pie_chart(data):
     """
     Pie chart showing distribution of topics in the data.
 
@@ -158,18 +158,19 @@ async def topics_pie_chart(data):
     fig = px.pie(data, 'topic',
                  category_orders={'topic': CONFIG_PARAMS["labels"]})
     update_chart(fig)
-    fig.update_layout(legend=dict(
-                    yanchor="top",
-                    y=1.0,
-                    xanchor="right",
-                    x=1.5
+    fig.update_layout(margin=dict(t=35, r=5, b=20, l=5),
+                      legend=dict(
+                        yanchor="top",
+                        y=1.0,
+                        xanchor="right",
+                        x=1.4
                 ))
-    html = pio.to_html(fig, config=None, auto_play=True,
-                       include_plotlyjs="cdn")
-    return html
+    # html = pio.to_html(fig, config=None, auto_play=True,
+    #                    include_plotlyjs="cdn")
+    return fig
 
 
-async def visualise_all_topics(data):
+def visualise_all_topics(data):
     """
     Barcharts showing top key words in each topic.
 
@@ -184,12 +185,12 @@ async def visualise_all_topics(data):
                               custom_sw=CONFIG_PARAMS["custom_stopwords"])
     update_chart(fig)
     fig.update_yaxes(dtick=1)
-    html = pio.to_html(fig, config=None, auto_play=True,
-                       include_plotlyjs="cdn")
-    return html
+    # html = pio.to_html(fig, config=None, auto_play=True,
+    #                    include_plotlyjs="cdn")
+    return fig
 
 
-async def visualise_all_topics_playground(data, topic):
+def visualise_all_topics_playground(data, topic):
     """
     Barcharts showing top key words in the selected topic.
 
@@ -205,9 +206,9 @@ async def visualise_all_topics_playground(data, topic):
                               custom_sw=CONFIG_PARAMS["custom_stopwords"])
     update_chart(fig)
     fig.update_yaxes(dtick=1)
-    html = pio.to_html(fig, config=None, auto_play=True,
-                       include_plotlyjs="cdn")
-    return html
+    # html = pio.to_html(fig, config=None, auto_play=True,
+    # include_plotlyjs="cdn")
+    return fig
 
 
 async def extract_top_reviews(data, topic, sentiment):
@@ -270,7 +271,7 @@ async def extract_top_topic_reviews(data, topic):
 #     return html
 
 
-async def topics_bar_chart_over_time(data, time_frame=None):
+def topics_bar_chart_over_time(data, time_frame=None):
     """
     Bar chart plotting the distribution of topics against specified
     time frame.
@@ -300,9 +301,9 @@ async def topics_bar_chart_over_time(data, time_frame=None):
                      barmode='group')
     update_chart(fig)
     fig.update_layout(xaxis=dict(categoryorder='category ascending'))
-    html = pio.to_html(fig, config=None, auto_play=True,
-                       include_plotlyjs="cdn")
-    return html
+    # html = pio.to_html(fig, config=None, auto_play=True,
+    #                    include_plotlyjs="cdn")
+    return fig
 
 
 async def extract_num_topics(data):
@@ -345,7 +346,7 @@ async def extract_num_topics(data):
 #     return word_counter_df['word']
 
 
-async def get_subtopics(data, topic):
+def get_subtopics(data, topic):
     """
     Distribution of subtopics under selected topic.
 
@@ -356,7 +357,6 @@ async def get_subtopics(data, topic):
     Returns:
         html (html): html of the plotly figure
     """
-    print(data.columns)
     df = data[data['topic'] == topic]
     df = df.groupby(['subtopic'], as_index=False).size().sort_values('size')
 
@@ -364,6 +364,12 @@ async def get_subtopics(data, topic):
                  labels={'size': 'Number of Reviews', 'subtopic': 'Subtopic'})
     update_chart(fig)
     fig.update_yaxes(dtick=1)
+    # html = pio.to_html(fig, config=None, auto_play=True,
+    #                    include_plotlyjs="cdn")
+    return fig
+
+
+async def html_output(fig):
     html = pio.to_html(fig, config=None, auto_play=True,
                        include_plotlyjs="cdn")
     return html
