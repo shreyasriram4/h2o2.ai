@@ -78,4 +78,4 @@ bert_training_graph_filename: "bert_training.png"
 
 sentiment_analysis_path: "src/models/sentiment_analysis"
 topic_modelling_path: "src/models/topic_modelling"
-best_sentiment_analysis_model: "Logistic Regression"
+best_sentiment_analysis_model: "BERT"
