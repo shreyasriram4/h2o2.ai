@@ -6,6 +6,7 @@ does sentiment prediction.
 from src.models.sentiment_analysis.train.bert import BERT
 from src.models.sentiment_analysis.train.logreg import LOGREG
 from src.utils.file_util import FileUtil
+from sklearn.model_selection import train_test_split
 
 model_name = FileUtil.get_config()["best_sentiment_analysis_model"]
 
@@ -31,6 +32,7 @@ def predict_sentiment(df, model_name=model_name):
         df["sentiment_prob"] = probs
     elif model_name == "Logistic Regression":
         model = LOGREG(True)
+        model.tokenize(df)
         label, probs = model.predict(df)
         df["sentiment"] = label
         df["sentiment_prob"] = probs

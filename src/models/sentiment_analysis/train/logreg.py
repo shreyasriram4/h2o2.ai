@@ -22,6 +22,7 @@ class LOGREG(Classifier):
     def __init__(self, load_model=False):
         self.load_model = load_model
         self.saved_model_path = FileUtil().LOGREG_SENTIMENT_MODEL_DIR
+        self.saved_w2v_model_path = FileUtil().LOGREG_SENTIMENT_W2V_MODEL_DIR
         self.logreg_config = FileUtil.get_config()["LOGREG"]
         self.target_col = self.logreg_config["target_col"]
         self.text_col = self.logreg_config["text_col"]
@@ -33,9 +34,6 @@ class LOGREG(Classifier):
         self.w2v_model = ""
 
         if load_model:
-            if not FileUtil.check_dir_exists(self.saved_model_path):
-                raise FileNotFoundError("There is no saved model in path",
-                                        self.saved_model_path)
             self.model = joblib.load(self.saved_model_path)
 
     def tokenize(self, df):
@@ -55,6 +53,7 @@ class LOGREG(Classifier):
                                            min_count=self.min_count,
                                            sg=self.sg)
 
+        w2v_model.save(self.saved_w2v_model_path)
         self.w2v_model = w2v_model
 
         return w2v_model
@@ -64,6 +63,8 @@ class LOGREG(Classifier):
         X_train = df[self.text_col]
 
         # words that appear in the train w2v model
+        self.w2v_model = gensim.models.Word2Vec.load(
+            "self.saved_w2v_model_path")
         words = set(self.w2v_model.wv.index_to_key)
         self.word_set = words
 
@@ -104,17 +105,18 @@ class LOGREG(Classifier):
 
         # Use the trained model to make predictions on the val data
 
-        y_test = valid[self.target_col]
         LR_y_pred = self.model.predict_proba(X_valid_vect_avg)
-        lr_y_test = y_test.copy()
-
-        return LR_y_pred, lr_y_test
-
-    def evaluate(self, valid):
-        y_pred, y_label = self.predict(valid)
 
         # keep probabilities for the positive outcome only
-        LR_y_probs = y_pred[:, 1]
+        LR_y_probs = LR_y_pred[:, 1]
+        y_label = self.model.predict(X_valid_vect_avg)
+
+        return y_label, LR_y_probs
+
+    def evaluate(self, valid):
+        y_pred, LR_y_probs = self.predict(valid)
+
+        y_label = valid[self.target_col]
 
         precision, recall, thresholds = precision_recall_curve(
             y_label, LR_y_probs
