@@ -65,7 +65,7 @@ class LOGREG(Classifier):
 
         # words that appear in the train w2v model
         self.w2v_model = gensim.models.Word2Vec.load(
-            "self.saved_w2v_model_path")
+            self.saved_w2v_model_path)
         words = set(self.w2v_model.wv.index_to_key)
         self.word_set = words
 
