@@ -18,9 +18,17 @@ LSTM: {"vector_size": 100,
       "verbose": 2,
       "patience": 3,
       "min_delta": 0.01,
-      "epochs": 8,
+      "epochs": 12,
       "batch_size": 64,
       "input_length": 50,
+      "text_col": "cleaned_text_new",
+      "target_col": "sentiment"}
+
+LOGREG: {"sg": 0, 
+      "min_count": 2,
+      "window": 5,
+      "callback_patience": 5,
+      "vector_size": 100,
       "text_col": "cleaned_text_new",
       "target_col": "sentiment"}
 
