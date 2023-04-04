@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.models.topic_modelling.train package &mdash; H2o2.ai Voice of Customer 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="src.utils package" href="src.utils.html" />
+    <link rel="prev" title="src.models.topic_modelling.test package" href="src.models.topic_modelling.test.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            H2o2.ai Voice of Customer
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">h2o2.ai</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="src.html">src package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="src.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="src.models.html">src.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.utils.html">src.utils package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html">src.visualisation package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#module-src">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">H2o2.ai Voice of Customer</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">h2o2.ai</a></li>
+          <li class="breadcrumb-item"><a href="src.html">src package</a></li>
+          <li class="breadcrumb-item"><a href="src.models.html">src.models package</a></li>
+          <li class="breadcrumb-item"><a href="src.models.topic_modelling.html">src.models.topic_modelling package</a></li>
+      <li class="breadcrumb-item active">src.models.topic_modelling.train package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/src.models.topic_modelling.train.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="src-models-topic-modelling-train-package">
+<h1>src.models.topic_modelling.train package<a class="headerlink" href="#src-models-topic-modelling-train-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-src.models.topic_modelling.train.bertopic">
+<span id="src-models-topic-modelling-train-bertopic-module"></span><h2>src.models.topic_modelling.train.bertopic module<a class="headerlink" href="#module-src.models.topic_modelling.train.bertopic" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.bertopic.BERTopic_Module">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.models.topic_modelling.train.bertopic.</span></span><span class="sig-name descname"><span class="pre">BERTopic_Module</span></span><a class="reference internal" href="_modules/src/models/topic_modelling/train/bertopic.html#BERTopic_Module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.bertopic.BERTopic_Module" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="src.models.html#src.models.classifier.Classifier" title="src.models.classifier.Classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Classifier</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.bertopic.BERTopic_Module.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/bertopic.html#BERTopic_Module.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.bertopic.BERTopic_Module.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate prediction result.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.bertopic.BERTopic_Module.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/bertopic.html#BERTopic_Module.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.bertopic.BERTopic_Module.fit" title="Permalink to this definition"></a></dt>
+<dd><p>Fit the Classifier.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.bertopic.BERTopic_Module.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/bertopic.html#BERTopic_Module.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.bertopic.BERTopic_Module.predict" title="Permalink to this definition"></a></dt>
+<dd><p>Predict using Classifier.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-src.models.topic_modelling.train.lda">
+<span id="src-models-topic-modelling-train-lda-module"></span><h2>src.models.topic_modelling.train.lda module<a class="headerlink" href="#module-src.models.topic_modelling.train.lda" title="Permalink to this heading"></a></h2>
+<p>This module contains LDA topic model class.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.lda.LDA">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.models.topic_modelling.train.lda.</span></span><span class="sig-name descname"><span class="pre">LDA</span></span><a class="reference internal" href="_modules/src/models/topic_modelling/train/lda.html#LDA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.lda.LDA" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="src.models.html#src.models.classifier.Classifier" title="src.models.classifier.Classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Classifier</span></code></a></p>
+<p>LDA topic model class.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.lda.LDA.bigrams">
+<span class="sig-name descname"><span class="pre">bigrams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">words</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/lda.html#LDA.bigrams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.lda.LDA.bigrams" title="Permalink to this definition"></a></dt>
+<dd><p>Add bigrams to text with min count restrictions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>words</strong> (<em>str</em>) – text to add bigrams</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>gensim Phraser</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.lda.LDA.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/lda.html#LDA.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.lda.LDA.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Plot the top words in each topic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe with predicted topic</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Plotly figure of the top words</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>fig</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.lda.LDA.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/lda.html#LDA.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.lda.LDA.fit" title="Permalink to this definition"></a></dt>
+<dd><p>Fit LDA topic model on df.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – train dataframe to fit</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>fitted LDA model
+df_corpus: df word corpus
+df_id2word: df id to words mapping
+df_bigram: df list of bigrams</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>lda</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.lda.LDA.generate_bigrams">
+<span class="sig-name descname"><span class="pre">generate_bigrams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/lda.html#LDA.generate_bigrams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.lda.LDA.generate_bigrams" title="Permalink to this definition"></a></dt>
+<dd><p>Add bigrams to text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – text to add bigrams</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>text with additional bigrams</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.lda.LDA.get_corpus">
+<span class="sig-name descname"><span class="pre">get_corpus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/lda.html#LDA.get_corpus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.lda.LDA.get_corpus" title="Permalink to this definition"></a></dt>
+<dd><p>Get corpus of words, id to words mapping, and bigrams.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe to get corpus</p></li>
+<li><p><strong>column</strong> (<em>str</em>) – text column of df</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>word corpus
+id2word: id to words mapping
+bigram: list of bigrams</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>corpus</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.lda.LDA.lemmatize">
+<span class="sig-name descname"><span class="pre">lemmatize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/lda.html#LDA.lemmatize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.lda.LDA.lemmatize" title="Permalink to this definition"></a></dt>
+<dd><p>Lemmatize text using WordNetLemmatizer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – text to lemmatize</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>lemmatized text</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.lda.LDA.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_corpus</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/lda.html#LDA.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.lda.LDA.predict" title="Permalink to this definition"></a></dt>
+<dd><p>Predict df using LDA fitted model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe to predict</p></li>
+<li><p><strong>lda</strong> – fitted LDA model</p></li>
+<li><p><strong>df_corpus</strong> – corpus of fitted LDA model</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>df with the predicted topic</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.lda.LDA.preprocess">
+<span class="sig-name descname"><span class="pre">preprocess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/lda.html#LDA.preprocess"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.lda.LDA.preprocess" title="Permalink to this definition"></a></dt>
+<dd><p>Preprocess values in column of df.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe to preprocess</p></li>
+<li><p><strong>column</strong> (<em>str</em>) – text column of df</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dataframe with the preprocessed column</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>df</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.lda.LDA.remove_common_words">
+<span class="sig-name descname"><span class="pre">remove_common_words</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/lda.html#LDA.remove_common_words"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.lda.LDA.remove_common_words" title="Permalink to this definition"></a></dt>
+<dd><p>Remove common words from text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – text to remove common words</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>text without common words</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.lda.LDA.sent_to_words">
+<span class="sig-name descname"><span class="pre">sent_to_words</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentences</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/lda.html#LDA.sent_to_words"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.lda.LDA.sent_to_words" title="Permalink to this definition"></a></dt>
+<dd><p>Generate lists of tokens.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>sentences</strong> (<em>str</em>) – list of sentences</p>
+</dd>
+<dt class="field-even">Yields<span class="colon">:</span></dt>
+<dd class="field-even"><p>a list of tokens</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-src.models.topic_modelling.train.nmf">
+<span id="src-models-topic-modelling-train-nmf-module"></span><h2>src.models.topic_modelling.train.nmf module<a class="headerlink" href="#module-src.models.topic_modelling.train.nmf" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.nmf.Tfidf_NMF_Module">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.models.topic_modelling.train.nmf.</span></span><span class="sig-name descname"><span class="pre">Tfidf_NMF_Module</span></span><a class="reference internal" href="_modules/src/models/topic_modelling/train/nmf.html#Tfidf_NMF_Module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.nmf.Tfidf_NMF_Module" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="src.models.html#src.models.classifier.Classifier" title="src.models.classifier.Classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Classifier</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/nmf.html#Tfidf_NMF_Module.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.evaluate" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate prediction result.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/nmf.html#Tfidf_NMF_Module.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.fit" title="Permalink to this definition"></a></dt>
+<dd><p>Fit the Classifier.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/nmf.html#Tfidf_NMF_Module.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.predict" title="Permalink to this definition"></a></dt>
+<dd><p>Predict using Classifier.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.tokenize_df">
+<span class="sig-name descname"><span class="pre">tokenize_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/nmf.html#Tfidf_NMF_Module.tokenize_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.tokenize_df" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-src.models.topic_modelling.train.train">
+<span id="src-models-topic-modelling-train-train-module"></span><h2>src.models.topic_modelling.train.train module<a class="headerlink" href="#module-src.models.topic_modelling.train.train" title="Permalink to this heading"></a></h2>
+<p>This module contains topic_modelling_train function.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.models.topic_modelling.train.train.topic_modelling_train">
+<span class="sig-prename descclassname"><span class="pre">src.models.topic_modelling.train.train.</span></span><span class="sig-name descname"><span class="pre">topic_modelling_train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/train.html#topic_modelling_train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.train.topic_modelling_train" title="Permalink to this definition"></a></dt>
+<dd><p>Train topic models on training data.</p>
+<p>LDA, BERTopic, and NMF models will be fitted on training data.
+All 3 models’ topics plot will be saved to eval folder.</p>
+</dd></dl>
+
+</section>
+<section id="module-src.models.topic_modelling.train">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.models.topic_modelling.train" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="src.models.topic_modelling.test.html" class="btn btn-neutral float-left" title="src.models.topic_modelling.test package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.utils.html" class="btn btn-neutral float-right" title="src.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, H2o2.ai.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

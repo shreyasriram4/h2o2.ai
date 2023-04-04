@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.models.sentiment_analysis.train.bert &mdash; H2o2.ai Voice of Customer 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            H2o2.ai Voice of Customer
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../modules.html">h2o2.ai</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">H2o2.ai Voice of Customer</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">src.models.sentiment_analysis.train.bert</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for src.models.sentiment_analysis.train.bert</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This module contains BERT sentiment analysis class.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">auc</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">average_precision_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">precision_recall_curve</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">BertTokenizer</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">BertConfig</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">InputExample</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">InputFeatures</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">TFBertForSequenceClassification</span>
+
+<span class="kn">from</span> <span class="nn">src.models.classifier</span> <span class="kn">import</span> <span class="n">Classifier</span>
+<span class="kn">from</span> <span class="nn">src.utils.file_util</span> <span class="kn">import</span> <span class="n">FileUtil</span>
+
+
+<div class="viewcode-block" id="BERT"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.bert.BERT">[docs]</a><span class="k">class</span> <span class="nc">BERT</span><span class="p">(</span><span class="n">Classifier</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;BERT sentiment analysis class.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">load_model</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor for BERT class.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          load_model (bool): boolean value to indicate</span>
+<span class="sd">          whether to load trained model or not</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">          FileNotFoundError: If load_model is True, but</span>
+<span class="sd">          there is no trained model in the BERT sentiment</span>
+<span class="sd">          model directory</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_model</span> <span class="o">=</span> <span class="n">load_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">saved_model_path</span> <span class="o">=</span> <span class="n">FileUtil</span><span class="p">()</span><span class="o">.</span><span class="n">BERT_SENTIMENT_MODEL_DIR</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">BertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;bert-base-uncased&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bert_config</span> <span class="o">=</span> <span class="n">FileUtil</span><span class="o">.</span><span class="n">get_config</span><span class="p">()[</span><span class="s2">&quot;BERT&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bert_config</span><span class="p">[</span><span class="s2">&quot;batch_size&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bert_config</span><span class="p">[</span><span class="s2">&quot;target_col&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bert_config</span><span class="p">[</span><span class="s2">&quot;text_col&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">load_model</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config_layer</span> <span class="o">=</span> <span class="n">BertConfig</span><span class="p">(</span>
+                <span class="n">hidden_dropout_prob</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bert_config</span><span class="p">[</span><span class="s2">&quot;dropout&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">TFBertForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+                <span class="s2">&quot;bert-base-uncased&quot;</span><span class="p">,</span>
+                <span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config_layer</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
+                <span class="n">learning_rate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bert_config</span><span class="p">[</span><span class="s2">&quot;learning_rate&quot;</span><span class="p">],</span>
+                <span class="n">epsilon</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bert_config</span><span class="p">[</span><span class="s2">&quot;epsilon&quot;</span><span class="p">],</span>
+                <span class="n">clipnorm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bert_config</span><span class="p">[</span><span class="s2">&quot;clipnorm&quot;</span><span class="p">]</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">SparseCategoricalCrossentropy</span><span class="p">(</span>
+                <span class="n">from_logits</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">SparseCategoricalAccuracy</span><span class="p">(</span>
+                <span class="s1">&#39;accuracy&#39;</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">callback</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">EarlyStopping</span><span class="p">(</span>
+                <span class="n">monitor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bert_config</span><span class="p">[</span><span class="s2">&quot;callback_monitor&quot;</span><span class="p">],</span>
+                <span class="n">patience</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bert_config</span><span class="p">[</span><span class="s2">&quot;callback_patience&quot;</span><span class="p">],</span>
+                <span class="n">restore_best_weights</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">FileUtil</span><span class="o">.</span><span class="n">check_dir_exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">saved_model_path</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s2">&quot;There is no saved model in path&quot;</span><span class="p">,</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">saved_model_path</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">TFBertForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">saved_model_path</span>
+                <span class="p">)</span>
+
+<div class="viewcode-block" id="BERT.fit"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.bert.BERT.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train</span><span class="p">,</span> <span class="n">valid</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fit BERT model on train data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          train (pd.DataFrame): train dataframe</span>
+<span class="sd">          valid (pd.DataFrame): valid dataframe</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          self.model: fitted model</span>
+<span class="sd">          history: training history</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">True</span>
+        <span class="n">train_InputExamples</span><span class="p">,</span> <span class="n">validation_InputExamples</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">convert_data_to_examples</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">valid</span><span class="p">,</span>
+                                          <span class="bp">self</span><span class="o">.</span><span class="n">text_col</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_col</span><span class="p">)</span>
+
+        <span class="n">train_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_examples_to_tf_dataset</span><span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span><span class="n">train_InputExamples</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span>
+            <span class="p">)</span>
+        <span class="n">train_data</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">)</span>
+
+        <span class="n">validation_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_examples_to_tf_dataset</span><span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span><span class="n">validation_InputExamples</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span>
+            <span class="p">)</span>
+        <span class="n">validation_data</span> <span class="o">=</span> <span class="n">validation_data</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="p">,</span>
+                           <span class="n">loss</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">,</span>
+                           <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">])</span>
+
+        <span class="n">history</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span>
+                                 <span class="n">epochs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bert_config</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">],</span>
+                                 <span class="n">validation_data</span><span class="o">=</span><span class="n">validation_data</span><span class="p">,</span>
+                                 <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">history</span></div>
+
+<div class="viewcode-block" id="BERT.predict"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.bert.BERT.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predict BERT model on test data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          test (pd.DataFrame): test dataframe</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          label: predicted sentiment labels for test dataset</span>
+<span class="sd">          probs: probabilities of the predicted sentiment labels</span>
+<span class="sd">          tf_predictions: probabilities of both labels 0 and 1 for test dataset</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tf_outputs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">))):</span>
+            <span class="n">tf_batch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="p">(</span>
+                <span class="nb">list</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">text_col</span><span class="p">]</span>
+                     <span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">:</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">]),</span>
+                <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">return_tensors</span><span class="o">=</span><span class="s1">&#39;tf&#39;</span>
+                <span class="p">)</span>
+            <span class="n">tf_outputs</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">tf_batch</span><span class="p">)[</span><span class="s2">&quot;logits&quot;</span><span class="p">])</span>
+
+        <span class="n">tf_predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">tf_outputs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">logit</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logit</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logit</span><span class="p">))),</span>
+                         <span class="n">tf_predictions</span><span class="p">))</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">tf_predictions</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">label</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">tf_predictions</span></div>
+
+<div class="viewcode-block" id="BERT.evaluate"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.bert.BERT.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">valid</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluate BERT model performance on valid data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          valid (pd.DataFrame): valid dataframe</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          ap: average precision score</span>
+<span class="sd">          pr_auc: precision recall area under curve score</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">label</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">tf_predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">valid</span><span class="p">)</span>
+        <span class="n">all_probs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">logit</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logit</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logit</span><span class="p">)),</span>
+                             <span class="n">tf_predictions</span><span class="p">))</span>
+
+        <span class="n">y_scores</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">prob</span><span class="p">:</span> <span class="n">prob</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">all_probs</span><span class="p">))</span>
+        <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span>
+            <span class="n">valid</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target_col</span><span class="p">],</span> <span class="n">y_scores</span>
+            <span class="p">)</span>
+
+        <span class="n">ap</span> <span class="o">=</span> <span class="n">average_precision_score</span><span class="p">(</span><span class="n">valid</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target_col</span><span class="p">],</span> <span class="n">y_scores</span><span class="p">)</span>
+        <span class="n">pr_auc</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">recall</span><span class="p">,</span> <span class="n">precision</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ap</span><span class="p">,</span> <span class="n">pr_auc</span></div>
+
+<div class="viewcode-block" id="BERT.plot_training_acc_loss"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.bert.BERT.plot_training_acc_loss">[docs]</a>    <span class="k">def</span> <span class="nf">plot_training_acc_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">history</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot and save BERT training graph.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          history: BERT model training history</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">losses</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">]</span>
+        <span class="n">accs</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span>
+        <span class="n">val_losses</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_loss&#39;</span><span class="p">]</span>
+        <span class="n">val_accs</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_accuracy&#39;</span><span class="p">]</span>
+        <span class="n">epochs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">losses</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">metrics</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="n">losses</span><span class="p">,</span> <span class="n">accs</span><span class="p">],</span> <span class="p">[</span><span class="n">val_losses</span><span class="p">,</span> <span class="n">val_accs</span><span class="p">],</span>
+                                        <span class="p">[</span><span class="s1">&#39;Loss&#39;</span><span class="p">,</span> <span class="s1">&#39;Accuracy&#39;</span><span class="p">])):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">epochs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">metrics</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">metrics</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;BERT Training Graph&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">epochs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">metrics</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Validation </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">metrics</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;BERT Training Graph&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">FileUtil</span><span class="p">()</span><span class="o">.</span><span class="n">BERT_TRAINING_GRAPH_FILE_PATH</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BERT.convert_data_to_examples"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.bert.BERT.convert_data_to_examples">[docs]</a>    <span class="k">def</span> <span class="nf">convert_data_to_examples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train</span><span class="p">,</span> <span class="n">valid</span><span class="p">,</span> <span class="n">TEXT_COL</span><span class="p">,</span> <span class="n">SENTIMENT_COL</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert train and valid data into InputExample format.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          train (pd.DataFrame): train dataframe</span>
+<span class="sd">          valid (pd.DataFrame): valid dataframe</span>
+<span class="sd">          TEXT_COL (str): text column name in train and valid</span>
+<span class="sd">          SENTIMENT_COL (str): sentiment column name in train and valid</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          train_InputExamples: InputExample of all rows in train</span>
+<span class="sd">          validation_InputExamples: InputExample of all rows in valid</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">train_InputExamples</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">InputExample</span><span class="p">(</span><span class="n">guid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                   <span class="n">text_a</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">TEXT_COL</span><span class="p">],</span>
+                                   <span class="n">text_b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                   <span class="n">label</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">SENTIMENT_COL</span><span class="p">]),</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+            <span class="p">)</span>
+
+        <span class="n">validation_InputExamples</span> <span class="o">=</span> <span class="n">valid</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">InputExample</span><span class="p">(</span><span class="n">guid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                   <span class="n">text_a</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">TEXT_COL</span><span class="p">],</span>
+                                   <span class="n">text_b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                   <span class="n">label</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">SENTIMENT_COL</span><span class="p">]),</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">train_InputExamples</span><span class="p">,</span> <span class="n">validation_InputExamples</span></div>
+
+<div class="viewcode-block" id="BERT.convert_examples_to_tf_dataset"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.bert.BERT.convert_examples_to_tf_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">convert_examples_to_tf_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">examples</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span>
+                                       <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert InputExample into tensorflow dataset.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          examples (list): list of InputExample</span>
+<span class="sd">          tokenizer (BertTokenizer): BERT tokenizer</span>
+<span class="sd">          max_length (int, optional): max_length of text encoding.</span>
+<span class="sd">          Default is 50.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          tensorflow dataset</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">examples</span><span class="p">:</span>
+            <span class="c1"># Documentation is really strong for this method,</span>
+            <span class="c1"># so please take a look at it</span>
+            <span class="n">input_dict</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">encode_plus</span><span class="p">(</span>
+                <span class="n">e</span><span class="o">.</span><span class="n">text_a</span><span class="p">,</span>
+                <span class="n">add_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">max_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">,</span>  <span class="c1"># truncates if len(s) &gt; max_length</span>
+                <span class="n">return_token_type_ids</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">return_attention_mask</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">pad_to_max_length</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># pads to the right by default</span>
+                <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+
+            <span class="n">input_ids</span><span class="p">,</span> <span class="n">token_type_ids</span><span class="p">,</span> <span class="n">attention_mask</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">],</span>
+                <span class="n">input_dict</span><span class="p">[</span><span class="s2">&quot;token_type_ids&quot;</span><span class="p">],</span>
+                <span class="n">input_dict</span><span class="p">[</span><span class="s1">&#39;attention_mask&#39;</span><span class="p">]</span>
+                <span class="p">)</span>
+
+            <span class="n">features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">InputFeatures</span><span class="p">(</span>
+                    <span class="n">input_ids</span><span class="o">=</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">attention_mask</span><span class="o">=</span><span class="n">attention_mask</span><span class="p">,</span>
+                    <span class="n">token_type_ids</span><span class="o">=</span><span class="n">token_type_ids</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">label</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">gen</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="p">(</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;input_ids&quot;</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">input_ids</span><span class="p">,</span>
+                        <span class="s2">&quot;attention_mask&quot;</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">attention_mask</span><span class="p">,</span>
+                        <span class="s2">&quot;token_type_ids&quot;</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">token_type_ids</span><span class="p">,</span>
+                    <span class="p">},</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">label</span><span class="p">,</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_generator</span><span class="p">(</span>
+            <span class="n">gen</span><span class="p">,</span>
+            <span class="p">({</span><span class="s2">&quot;input_ids&quot;</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="s2">&quot;attention_mask&quot;</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span>
+              <span class="s2">&quot;token_type_ids&quot;</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">},</span> <span class="n">tf</span><span class="o">.</span><span class="n">int64</span><span class="p">),</span>
+            <span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;input_ids&quot;</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">TensorShape</span><span class="p">([</span><span class="kc">None</span><span class="p">]),</span>
+                    <span class="s2">&quot;attention_mask&quot;</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">TensorShape</span><span class="p">([</span><span class="kc">None</span><span class="p">]),</span>
+                    <span class="s2">&quot;token_type_ids&quot;</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">TensorShape</span><span class="p">([</span><span class="kc">None</span><span class="p">]),</span>
+                <span class="p">},</span>
+                <span class="n">tf</span><span class="o">.</span><span class="n">TensorShape</span><span class="p">([]),</span>
+            <span class="p">),</span>
+        <span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, H2o2.ai.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
