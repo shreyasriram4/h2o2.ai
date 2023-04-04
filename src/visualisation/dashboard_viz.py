@@ -8,9 +8,6 @@ import plotly.express as px
 from plotly import graph_objects as go
 from plotly import io as pio
 
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.feature_extraction import text
-
 from src.visualisation.visualise_topics import visualise_top_words
 
 with open(os.path.join(os.getcwd(), "config.yml"), "r") as ymlfile:
@@ -63,7 +60,7 @@ def sentiment_pie_chart(data):
         data (pd.Dataframe): dataframe
 
     Returns:
-        html (html): html of plotly figure
+        fig (graph object): plotly pie chart figure
     """
     fig = px.pie(data, names='sentiment',
                  color='sentiment',
@@ -71,8 +68,6 @@ def sentiment_pie_chart(data):
                     'negative': px.colors.qualitative.Plotly[1],
                     'positive': px.colors.qualitative.Plotly[2]})
     update_chart(fig)
-    # html = pio.to_html(fig, config=None, auto_play=True,
-    #                    include_plotlyjs="cdn")
     return fig
 
 
@@ -84,7 +79,7 @@ def sentiment_line_chart_over_time(data):
         data (pd.Dataframe): dataframe
 
     Returns:
-        html (html): html of the plotly figure
+        fig (graph object): plotly line chart figure
     """
     freq_df = data.groupby(['date', 'sentiment'], as_index=False).size()
     fig = px.line(freq_df, x="date", y="size",
@@ -94,8 +89,6 @@ def sentiment_line_chart_over_time(data):
                     'negative': px.colors.qualitative.Plotly[1],
                     'positive': px.colors.qualitative.Plotly[2]})
     update_chart(fig)
-    # html = pio.to_html(fig, config=None, auto_play=True,
-    #                    include_plotlyjs="cdn")
     return fig
 
 
@@ -108,7 +101,7 @@ def topics_bar_chart(data):
         data (pd.Dataframe): dataframe
 
     Returns:
-        html (html): html of the plotly figure
+        fig (graph object): plotly bar chart figure
     """
     freq_df = data.groupby(['topic', 'sentiment'], as_index=False).size()
     freq_df['pct'] = freq_df.groupby('topic',
@@ -122,8 +115,6 @@ def topics_bar_chart(data):
                     'positive': px.colors.qualitative.Plotly[2]})
     update_chart(fig)
     fig.update_layout(xaxis={"dtick": 1})
-    # html = pio.to_html(fig, config=None, auto_play=True,
-    #                    include_plotlyjs="cdn")
     return fig
 
 
@@ -135,13 +126,11 @@ def topics_line_chart_over_time(data):
         data (pd.Dataframe): dataframe
 
     Returns:
-        html (html): html of the plotly figure
+        fig (graph object): plotly line chart figure
     """
     freq_df = data.groupby(['date', 'topic'], as_index=False).size()
     fig = px.area(freq_df, x="date", y="size", color="topic")
     update_chart(fig)
-    # html = pio.to_html(fig, config=None, auto_play=True,
-    #                    include_plotlyjs="cdn")
     return fig
 
 
@@ -153,7 +142,7 @@ def topics_pie_chart(data):
         data (pd.Dataframe): dataframe
 
     Returns:
-        html (html): html of the plotly figure
+        fig (graph object): plotly pie chart figure
     """
     fig = px.pie(data, 'topic',
                  category_orders={'topic': CONFIG_PARAMS["labels"]})
@@ -165,8 +154,6 @@ def topics_pie_chart(data):
                         xanchor="right",
                         x=1.4
                 ))
-    # html = pio.to_html(fig, config=None, auto_play=True,
-    #                    include_plotlyjs="cdn")
     return fig
 
 
@@ -178,15 +165,13 @@ def visualise_all_topics(data):
         data (pd.Dataframe): dataframe
 
     Returns:
-        html (html): html of the plotly figure
+        fig (graph object): plotly figure
     """
     fig = visualise_top_words(data, topics=CONFIG_PARAMS["labels"],
                               specific=False,
                               custom_sw=CONFIG_PARAMS["custom_stopwords"])
     update_chart(fig)
     fig.update_yaxes(dtick=1)
-    # html = pio.to_html(fig, config=None, auto_play=True,
-    #                    include_plotlyjs="cdn")
     return fig
 
 
@@ -199,15 +184,13 @@ def visualise_all_topics_playground(data, topic):
         topic (str): string of topic
 
     Returns:
-        html (html): html of the plotly figure
+        fig (graph object): plotly figure
     """
     fig = visualise_top_words(data, topics=topic,
                               specific=True,
                               custom_sw=CONFIG_PARAMS["custom_stopwords"])
     update_chart(fig)
     fig.update_yaxes(dtick=1)
-    # html = pio.to_html(fig, config=None, auto_play=True,
-    # include_plotlyjs="cdn")
     return fig
 
 
@@ -220,8 +203,10 @@ async def extract_top_reviews(data, topic, sentiment):
         data (pd.Dataframe): dataframe
         topic (str): string of topic
         sentiment (str): sentiment (e.g 'positive' or 'negative')
+
     Returns:
-        html (html): html of the plotly figure
+        topic_sliced (list): list of reviews sorted by sentiment probability
+        in descending order
     """
     topic_df = data[(data["topic"] == topic) &
                     (data["sentiment"] == sentiment)]
@@ -251,26 +236,6 @@ async def extract_top_topic_reviews(data, topic):
     return topic_sliced
 
 
-# async def topics_line_chart_by_quarter(data):
-#     """
-#     Line chart plotting the distribution of topics overtime.
-#
-#     Args:
-#         data (pd.Dataframe): dataframe
-#     Returns:
-#         html (html): html of the plotly figure
-#     """
-#     data['year_quarter'] = data['date'].dt.to_period('Q').astype('string')
-#     freq_df = data.groupby(['year_quarter', 'topic'], as_index=False).size()
-#     fig = px.area(freq_df, x="year_quarter", y="size", color="topic",
-#                   category_orders={'topic': CONFIG_PARAMS["labels"]},
-#                   labels={"topic": "Topic", 'size': "Number of reviews"})
-#     update_chart(fig)
-#     html = pio.to_html(fig, config=None, auto_play=True,
-#                        include_plotlyjs="cdn")
-#     return html
-
-
 def topics_bar_chart_over_time(data, time_frame=None):
     """
     Bar chart plotting the distribution of topics against specified
@@ -282,7 +247,7 @@ def topics_bar_chart_over_time(data, time_frame=None):
                         (eg. "M" for months or "Q" for quarter)
 
     Returns:
-        html (html): html of the plotly figure
+        fig (graph object): plotly bar chart figure
     """
     if time_frame is not None:
         data['date_frame'] = data['date'].dt.to_period(
@@ -301,8 +266,6 @@ def topics_bar_chart_over_time(data, time_frame=None):
                      barmode='group')
     update_chart(fig)
     fig.update_layout(xaxis=dict(categoryorder='category ascending'))
-    # html = pio.to_html(fig, config=None, auto_play=True,
-    #                    include_plotlyjs="cdn")
     return fig
 
 
@@ -320,42 +283,16 @@ async def extract_num_topics(data):
     return str(num_topics)
 
 
-# async def extract_most_freq_words(data, positive=True):
-#     """
-#     Extracts the most frequent words among positive and negative
-#     sentiments respectively.
-#
-#     Args:
-#         data (pd.Dataframe): dataframe
-#     Returns:
-#         word (list): list of most frequently appearing words
-#     """
-#     if positive is True:
-#         df = data[data['sentiment'] == 'positive']
-#     else:
-#         df = data[data['sentiment'] == 'negative']
-#     my_stop_words = list(text.ENGLISH_STOP_WORDS.union(
-#         CONFIG_PARAMS["custom_stopwords"]))
-#     cv = CountVectorizer(stop_words=my_stop_words)
-#     bow = cv.fit_transform(df['cleaned_text'])
-#     word_freq = dict(zip(cv.get_feature_names(),
-#                          np.asarray(bow.sum(axis=0)).ravel()))
-#     word_counter = collections.Counter(word_freq)
-#     word_counter_df = pd.DataFrame(word_counter.most_common(20),
-#                                    columns=['word', 'freq'])
-#     return word_counter_df['word']
-
-
 def get_subtopics(data, topic):
     """
     Distribution of subtopics under selected topic.
 
     Args:
         data (pd.Dataframe): dataframe
-        topic (str): string of topic
+        topic (str): string representing topic
 
     Returns:
-        html (html): html of the plotly figure
+        fig (graph object): plotly figure
     """
     df = data[data['topic'] == topic]
     df = df.groupby(['subtopic'], as_index=False).size().sort_values('size')
@@ -364,12 +301,20 @@ def get_subtopics(data, topic):
                  labels={'size': 'Number of Reviews', 'subtopic': 'Subtopic'})
     update_chart(fig)
     fig.update_yaxes(dtick=1)
-    # html = pio.to_html(fig, config=None, auto_play=True,
-    #                    include_plotlyjs="cdn")
     return fig
 
 
 async def html_output(fig):
+    """
+    Converts plotly figure to html
+
+    Args:
+        fig (graph object): plotly figure
+
+    Returns:
+        html (html): html of plotly figure
+    """
+
     html = pio.to_html(fig, config=None, auto_play=True,
                        include_plotlyjs="cdn")
     return html
