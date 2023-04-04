@@ -4,8 +4,9 @@ does sentiment prediction.
 """
 
 from src.models.sentiment_analysis.train.bert import BERT
-from src.models.sentiment_analysis.train.bert import LSTM
+from src.models.sentiment_analysis.train.lstm import Lstm
 from src.utils.file_util import FileUtil
+from sklearn.model_selection import train_test_split
 
 model_name = FileUtil.get_config()["best_sentiment_analysis_model"]
 
@@ -32,8 +33,8 @@ def predict_sentiment(df, model_name=model_name):
     elif model_name == "Logistic Regression":
         pass
     else:
-        model = LSTM(True)
-        label, probs, tf_predictions = model.predict(df)
+        model = Lstm(True)
+        label, probs = model.predict(df)
         df["sentiment"] = label
         df["sentiment_prob"] = probs
 

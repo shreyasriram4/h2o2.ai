@@ -31,8 +31,8 @@ from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, EarlyStopping
 
 
 class Lstm(Classifier):
-    def __init__(self, load_model=False):
-        self.load_model = load_model
+    def __init__(self, load_model_bool=False):
+        self.load_model = load_model_bool
         self.saved_model_path = FileUtil().LSTM_SENTIMENT_MODEL_DIR
         self.LSTM_config = FileUtil.get_config()["LSTM"]
         self.batch_size = self.LSTM_config["batch_size"]
@@ -55,7 +55,7 @@ class Lstm(Classifier):
         self.model = ""
         self.tokenizer = Tokenizer()
         self.embed_matrix = ""
-        if load_model:
+        if self.load_model:
             if not FileUtil.check_dir_exists(self.saved_model_path):
                 raise FileNotFoundError("There is no saved model in path",
                                         self.saved_model_path)
@@ -78,15 +78,14 @@ class Lstm(Classifier):
                                            sg=self.sg)
         self.w2v_model = w2v_model
 
-        self.tokenizer.fit_on_texts(df['cleaned_text'])
-        # number of unique text in the data
-        vocab_size = len(self.tokenizer.word_index) + 1
-        self.vocab_size = vocab_size
-
         return w2v_model
 
     def get_word_vectors(self, df):
 
+        self.tokenizer.fit_on_texts(df['cleaned_text'])
+        # number of unique text in the data
+        vocab_size = len(self.tokenizer.word_index) + 1
+        self.vocab_size = vocab_size
         # this converts texts into some numeric sequences
         encd_rev = self.tokenizer.texts_to_sequences(df['cleaned_text'])
 
@@ -192,17 +191,21 @@ class Lstm(Classifier):
         # Use the trained model to make predictions on the val data
 
         LSTM_y_pred = self.model.predict(X_val_vect)
+
+        # keep probabilities for the positive outcome only
+        LSTM_y_probs = LSTM_y_pred[:, 1]
         LSTM_test_pred = []
+
         for pred in LSTM_y_pred:
             if pred[0] >= 0.5:
                 LSTM_test_pred.append(0)
             else:
                 LSTM_test_pred.append(1)
 
-        return LSTM_test_pred, LSTM_y_pred
+        return LSTM_test_pred, LSTM_y_probs
 
     def evaluate(self, valid):
-        LSTM_test_pred, y_pred = self.predict(valid)
+        LSTM_test_pred, LSTM_y_probs = self.predict(valid)
         y_test = tensorflow.keras.utils.to_categorical(valid[self.target_col])
 
         # get actual test response
@@ -213,9 +216,6 @@ class Lstm(Classifier):
                 test_actual.append(0)
             else:
                 test_actual.append(1)
-
-        # keep probabilities for the positive outcome only
-        LSTM_y_probs = y_pred[:, 1]
 
         LSTM_precision, LSTM_recall, LSTM_thresholds = precision_recall_curve(
             test_actual, LSTM_y_probs)

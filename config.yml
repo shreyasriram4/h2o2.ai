@@ -18,7 +18,7 @@ LSTM: {"vector_size": 100,
       "verbose": 2,
       "patience": 3,
       "min_delta": 0.01,
-      "epochs": 2,
+      "epochs": 8,
       "batch_size": 64,
       "input_length": 50,
       "text_col": "cleaned_text_new",
@@ -87,4 +87,4 @@ lstm_training_acc_graph_filename: "lstm_training_acc.png"
 
 sentiment_analysis_path: "src/models/sentiment_analysis"
 topic_modelling_path: "src/models/topic_modelling"
-best_sentiment_analysis_model: "BERT"
+best_sentiment_analysis_model: "LSTM"
