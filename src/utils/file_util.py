@@ -94,6 +94,12 @@ class FileUtil():
             self.SENTIMENT_ANALYSIS_EVAL_DIR,
             self.BERT_TRAINING_GRAPH_FILENAME)
 
+        self.LOGREG_SENTIMENT_MODEL_DIR = os.path.join(
+            self.SENTIMENT_ANALYSIS_TRAIN_DIR, "logreg_model/logreg_model.sav")
+        self.LOGREG_SENTIMENT_W2V_MODEL_DIR = os.path.join(
+            self.SENTIMENT_ANALYSIS_TRAIN_DIR,
+            "logreg_model/logreg_word2vec.model")
+
         self.TOPIC_MODELLING_TRAIN_DIR = os.path.join(self.TOPIC_MODELLING_DIR,
                                                       "train")
         self.TOPIC_MODELLING_EVAL_DIR = os.path.join(self.TOPIC_MODELLING_DIR,
@@ -359,7 +365,7 @@ class FileUtil():
         """
         if task == "sentiment_analysis":
             FileUtil.create_dir_if_not_exists(
-              FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
+                FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
             filepath = os.path.join(
                 FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR,
                 FileUtil().METRICS_FILE_NAME)
