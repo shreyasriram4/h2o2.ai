@@ -95,4 +95,4 @@ lstm_training_acc_graph_filename: "lstm_training_acc.png"
 
 sentiment_analysis_path: "src/models/sentiment_analysis"
 topic_modelling_path: "src/models/topic_modelling"
-best_sentiment_analysis_model: "LSTM"
+best_sentiment_analysis_model: "BERT"
