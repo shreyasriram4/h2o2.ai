@@ -17,6 +17,8 @@ from gensim.models import Word2Vec
 from src.models.classifier import Classifier
 from src.utils.file_util import FileUtil
 
+nltk.download('punkt')
+
 
 class LOGREG(Classifier):
     def __init__(self, load_model=False):
@@ -37,7 +39,6 @@ class LOGREG(Classifier):
             self.model = joblib.load(self.saved_model_path)
 
     def tokenize(self, df):
-        nltk.download('punkt')
         df['cleaned_text_new'] = df['cleaned_text'].apply(
             lambda x: word_tokenize(x))
 
