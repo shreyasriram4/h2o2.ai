@@ -20,13 +20,14 @@ from src.preprocessing.preprocessing_utils import (
     remove_empty_reviews_df
 )
 
+from src.models.topic_modelling.test.lbl2vec import Lbl2Vec
+
 files = FileUtil()
 config_params = files.CONFIG_PARAMS
 topics = config_params["topics"]
 subtopics = sum(config_params["topic_mapping"].values(), [])
 
 # Testing preprocessing functions
-
 
 def test_convert_sentiment_df():
     df = pd.DataFrame([["positive", "18/6/21", "I love the pizza here."]],
@@ -467,7 +468,36 @@ def test_predict_sentiment_topic():
 
 
 def test_lbl2vec_module():
-    pass
+    check = None
+    df = pd.DataFrame([["18/6/21", "these chips are bad."],
+                       ["19/2/21", "Such good coffee!"]],
+                      columns=["Time", "Text"])
+    model = Lbl2Vec()
+    candidate_labels = {'snacks': ['chips', 'crackers'], 'drinks': ['coffee']}
+    output_df = model.predict(df, 'Text', candidate_labels)
+    print(output_df)
+    df_expected_output = pd.DataFrame([["18/6/21", "these chips were bad."],
+                                       ["19/2/21", "Such good coffee!"]],
+                                      columns=['date',
+                                               'Text'])
+    
+    subtopics = [subitem for item in list(candidate_labels.values()) for subitem in item]
+    topics = list(candidate_labels.keys())
+    print(topics)
+    print(output_df['topic'])
+    if not all(subtopic in subtopics for subtopic in output_df['subtopic']):
+        check = "Subtopic labels not in subtopic"
+    if not all(topic in topics for topic in output_df['topic']):
+        check = "Topic labels not in topic"
+
+    if check:
+        return check
+    else:
+        return pd.testing.assert_frame_equal(
+            output_df[['date',
+                    'Text']],
+            df_expected_output,
+            check_index_type=False)
 
 
 def test_zeroshot_module():
@@ -505,45 +535,44 @@ def test_logreg_module():
 def test_sentiment_analysis_train_module():
     pass
 
-# TEST FILE UTIL ????
-
 
 if __name__ == "__main__":
     # Testing preprocessing utils
-    test_convert_sentiment_df()
-    test_expand_contractions_df()
-    test_lowercase_string_df()
-    test_remove_numbers_df()
-    test_remove_punctuations_df()
-    test_remove_stopwords_df()
-    test_remove_trailing_leading_spaces_df()
-    test_rename_column_df()
-    test_replace_multiple_spaces_df()
-    test_strip_html_tags_df()
-    test_remove_empty_reviews_df()
+    # test_convert_sentiment_df()
+    # test_expand_contractions_df()
+    # test_lowercase_string_df()
+    # test_remove_numbers_df()
+    # test_remove_punctuations_df()
+    # test_remove_stopwords_df()
+    # test_remove_trailing_leading_spaces_df()
+    # test_rename_column_df()
+    # test_replace_multiple_spaces_df()
+    # test_strip_html_tags_df()
+    # test_remove_empty_reviews_df()
 
-    # Testing cleaning functions
-    test_apply_cleaning_test()
-    test_apply_cleaning_train()
+    # # Testing cleaning functions
+    # test_apply_cleaning_test()
+    # test_apply_cleaning_train()
 
-    # Testing cleaning edge cases
-    test_cleaning_when_date_is_string()
-    test_cleaning_when_date_is_datetime()
-    test_cleaning_punctuation_and_html_tags()
-    test_replace_multiple_spaces_df_for_tabs()
+    # # Testing cleaning edge cases
+    # test_cleaning_when_date_is_string()
+    # test_cleaning_when_date_is_datetime()
+    # test_cleaning_punctuation_and_html_tags()
+    # test_replace_multiple_spaces_df_for_tabs()
 
-    # Testing prediction functions
+    # # Testing prediction functions
 
-    test_predict_sentiment()
-    test_predict_sentiment_topic()
-    test_predict_topic()
+    # test_predict_sentiment()
+    # test_predict_sentiment_topic()
+    # test_predict_topic()
 
-    # Testing predict function edge cases
-    test_predict_when_null_reviews()
-    test_predict_when_all_stopwords()
-    test_predict_when_empty_review()
+    # # Testing predict function edge cases
+    # test_predict_when_null_reviews()
+    # test_predict_when_all_stopwords()
+    # test_predict_when_empty_review()
 
     # Testing model-specific prediction functions
+      print(test_lbl2vec_module())
 
     # Test model-specific training functions
 
