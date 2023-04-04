@@ -23,8 +23,8 @@ nltk.download('punkt')
 class LOGREG(Classifier):
     def __init__(self, load_model=False):
         self.load_model = load_model
-        self.saved_model_path = FileUtil().LOGREG_SENTIMENT_MODEL_DIR
-        self.saved_w2v_model_path = FileUtil().LOGREG_SENTIMENT_W2V_MODEL_DIR
+        self.saved_model_path = FileUtil().LOGREG_SENTIMENT_MODEL_PATH
+        self.saved_w2v_model_path = FileUtil().LOGREG_SENTIMENT_W2V_MODEL_PATH
         self.logreg_config = FileUtil.get_config()["LOGREG"]
         self.target_col = self.logreg_config["target_col"]
         self.text_col = self.logreg_config["text_col"]
@@ -54,6 +54,8 @@ class LOGREG(Classifier):
                                            min_count=self.min_count,
                                            sg=self.sg)
 
+        FileUtil.create_dir_if_not_exists(
+            FileUtil().LOGREG_SENTIMENT_MODEL_DIR)
         w2v_model.save(self.saved_w2v_model_path)
         self.w2v_model = w2v_model
 

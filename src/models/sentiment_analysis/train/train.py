@@ -57,7 +57,7 @@ def sentiment_analysis_train():
     valid = valid.reset_index(drop=True)
     logreg_model.train_w2v_model(train)
     trained_logreg_model = logreg_model.fit(train)
-    joblib.dump(trained_logreg_model, FileUtil().LOGREG_SENTIMENT_MODEL_DIR)
+    joblib.dump(trained_logreg_model, FileUtil().LOGREG_SENTIMENT_MODEL_PATH)
     logreg_ap, logreg_pr_auc = logreg_model.evaluate(valid)
 
     FileUtil.put_metrics("sentiment_analysis",

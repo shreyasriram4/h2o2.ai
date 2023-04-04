@@ -108,10 +108,11 @@ class FileUtil():
             self.LSTM_TRAINING_ACC_GRAPH_FILENAME)
 
         self.LOGREG_SENTIMENT_MODEL_DIR = os.path.join(
-            self.SENTIMENT_ANALYSIS_TRAIN_DIR, "logreg_model/logreg_model.sav")
-        self.LOGREG_SENTIMENT_W2V_MODEL_DIR = os.path.join(
-            self.SENTIMENT_ANALYSIS_TRAIN_DIR,
-            "logreg_model/logreg_word2vec.model")
+            self.SENTIMENT_ANALYSIS_TRAIN_DIR, "logreg_model")
+        self.LOGREG_SENTIMENT_MODEL_PATH = os.path.join(
+            self.LOGREG_SENTIMENT_MODEL_DIR, "logreg_model.sav")
+        self.LOGREG_SENTIMENT_W2V_MODEL_PATH = os.path.join(
+            self.LOGREG_SENTIMENT_MODEL_DIR, "logreg_word2vec.model")
 
         self.TOPIC_MODELLING_TRAIN_DIR = os.path.join(self.TOPIC_MODELLING_DIR,
                                                       "train")
