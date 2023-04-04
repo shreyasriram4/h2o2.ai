@@ -47,8 +47,6 @@ def sentiment_analysis_train():
     lstm_model.plot_training_loss()
     lstm_ap, lstm_pr_auc = lstm_model.evaluate(valid)
 
-    #  LogReg and LSTM training then add to the metrics below
-
     logreg_model = LOGREG()
     df_logreg = df.copy()
     tokenized_df = logreg_model.tokenize(df_logreg)

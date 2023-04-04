@@ -55,6 +55,7 @@ class Lstm(Classifier):
         self.model = ""
         self.tokenizer = Tokenizer()
         self.embed_matrix = ""
+        self.vocab_size = 0
         if self.load_model:
             if not FileUtil.check_dir_exists(self.saved_model_path):
                 raise FileNotFoundError("There is no saved model in path",
@@ -65,7 +66,10 @@ class Lstm(Classifier):
         nltk.download('punkt')
         df['cleaned_text_new'] = df['cleaned_text'].apply(
             lambda x: word_tokenize(x))
-
+        self.tokenizer.fit_on_texts(df['cleaned_text'])
+        # number of unique text in the data
+        vocab_size = len(self.tokenizer.word_index) + 1
+        self.vocab_size = vocab_size
         return df
 
     def train_w2v_model(self, df):
@@ -82,10 +86,6 @@ class Lstm(Classifier):
 
     def get_word_vectors(self, df):
 
-        self.tokenizer.fit_on_texts(df['cleaned_text'])
-        # number of unique text in the data
-        vocab_size = len(self.tokenizer.word_index) + 1
-        self.vocab_size = vocab_size
         # this converts texts into some numeric sequences
         encd_rev = self.tokenizer.texts_to_sequences(df['cleaned_text'])
 
