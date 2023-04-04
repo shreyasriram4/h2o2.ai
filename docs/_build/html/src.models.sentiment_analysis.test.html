@@ -90,8 +90,31 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
 </section>
-<section id="src-models-sentiment-analysis-test-predict-module">
-<h2>src.models.sentiment_analysis.test.predict module<a class="headerlink" href="#src-models-sentiment-analysis-test-predict-module" title="Permalink to this heading"></a></h2>
+<section id="module-src.models.sentiment_analysis.test.predict">
+<span id="src-models-sentiment-analysis-test-predict-module"></span><h2>src.models.sentiment_analysis.test.predict module<a class="headerlink" href="#module-src.models.sentiment_analysis.test.predict" title="Permalink to this heading"></a></h2>
+<p>This module contains predict_sentiment function that
+does sentiment prediction.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.models.sentiment_analysis.test.predict.predict_sentiment">
+<span class="sig-prename descclassname"><span class="pre">src.models.sentiment_analysis.test.predict.</span></span><span class="sig-name descname"><span class="pre">predict_sentiment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'BERT'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/test/predict.html#predict_sentiment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.test.predict.predict_sentiment" title="Permalink to this definition"></a></dt>
+<dd><p>Predict the sentiment for df.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe to predict</p></li>
+<li><p><strong>model_name</strong> (<em>str</em><em>, </em><em>optional</em>) – model to run for prediction.</p></li>
+<li><p><strong>file.</strong> (<em>Default is the model specified in config</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>prediction result dataframe</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dataframe (pd.Dataframe)</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-src.models.sentiment_analysis.test">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.models.sentiment_analysis.test" title="Permalink to this heading"></a></h2>

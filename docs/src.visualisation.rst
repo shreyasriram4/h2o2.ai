@@ -6,6 +6,11 @@ Submodules
 
 src.visualisation.dashboard\_viz module
 ---------------------------------------
+.. .. code-block::python
+
+..    import os
+
+..    os.chdir(os.path.abspath('..'))
 
 .. automodule:: src.visualisation.dashboard_viz
    :members:
@@ -22,6 +27,7 @@ src.visualisation.visualise\_topics module
 
 Module contents
 ---------------
+
 .. automodule:: src.visualisation
    :members:
    :undoc-members:

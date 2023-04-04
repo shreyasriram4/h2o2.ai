@@ -12,7 +12,7 @@ import sys
 # specify the absolute path as the working directory
 sys.path.insert(0, os.path.abspath('..'))
 
-os.path.dirname(os.path.abspath('.'))
+# os.chdir(os.path.abspath('..'))
 
 project = 'H2o2.ai Voice of Customer'
 copyright = '2023, H2o2.ai'
