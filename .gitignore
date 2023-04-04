@@ -12,6 +12,8 @@ data/predicted/2023*
 # bert model saved dir for sentiment analysis
 src/models/sentiment_analysis/train/bert_model/
 
+# lstm model saved dir for sentiment analysis
+src/models/sentiment_analysis/train/lstm_model/
 # logreg model saved dir for sentiment analysis
 src/models/sentiment_analysis/train/logreg_model/logreg_model.sav
 src/models/sentiment_analysis/train/logreg_model/logreg_word2vec.model
