@@ -126,6 +126,9 @@ class FileUtil():
         self.NMF_TOPIC_FILE_PATH = os.path.join(self.TOPIC_MODELLING_EVAL_DIR,
                                                 self.NMF_TOPIC_FILE_NAME)
 
+        self.best_sentiment_analysis_model = self.CONFIG_PARAMS[
+            "best_sentiment_analysis_model"]
+
     @_check_filepath(".csv")
     def get_csv(self, filepath: str) -> pd.DataFrame:
         """
