@@ -137,6 +137,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">METRICS_FILE_NAME</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CONFIG_PARAMS</span><span class="p">[</span><span class="s2">&quot;metrics_filename&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">BERT_TRAINING_GRAPH_FILENAME</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CONFIG_PARAMS</span><span class="p">[</span>
             <span class="s2">&quot;bert_training_graph_filename&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_TRAINING_LOSS_GRAPH_FILENAME</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CONFIG_PARAMS</span><span class="p">[</span>
+            <span class="s2">&quot;lstm_training_loss_graph_filename&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_TRAINING_ACC_GRAPH_FILENAME</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CONFIG_PARAMS</span><span class="p">[</span>
+            <span class="s2">&quot;lstm_training_acc_graph_filename&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">LDA_TOPIC_FILE_NAME</span> <span class="o">=</span> <span class="s2">&quot;lda_topics.html&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">BERTOPIC_TOPIC_FILE_NAME</span> <span class="o">=</span> <span class="s2">&quot;bertopic_topics.html&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">NMF_TOPIC_FILE_NAME</span> <span class="o">=</span> <span class="s2">&quot;nmf_topics.html&quot;</span>
@@ -162,6 +166,22 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">BERT_TRAINING_GRAPH_FILE_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">SENTIMENT_ANALYSIS_EVAL_DIR</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">BERT_TRAINING_GRAPH_FILENAME</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_SENTIMENT_MODEL_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">SENTIMENT_ANALYSIS_TRAIN_DIR</span><span class="p">,</span> <span class="s2">&quot;lstm_model&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_TRAINING_LOSS_GRAPH_FILE_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">SENTIMENT_ANALYSIS_EVAL_DIR</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_TRAINING_LOSS_GRAPH_FILENAME</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_TRAINING_ACC_GRAPH_FILE_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">SENTIMENT_ANALYSIS_EVAL_DIR</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_TRAINING_ACC_GRAPH_FILENAME</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">LOGREG_SENTIMENT_MODEL_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">SENTIMENT_ANALYSIS_TRAIN_DIR</span><span class="p">,</span> <span class="s2">&quot;logreg_model&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">LOGREG_SENTIMENT_MODEL_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">LOGREG_SENTIMENT_MODEL_DIR</span><span class="p">,</span> <span class="s2">&quot;logreg_model.sav&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">LOGREG_SENTIMENT_W2V_MODEL_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">LOGREG_SENTIMENT_MODEL_DIR</span><span class="p">,</span> <span class="s2">&quot;logreg_word2vec.model&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">TOPIC_MODELLING_TRAIN_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TOPIC_MODELLING_DIR</span><span class="p">,</span>
                                                       <span class="s2">&quot;train&quot;</span><span class="p">)</span>
@@ -428,7 +448,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">task</span> <span class="o">==</span> <span class="s2">&quot;sentiment_analysis&quot;</span><span class="p">:</span>
             <span class="n">FileUtil</span><span class="o">.</span><span class="n">create_dir_if_not_exists</span><span class="p">(</span>
-              <span class="n">FileUtil</span><span class="p">()</span><span class="o">.</span><span class="n">SENTIMENT_ANALYSIS_EVAL_DIR</span><span class="p">)</span>
+                <span class="n">FileUtil</span><span class="p">()</span><span class="o">.</span><span class="n">SENTIMENT_ANALYSIS_EVAL_DIR</span><span class="p">)</span>
             <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                 <span class="n">FileUtil</span><span class="p">()</span><span class="o">.</span><span class="n">SENTIMENT_ANALYSIS_EVAL_DIR</span><span class="p">,</span>
                 <span class="n">FileUtil</span><span class="p">()</span><span class="o">.</span><span class="n">METRICS_FILE_NAME</span><span class="p">)</span>

@@ -73,7 +73,10 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">src.models.sentiment_analysis.train.bert</span> <span class="kn">import</span> <span class="n">BERT</span>
+<span class="kn">from</span> <span class="nn">src.models.sentiment_analysis.train.lstm</span> <span class="kn">import</span> <span class="n">Lstm</span>
+<span class="kn">from</span> <span class="nn">src.models.sentiment_analysis.train.logreg</span> <span class="kn">import</span> <span class="n">LOGREG</span>
 <span class="kn">from</span> <span class="nn">src.utils.file_util</span> <span class="kn">import</span> <span class="n">FileUtil</span>
+
 
 <span class="n">model_name</span> <span class="o">=</span> <span class="n">FileUtil</span><span class="o">.</span><span class="n">get_config</span><span class="p">()[</span><span class="s2">&quot;best_sentiment_analysis_model&quot;</span><span class="p">]</span>
 
@@ -98,9 +101,17 @@
         <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sentiment&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span>
         <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sentiment_prob&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">probs</span>
     <span class="k">elif</span> <span class="n">model_name</span> <span class="o">==</span> <span class="s2">&quot;Logistic Regression&quot;</span><span class="p">:</span>
-        <span class="k">pass</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">LOGREG</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+        <span class="n">label</span><span class="p">,</span> <span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sentiment&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sentiment_prob&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">probs</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">pass</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Lstm</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+        <span class="n">label</span><span class="p">,</span> <span class="n">probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sentiment&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;sentiment_prob&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">probs</span>
 
     <span class="k">return</span> <span class="n">df</span></div>
 </pre></div>

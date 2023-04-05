@@ -105,11 +105,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.bert.BERT">BERT (class in src.models.sentiment_analysis.train.bert)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="src.models.topic_modelling.train.html#src.models.topic_modelling.train.bertopic.BERTopic_Module">BERTopic_Module (class in src.models.topic_modelling.train.bertopic)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="src.models.topic_modelling.train.html#src.models.topic_modelling.train.lda.LDA.bigrams">bigrams() (src.models.topic_modelling.train.lda.LDA method)</a>
+</li>
+      <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.build_model">build_model() (src.models.sentiment_analysis.train.lstm.Lstm method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -152,6 +154,10 @@
       <ul>
         <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.bert.BERT.evaluate">(src.models.sentiment_analysis.train.bert.BERT method)</a>
 </li>
+        <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.logreg.LOGREG.evaluate">(src.models.sentiment_analysis.train.logreg.LOGREG method)</a>
+</li>
+        <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.evaluate">(src.models.sentiment_analysis.train.lstm.Lstm method)</a>
+</li>
         <li><a href="src.models.topic_modelling.test.html#src.models.topic_modelling.test.lbl2vec.Lbl2Vec.evaluate">(src.models.topic_modelling.test.lbl2vec.Lbl2Vec method)</a>
 </li>
         <li><a href="src.models.topic_modelling.test.html#src.models.topic_modelling.test.zero_shot.ZeroShot.evaluate">(src.models.topic_modelling.test.zero_shot.ZeroShot method)</a>
@@ -188,6 +194,10 @@
       <ul>
         <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.bert.BERT.fit">(src.models.sentiment_analysis.train.bert.BERT method)</a>
 </li>
+        <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.logreg.LOGREG.fit">(src.models.sentiment_analysis.train.logreg.LOGREG method)</a>
+</li>
+        <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.fit">(src.models.sentiment_analysis.train.lstm.Lstm method)</a>
+</li>
         <li><a href="src.models.topic_modelling.test.html#src.models.topic_modelling.test.lbl2vec.Lbl2Vec.fit">(src.models.topic_modelling.test.lbl2vec.Lbl2Vec method)</a>
 </li>
         <li><a href="src.models.topic_modelling.test.html#src.models.topic_modelling.test.zero_shot.ZeroShot.fit">(src.models.topic_modelling.test.zero_shot.ZeroShot method)</a>
@@ -213,16 +223,18 @@
 </li>
       <li><a href="src.utils.html#src.utils.file_util.FileUtil.get_csv">get_csv() (src.utils.file_util.FileUtil method)</a>
 </li>
+      <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.get_embedding_matrix">get_embedding_matrix() (src.models.sentiment_analysis.train.lstm.Lstm method)</a>
+</li>
       <li><a href="src.utils.html#src.utils.file_util.FileUtil.get_json">get_json() (src.utils.file_util.FileUtil method)</a>
 </li>
       <li><a href="src.utils.html#src.utils.file_util.FileUtil.get_metrics">get_metrics() (src.utils.file_util.FileUtil class method)</a>
 </li>
       <li><a href="src.models.topic_modelling.test.html#src.models.topic_modelling.test.zero_shot.ZeroShot.get_model">get_model() (src.models.topic_modelling.test.zero_shot.ZeroShot method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="src.utils.html#src.utils.file_util.FileUtil.get_pkl">get_pkl() (src.utils.file_util.FileUtil method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="src.utils.html#src.utils.file_util.FileUtil.get_processed_train_data">get_processed_train_data() (src.utils.file_util.FileUtil class method)</a>
 </li>
       <li><a href="src.utils.html#src.utils.file_util.FileUtil.get_raw_train_data">get_raw_train_data() (src.utils.file_util.FileUtil class method)</a>
@@ -235,6 +247,12 @@
 </li>
       <li><a href="src.utils.html#src.utils.file_util.FileUtil.get_topics_html">get_topics_html() (src.utils.file_util.FileUtil class method)</a>
 </li>
+      <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.logreg.LOGREG.get_word_vectors">get_word_vectors() (src.models.sentiment_analysis.train.logreg.LOGREG method)</a>
+
+      <ul>
+        <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.get_word_vectors">(src.models.sentiment_analysis.train.lstm.Lstm method)</a>
+</li>
+      </ul></li>
       <li><a href="src.utils.html#src.utils.file_util.FileUtil.get_yml">get_yml() (src.utils.file_util.FileUtil method)</a>
 </li>
   </ul></td>
@@ -255,11 +273,15 @@
 </li>
       <li><a href="src.models.topic_modelling.train.html#src.models.topic_modelling.train.lda.LDA">LDA (class in src.models.topic_modelling.train.lda)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="src.models.topic_modelling.train.html#src.models.topic_modelling.train.lda.LDA.lemmatize">lemmatize() (src.models.topic_modelling.train.lda.LDA method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.logreg.LOGREG">LOGREG (class in src.models.sentiment_analysis.train.logreg)</a>
+</li>
       <li><a href="src.preprocessing.html#src.preprocessing.preprocessing_utils.lowercase_string_df">lowercase_string_df() (in module src.preprocessing.preprocessing_utils)</a>
+</li>
+      <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm">Lstm (class in src.models.sentiment_analysis.train.lstm)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -288,6 +310,10 @@
         <li><a href="src.models.sentiment_analysis.train.html#module-src.models.sentiment_analysis.train">src.models.sentiment_analysis.train</a>
 </li>
         <li><a href="src.models.sentiment_analysis.train.html#module-src.models.sentiment_analysis.train.bert">src.models.sentiment_analysis.train.bert</a>
+</li>
+        <li><a href="src.models.sentiment_analysis.train.html#module-src.models.sentiment_analysis.train.logreg">src.models.sentiment_analysis.train.logreg</a>
+</li>
+        <li><a href="src.models.sentiment_analysis.train.html#module-src.models.sentiment_analysis.train.lstm">src.models.sentiment_analysis.train.lstm</a>
 </li>
         <li><a href="src.models.sentiment_analysis.train.html#module-src.models.sentiment_analysis.train.train">src.models.sentiment_analysis.train.train</a>
 </li>
@@ -334,12 +360,20 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.plot_training_acc">plot_training_acc() (src.models.sentiment_analysis.train.lstm.Lstm method)</a>
+</li>
       <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.bert.BERT.plot_training_acc_loss">plot_training_acc_loss() (src.models.sentiment_analysis.train.bert.BERT method)</a>
+</li>
+      <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.plot_training_loss">plot_training_loss() (src.models.sentiment_analysis.train.lstm.Lstm method)</a>
 </li>
       <li><a href="src.models.html#src.models.classifier.Classifier.predict">predict() (src.models.classifier.Classifier method)</a>
 
       <ul>
         <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.bert.BERT.predict">(src.models.sentiment_analysis.train.bert.BERT method)</a>
+</li>
+        <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.logreg.LOGREG.predict">(src.models.sentiment_analysis.train.logreg.LOGREG method)</a>
+</li>
+        <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.predict">(src.models.sentiment_analysis.train.lstm.Lstm method)</a>
 </li>
         <li><a href="src.models.topic_modelling.test.html#src.models.topic_modelling.test.lbl2vec.Lbl2Vec.predict">(src.models.topic_modelling.test.lbl2vec.Lbl2Vec method)</a>
 </li>
@@ -352,12 +386,12 @@
         <li><a href="src.models.topic_modelling.train.html#src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.predict">(src.models.topic_modelling.train.nmf.Tfidf_NMF_Module method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="src.models.sentiment_analysis.test.html#src.models.sentiment_analysis.test.predict.predict_sentiment">predict_sentiment() (in module src.models.sentiment_analysis.test.predict)</a>
 </li>
       <li><a href="src.models.html#src.models.predict.predict_sentiment_topic">predict_sentiment_topic() (in module src.models.predict)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="src.models.topic_modelling.test.html#src.models.topic_modelling.test.predict.predict_topic">predict_topic() (in module src.models.topic_modelling.test.predict)</a>
 </li>
       <li><a href="src.models.topic_modelling.train.html#src.models.topic_modelling.train.lda.LDA.preprocess">preprocess() (src.models.topic_modelling.train.lda.LDA method)</a>
@@ -488,6 +522,20 @@
 </li>
       </ul></li>
       <li>
+    src.models.sentiment_analysis.train.logreg
+
+      <ul>
+        <li><a href="src.models.sentiment_analysis.train.html#module-src.models.sentiment_analysis.train.logreg">module</a>
+</li>
+      </ul></li>
+      <li>
+    src.models.sentiment_analysis.train.lstm
+
+      <ul>
+        <li><a href="src.models.sentiment_analysis.train.html#module-src.models.sentiment_analysis.train.lstm">module</a>
+</li>
+      </ul></li>
+      <li>
     src.models.sentiment_analysis.train.train
 
       <ul>
@@ -508,6 +556,8 @@
         <li><a href="src.models.topic_modelling.eval.html#module-src.models.topic_modelling.eval">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     src.models.topic_modelling.test
 
@@ -515,8 +565,6 @@
         <li><a href="src.models.topic_modelling.test.html#module-src.models.topic_modelling.test">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     src.models.topic_modelling.test.lbl2vec
 
@@ -632,6 +680,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="src.models.topic_modelling.train.html#src.models.topic_modelling.train.nmf.Tfidf_NMF_Module">Tfidf_NMF_Module (class in src.models.topic_modelling.train.nmf)</a>
 </li>
+      <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.logreg.LOGREG.tokenize">tokenize() (src.models.sentiment_analysis.train.logreg.LOGREG method)</a>
+
+      <ul>
+        <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.tokenize">(src.models.sentiment_analysis.train.lstm.Lstm method)</a>
+</li>
+      </ul></li>
       <li><a href="src.models.topic_modelling.train.html#src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.tokenize_df">tokenize_df() (src.models.topic_modelling.train.nmf.Tfidf_NMF_Module method)</a>
 </li>
       <li><a href="src.models.topic_modelling.train.html#src.models.topic_modelling.train.train.topic_modelling_train">topic_modelling_train() (in module src.models.topic_modelling.train.train)</a>
@@ -646,6 +700,12 @@
 </li>
       <li><a href="src.visualisation.html#src.visualisation.dashboard_viz.topics_pie_chart">topics_pie_chart() (in module src.visualisation.dashboard_viz)</a>
 </li>
+      <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.logreg.LOGREG.train_w2v_model">train_w2v_model() (src.models.sentiment_analysis.train.logreg.LOGREG method)</a>
+
+      <ul>
+        <li><a href="src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.train_w2v_model">(src.models.sentiment_analysis.train.lstm.Lstm method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
