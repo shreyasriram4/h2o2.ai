@@ -14,3 +14,7 @@ tensorflow==2.12.0
 lbl2vec==1.0.2
 transformers==4.27.3
 joblib==1.2.0
+sphinx==6.1.3
+sphinx-rtd-theme==1.2.0
+sphinxcontrib-napoleon==0.9
+seaborn==0.12.2
