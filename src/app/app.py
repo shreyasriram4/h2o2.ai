@@ -39,11 +39,11 @@ async def init(q: Q) -> None:
                                         zones=[ui.zone(
                                             'side1',
                                             direction=ui.ZoneDirection.COLUMN,
-                                            size='60%'),
+                                            size='65%'),
                                             ui.zone(
                                             'side2',
                                             direction=ui.ZoneDirection.COLUMN,
-                                            size='40%')
+                                            size='35%')
                                         ]),
                                     ui.zone(
                                         'horizontal1',
@@ -52,7 +52,7 @@ async def init(q: Q) -> None:
                                     ui.zone(
                                         'horizontal2',
                                         direction=ui.ZoneDirection.ROW,
-                                        size='41%'),])]),
+                                        size='41%'), ])]),
                             ])])])
 
     q.page['sidebar'] = ui.nav_card(
@@ -89,7 +89,7 @@ async def serve(q: Q):
                                         path='data/test')
         q.client.input_df = pd.read_csv(q.client.working_file_path)
         predict_df = predict_sentiment_topic(
-                        file_path=q.client.working_file_path)
+                        test_filepath=q.client.working_file_path)
         q.client.predict_df = reformat_data(predict_df)
     else:
         input_df = pd.read_csv('data/processed/reviews.csv')

@@ -1,3 +1,5 @@
+"""This module contains BERT sentiment analysis class."""
+
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
@@ -15,7 +17,21 @@ from src.utils.file_util import FileUtil
 
 
 class BERT(Classifier):
+    """BERT sentiment analysis class."""
+
     def __init__(self, load_model=False):
+        """
+        Constructor for BERT class.
+
+        Args:
+          load_model (bool): boolean value to indicate
+          whether to load trained model or not
+
+        Raises:
+          FileNotFoundError: If load_model is True, but
+          there is no trained model in the BERT sentiment
+          model directory
+        """
         self.load_model = load_model
         self.saved_model_path = FileUtil().BERT_SENTIMENT_MODEL_DIR
         self.tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
@@ -55,6 +71,17 @@ class BERT(Classifier):
                 )
 
     def fit(self, train, valid):
+        """
+        Fit BERT model on train data.
+
+        Args:
+          train (pd.DataFrame): train dataframe
+          valid (pd.DataFrame): valid dataframe
+
+        Returns:
+          self.model: fitted model
+          history: training history
+        """
         assert self.load_model is not True
         train_InputExamples, validation_InputExamples = \
             self.convert_data_to_examples(train, valid,
@@ -84,6 +111,17 @@ class BERT(Classifier):
         return self.model, history
 
     def predict(self, test):
+        """
+        Predict BERT model on test data.
+
+        Args:
+          test (pd.DataFrame): test dataframe
+
+        Returns:
+          label: predicted sentiment labels for test dataset
+          probs: probabilities of the predicted sentiment labels
+          tf_predictions: probabilities of both labels 0 and 1 for test dataset
+        """
         tf_outputs = []
         for i in range(int(np.ceil(len(test) / self.batch_size))):
             tf_batch = self.tokenizer(
@@ -102,6 +140,16 @@ class BERT(Classifier):
         return label, probs, tf_predictions
 
     def evaluate(self, valid):
+        """
+        Evaluate BERT model performance on valid data.
+
+        Args:
+          valid (pd.DataFrame): valid dataframe
+
+        Returns:
+          ap: average precision score
+          pr_auc: precision recall area under curve score
+        """
         label, probs, tf_predictions = self.predict(valid)
         all_probs = list(map(lambda logit: np.exp(logit) / sum(np.exp(logit)),
                              tf_predictions))
@@ -117,6 +165,12 @@ class BERT(Classifier):
         return ap, pr_auc
 
     def plot_training_acc_loss(self, history):
+        """
+        Plot and save BERT training graph.
+
+        Args:
+          history: BERT model training history
+        """
         losses = history.history['loss']
         accs = history.history['accuracy']
         val_losses = history.history['val_loss']
@@ -137,20 +191,33 @@ class BERT(Classifier):
         plt.show()
         plt.savefig(FileUtil().BERT_TRAINING_GRAPH_FILE_PATH)
 
-    def convert_data_to_examples(self, train, test, DATA_COLUMN, LABEL_COLUMN):
+    def convert_data_to_examples(self, train, valid, TEXT_COL, SENTIMENT_COL):
+        """
+        Convert train and valid data into InputExample format.
+
+        Args:
+          train (pd.DataFrame): train dataframe
+          valid (pd.DataFrame): valid dataframe
+          TEXT_COL (str): text column name in train and valid
+          SENTIMENT_COL (str): sentiment column name in train and valid
+
+        Returns:
+          train_InputExamples: InputExample of all rows in train
+          validation_InputExamples: InputExample of all rows in valid
+        """
         train_InputExamples = train.apply(
             lambda x: InputExample(guid=None,
-                                   text_a=x[DATA_COLUMN],
+                                   text_a=x[TEXT_COL],
                                    text_b=None,
-                                   label=x[LABEL_COLUMN]),
+                                   label=x[SENTIMENT_COL]),
             axis=1
             )
 
-        validation_InputExamples = test.apply(
+        validation_InputExamples = valid.apply(
             lambda x: InputExample(guid=None,
-                                   text_a=x[DATA_COLUMN],
+                                   text_a=x[TEXT_COL],
                                    text_b=None,
-                                   label=x[LABEL_COLUMN]),
+                                   label=x[SENTIMENT_COL]),
             axis=1
             )
 
@@ -158,6 +225,18 @@ class BERT(Classifier):
 
     def convert_examples_to_tf_dataset(self, examples, tokenizer,
                                        max_length=50):
+        """
+        Convert InputExample into tensorflow dataset.
+
+        Args:
+          examples (list): list of InputExample
+          tokenizer (BertTokenizer): BERT tokenizer
+          max_length (int, optional): max_length of text encoding.
+          Default is 50.
+
+        Returns:
+          tensorflow dataset
+        """
         features = []
 
         for e in examples:

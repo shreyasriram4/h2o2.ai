@@ -1,3 +1,8 @@
+"""
+This module contains predict_topic function that
+does topic prediction.
+"""
+
 import pandas as pd
 
 from src.utils.file_util import FileUtil
@@ -6,6 +11,17 @@ from src.models.topic_modelling.test.zero_shot import ZeroShot
 
 
 def predict_topic(df, model_name="Lbl2Vec"):
+    """
+    Predict the topic for df.
+
+    Args:
+      df (pd.DataFrame): dataframe to predict
+      model_name (str, optional): model to run for prediction.
+      Default is Lbl2Vec.
+
+    Returns:
+      dataframe (pd.Dataframe): prediction result dataframe
+    """
     assert model_name in ["ZeroShot", "Lbl2Vec"]
 
     config = FileUtil.get_config()

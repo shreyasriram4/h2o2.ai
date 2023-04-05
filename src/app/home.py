@@ -15,7 +15,7 @@ async def page1_upload(q: Q):
                        width='100%'),
             items=[
                 ui.file_upload(name='file_upload',
-                               label="Upload reviews here (Recommended format"
+                               label="Upload reviews here (Required format"
                                + ": csv file with 2 columns 'Time' and" +
                                " 'Text')",
                                compact=True, multiple=False,
@@ -63,5 +63,5 @@ async def page1_preview(q: Q, df):
                                     str,
                                     df[df.columns].values.tolist(
                                         )[i]))) for i in df.index[0:30]],
-                    height='570px'),]))
+                    height='570px'), ]))
     await q.page.save()

@@ -21,11 +21,16 @@ from src.preprocessing.preprocessing_utils import (
 )
 
 from src.models.topic_modelling.test.lbl2vec import Lbl2Vec
+from src.models.topic_modelling.test.zero_shot import ZeroShot
+from src.models.topic_modelling.train.lda import LDA
+from src.models.topic_modelling.train.bertopic import BERTopic_Module
+from src.models.topic_modelling.train.nmf import Tfidf_NMF_Module
 
 files = FileUtil()
 config_params = files.CONFIG_PARAMS
 topics = config_params["topics"]
 subtopics = sum(config_params["topic_mapping"].values(), [])
+data_processed = files.get_processed_train_data().head(300)
 
 # Testing preprocessing functions
 
@@ -473,18 +478,17 @@ def test_lbl2vec_module():
                        ["19/2/21", "Such good coffee!"]],
                       columns=["Time", "Text"])
     model = Lbl2Vec()
-    candidate_labels = {'snacks': ['chips', 'crackers'], 'drinks': ['coffee']}
+    candidate_labels = {'chips': 'snacks', 'crackers': 'snacks', 'coffee': 'drinks'}
     output_df = model.predict(df, 'Text', candidate_labels)
-    print(output_df)
-    df_expected_output = pd.DataFrame([["18/6/21", "these chips were bad."],
+
+    df_expected_output = pd.DataFrame([["18/6/21", "these chips are bad."],
                                        ["19/2/21", "Such good coffee!"]],
-                                      columns=['date',
+                                      columns=['Time',
                                                'Text'])
     
-    subtopics = [subitem for item in list(candidate_labels.values()) for subitem in item]
-    topics = list(candidate_labels.keys())
-    print(topics)
-    print(output_df['topic'])
+    topics = list(set(candidate_labels.values()))
+    subtopics = list(set(candidate_labels.keys()))
+
     if not all(subtopic in subtopics for subtopic in output_df['subtopic']):
         check = "Subtopic labels not in subtopic"
     if not all(topic in topics for topic in output_df['topic']):
@@ -494,18 +498,83 @@ def test_lbl2vec_module():
         return check
     else:
         return pd.testing.assert_frame_equal(
-            output_df[['date',
+            output_df[['Time',
                     'Text']],
             df_expected_output,
             check_index_type=False)
 
 
 def test_zeroshot_module():
-    pass
+    check = None
+    df = pd.DataFrame([["18/6/21", "these chips are bad."],
+                       ["19/2/21", "Such good coffee!"],
+                       ["19/2/21", "good coffee!"],
+                       ["19/2/21", "tea could be better!"],
+                       ["19/2/21", "bad chips"],
+                       ["19/2/21", "best chips ever"]],
+                      columns=["Time", "Text"])
+    model = ZeroShot()
+    candidate_labels = ['snacks', 'drinks']
+    output_df = model.predict(df, 'Text', candidate_labels)
+
+    df_expected_output = pd.DataFrame([["18/6/21", "these chips are bad."],
+                                        ["19/2/21", "Such good coffee!"],
+                                        ["19/2/21", "good coffee!"],
+                                        ["19/2/21", "tea could be better!"],
+                                        ["19/2/21", "bad chips"],
+                                        ["19/2/21", "best chips ever"]],
+                                        columns=['Time',
+                                               'Text'])
+    
+    if not all(topic in candidate_labels for topic in output_df['topic']):
+        check = "Topic labels not in topic"
+        return check
+    else:
+        return pd.testing.assert_frame_equal(
+            output_df[['Time',
+                    'Text']],
+            df_expected_output,
+            check_index_type=False)
 
 
 def test_lda_module():
-    pass
+
+    num_topics = config_params['LDA']['num_topics']
+    check = None
+    df = pd.DataFrame([["18/6/21", "these chips are bad."],
+                       ["19/2/21", "Such good coffee!"],
+                       ["19/2/21", "good coffee!"],
+                       ["19/2/21", "tea could be better!"],
+                       ["19/2/21", "bad chips"],
+                       ["19/2/21", "best chips ever"]],
+                      columns=["Time", "review"])
+    
+    df_expected_output = pd.DataFrame([["18/6/21", "these chips are bad."],
+                                        ["19/2/21", "Such good coffee!"],
+                                        ["19/2/21", "good coffee!"],
+                                        ["19/2/21", "tea could be better!"],
+                                        ["19/2/21", "bad chips"],
+                                        ["19/2/21", "best chips ever"]],
+                                        columns=['Time',
+                                               'review'])
+    
+    model = LDA()
+    lda, df_corpus, df_id2word, df_bigram = model.fit(df)
+    output_df = model.predict(df, lda, df_corpus)
+
+    if output_df['topics'].isnull().values().any():
+        check = "There are topics with null values."
+    if not all(topic <= num_topics for topic in output_df['topics']):
+        check = "The topics exceed the specified number of topics."
+    
+    if check:
+        return check
+    else:
+        return pd.testing.assert_frame_equal(
+            output_df[['Time',
+                    'review']],
+            df_expected_output,
+            check_index_type=False)
 
 
 def test_nmf_module():
@@ -536,7 +605,7 @@ def test_sentiment_analysis_train_module():
     pass
 
 
-if __name__ == "__main__":
+def unit_test():
     # Testing preprocessing utils
     # test_convert_sentiment_df()
     # test_expand_contractions_df()
@@ -572,8 +641,14 @@ if __name__ == "__main__":
     # test_predict_when_empty_review()
 
     # Testing model-specific prediction functions
-      print(test_lbl2vec_module())
+      #test_lbl2vec_module()
+      #test_zeroshot_module()
+      test_lda_module()
 
     # Test model-specific training functions
 
     # Test FileUtil module
+
+
+if __name__ == "__main__":
+    unit_test()
