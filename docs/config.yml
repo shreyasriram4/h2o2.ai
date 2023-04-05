@@ -1,0 +1,98 @@
+BERT: {"dropout": 0.1, 
+      "learning_rate": 0.00003, 
+      "batch_size": 128, 
+      "clipnorm": 1.0, 
+      "epsilon": 0.00000001,
+      "callback_monitor": "val_loss",
+      "callback_patience": 5,
+      "epochs": 20,
+      "text_col": "cleaned_text",
+      "target_col": "sentiment"}
+
+LSTM: {"vector_size": 100, 
+      "learning_rate": 0.0005, 
+      "batch_size": 128, 
+      "window" : 5,
+      "min_count" : 2,
+      "sg": 0,
+      "verbose": 2,
+      "patience": 3,
+      "min_delta": 0.01,
+      "epochs": 12,
+      "batch_size": 64,
+      "input_length": 50,
+      "text_col": "cleaned_text_new",
+      "target_col": "sentiment"}
+
+LOGREG: {"sg": 0, 
+      "min_count": 2,
+      "window": 5,
+      "callback_patience": 5,
+      "vector_size": 100,
+      "text_col": "cleaned_text_new",
+      "target_col": "sentiment"}
+
+BERTopic: {
+      "vectorizer_model" : 'CountVectorizer',
+      "vectorizer_args": {'stop_words': 'english'},
+      "hdbscan_args" : {
+            'min_cluster_size': 50,
+            'metric': 'euclidean',
+            'cluster_selection_method': 'leaf',
+            'prediction_data': True},
+      "nr_topics" : 27
+}
+
+NMF : {
+      'vectorizer_args': {
+            'min_df' : 3,
+            'max_df' : 0.85,
+            'max_features' : 5000
+      },
+      'nmf_args': 
+      {'n_components' : 10,
+      'init' : 'nndsvd',
+      'max_iter' : 500}
+}
+
+
+LDA: {"num_topics": 20,
+      "ngram": 2,
+      "bi_min": 15,
+      "no_below": 15,
+      "no_above": 0.5,
+      "min_prob": 0,
+      "common_words": ['great', 'taste', 'good', 'like', 'product',
+                  'flavor', 'love', 'really', 'buy', 'tastes',
+                  'better', 'best', 'tried', 'use', 'eat', 'food',
+                  'make', "would", "one", "get", "tea", "coffee",
+                  "price", "amazon", "bag", "dog", "cup", "much"]
+}
+
+topics: ["Drinks", "Snacks", "Ingredients", "Flavour", "Baked Goods", "Noodles & Pasta", "Pet Food"]
+topic_mapping: {"Drinks": ['Drinks', 'Tea', 'Coffee', 'Juice', 'Soda'], 
+          "Snacks": ['Snacks', 'Nuts', 'Chips', 'Crackers', 'Protein Bars', 'Cereal'], 
+          "Ingredients": ['Ingredients', 'Sugar', 'Salt', 'Oil', 'Coconut', 'Olive', 'Cocoa', 'Cacao', "Sweetener", "Gluten"],
+          "Flavour": ["Flavour", "Flavor", "Taste", 'Seasoning', 'Spices', 'Sauce', 'Chili'],
+          "Baked Goods": ['Baked Goods', 'Pastries', 'Cookies', 'Bread'],
+          "Noodles & Pasta": ['Noodles',  'Pasta', 'Ramen', 'Udon'],
+          "Pet Food": ["Dog Food", "Cat Food", "Pet Food", "Dog Treat"]}
+
+custom_stopwords: ['great', 'taste', 'good', 'like', 'product', 'flavor', 'love', 'really', 'buy', 'tastes', 'better', 'best', 'tried', 'use', 'eat', 'food', 'make']
+labels: ['Drinks', 'Snacks', 'Ingredients', 'Flavour', 'Baked Goods', 'Noodles & Pasta', 'Pet Food']
+
+raw_data_path: "data/raw"
+processed_data_path: "data/processed"
+output_path: "data/predicted"
+
+train_filename: "reviews.csv"
+test_filename: ""
+model_filename: "model.pkl"
+metrics_filename: "metrics.json"
+bert_training_graph_filename: "bert_training.png"
+lstm_training_loss_graph_filename: "lstm_training_loss.png"
+lstm_training_acc_graph_filename: "lstm_training_acc.png"
+
+sentiment_analysis_path: "src/models/sentiment_analysis"
+topic_modelling_path: "src/models/topic_modelling"
+best_sentiment_analysis_model: "BERT"

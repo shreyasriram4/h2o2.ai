@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.models.topic_modelling.train.lda &mdash; H2o2.ai Voice of Customer 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            H2o2.ai Voice of Customer
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../modules.html">h2o2.ai</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">H2o2.ai Voice of Customer</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">src.models.topic_modelling.train.lda</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for src.models.topic_modelling.train.lda</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This module contains LDA topic model class.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">gensim</span>
+<span class="kn">import</span> <span class="nn">nltk</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">WordNetLemmatizer</span>
+<span class="kn">from</span> <span class="nn">nltk.util</span> <span class="kn">import</span> <span class="n">ngrams</span>
+
+<span class="kn">from</span> <span class="nn">src.models.classifier</span> <span class="kn">import</span> <span class="n">Classifier</span>
+<span class="kn">from</span> <span class="nn">src.utils.file_util</span> <span class="kn">import</span> <span class="n">FileUtil</span>
+<span class="kn">from</span> <span class="nn">src.visualisation.visualise_topics</span> <span class="kn">import</span> <span class="n">visualise_top_words</span>
+
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;wordnet&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="LDA"><a class="viewcode-back" href="../../../../../src.models.topic_modelling.train.html#src.models.topic_modelling.train.lda.LDA">[docs]</a><span class="k">class</span> <span class="nc">LDA</span><span class="p">(</span><span class="n">Classifier</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;LDA topic model class.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Constructor for LDA topic model class.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_params</span> <span class="o">=</span> <span class="n">FileUtil</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lda_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_params</span><span class="p">[</span><span class="s2">&quot;LDA&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">common_words</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lda_config</span><span class="p">[</span><span class="s2">&quot;common_words&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_topics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lda_config</span><span class="p">[</span><span class="s2">&quot;num_topics&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ngram</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lda_config</span><span class="p">[</span><span class="s2">&quot;ngram&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bi_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lda_config</span><span class="p">[</span><span class="s2">&quot;bi_min&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">no_below</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lda_config</span><span class="p">[</span><span class="s2">&quot;no_below&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">no_above</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lda_config</span><span class="p">[</span><span class="s2">&quot;no_above&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_prob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lda_config</span><span class="p">[</span><span class="s2">&quot;min_prob&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="LDA.preprocess"><a class="viewcode-back" href="../../../../../src.models.topic_modelling.train.html#src.models.topic_modelling.train.lda.LDA.preprocess">[docs]</a>    <span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">column</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Preprocess values in column of df.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          df (pd.DataFrame): dataframe to preprocess</span>
+<span class="sd">          column (str): text column of df</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          df: dataframe with the preprocessed column</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;cleaned_text&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generate_bigrams</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">remove_common_words</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">df</span></div>
+
+<div class="viewcode-block" id="LDA.lemmatize"><a class="viewcode-back" href="../../../../../src.models.topic_modelling.train.html#src.models.topic_modelling.train.lda.LDA.lemmatize">[docs]</a>    <span class="k">def</span> <span class="nf">lemmatize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Lemmatize text using WordNetLemmatizer.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          text (str): text to lemmatize</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          lemmatized text</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">WordNetLemmatizer</span><span class="p">()</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">,</span>
+                                 <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">))))</span></div>
+
+<div class="viewcode-block" id="LDA.remove_common_words"><a class="viewcode-back" href="../../../../../src.models.topic_modelling.train.html#src.models.topic_modelling.train.lda.LDA.remove_common_words">[docs]</a>    <span class="k">def</span> <span class="nf">remove_common_words</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove common words from text.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          text (str): text to remove common words</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          text without common words</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">common_words</span><span class="p">,</span>
+                                    <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">))))</span></div>
+
+<div class="viewcode-block" id="LDA.generate_bigrams"><a class="viewcode-back" href="../../../../../src.models.topic_modelling.train.html#src.models.topic_modelling.train.lda.LDA.generate_bigrams">[docs]</a>    <span class="k">def</span> <span class="nf">generate_bigrams</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add bigrams to text.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          text (str): text to add bigrams</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          text with additional bigrams</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">text</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">ngrams</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngram</span><span class="p">):</span>
+            <span class="n">result</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="LDA.sent_to_words"><a class="viewcode-back" href="../../../../../src.models.topic_modelling.train.html#src.models.topic_modelling.train.lda.LDA.sent_to_words">[docs]</a>    <span class="k">def</span> <span class="nf">sent_to_words</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sentences</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate lists of tokens.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          sentences (str): list of sentences</span>
+
+<span class="sd">        Yields:</span>
+<span class="sd">          a list of tokens</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="p">(</span><span class="n">gensim</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">simple_preprocess</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">sentence</span><span class="p">),</span> <span class="n">deacc</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LDA.bigrams"><a class="viewcode-back" href="../../../../../src.models.topic_modelling.train.html#src.models.topic_modelling.train.lda.LDA.bigrams">[docs]</a>    <span class="k">def</span> <span class="nf">bigrams</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">words</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add bigrams to text with min count restrictions.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          words (str): text to add bigrams</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          gensim Phraser</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">bigram</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Phrases</span><span class="p">(</span><span class="n">words</span><span class="p">,</span> <span class="n">min_count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bi_min</span><span class="p">)</span>
+        <span class="n">bigram_mod</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">phrases</span><span class="o">.</span><span class="n">Phraser</span><span class="p">(</span><span class="n">bigram</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">bigram_mod</span></div>
+
+<div class="viewcode-block" id="LDA.get_corpus"><a class="viewcode-back" href="../../../../../src.models.topic_modelling.train.html#src.models.topic_modelling.train.lda.LDA.get_corpus">[docs]</a>    <span class="k">def</span> <span class="nf">get_corpus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">column</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get corpus of words, id to words mapping, and bigrams.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          df (pd.DataFrame): dataframe to get corpus</span>
+<span class="sd">          column (str): text column of df</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          corpus: word corpus</span>
+<span class="sd">          id2word: id to words mapping</span>
+<span class="sd">          bigram: list of bigrams</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">words</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sent_to_words</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]))</span>
+        <span class="n">bigram_mod</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bigrams</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+        <span class="n">bigram</span> <span class="o">=</span> <span class="p">[</span><span class="n">bigram_mod</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">]</span>
+        <span class="n">id2word</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">corpora</span><span class="o">.</span><span class="n">Dictionary</span><span class="p">(</span><span class="n">bigram</span><span class="p">)</span>
+        <span class="n">id2word</span><span class="o">.</span><span class="n">filter_extremes</span><span class="p">(</span><span class="n">no_below</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">no_below</span><span class="p">,</span> <span class="n">no_above</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">no_above</span><span class="p">)</span>
+        <span class="n">id2word</span><span class="o">.</span><span class="n">compactify</span><span class="p">()</span>
+        <span class="n">corpus</span> <span class="o">=</span> <span class="p">[</span><span class="n">id2word</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">bigram</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">corpus</span><span class="p">,</span> <span class="n">id2word</span><span class="p">,</span> <span class="n">bigram</span></div>
+
+<div class="viewcode-block" id="LDA.fit"><a class="viewcode-back" href="../../../../../src.models.topic_modelling.train.html#src.models.topic_modelling.train.lda.LDA.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fit LDA topic model on df.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          df (pd.DataFrame): train dataframe to fit</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          lda: fitted LDA model</span>
+<span class="sd">          df_corpus: df word corpus</span>
+<span class="sd">          df_id2word: df id to words mapping</span>
+<span class="sd">          df_bigram: df list of bigrams</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">df_corpus</span><span class="p">,</span> <span class="n">df_id2word</span><span class="p">,</span> <span class="n">df_bigram</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_corpus</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s2">&quot;review&quot;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+            <span class="n">lda</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">ldamulticore</span><span class="o">.</span><span class="n">LdaMulticore</span><span class="p">(</span>
+                <span class="n">corpus</span><span class="o">=</span><span class="n">df_corpus</span><span class="p">,</span>
+                <span class="n">num_topics</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_topics</span><span class="p">,</span>
+                <span class="n">id2word</span><span class="o">=</span><span class="n">df_id2word</span><span class="p">,</span>
+                <span class="n">per_word_topics</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">lda</span><span class="p">,</span> <span class="n">df_corpus</span><span class="p">,</span> <span class="n">df_id2word</span><span class="p">,</span> <span class="n">df_bigram</span></div>
+
+<div class="viewcode-block" id="LDA.predict"><a class="viewcode-back" href="../../../../../src.models.topic_modelling.train.html#src.models.topic_modelling.train.lda.LDA.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">lda</span><span class="p">,</span> <span class="n">df_corpus</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predict df using LDA fitted model.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          df (pd.DataFrame): dataframe to predict</span>
+<span class="sd">          lda: fitted LDA model</span>
+<span class="sd">          df_corpus: corpus of fitted LDA model</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          df: df with the predicted topic</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">topic_vec</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)):</span>
+            <span class="n">top_topics</span> <span class="o">=</span> <span class="n">lda</span><span class="o">.</span><span class="n">get_document_topics</span><span class="p">(</span>
+                <span class="n">df_corpus</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">minimum_probability</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">min_prob</span><span class="p">)</span>
+            <span class="n">topic_values</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">top_topics</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">topic_vec</span> <span class="o">+=</span> <span class="p">[</span><span class="n">topic_values</span><span class="p">]</span>
+
+        <span class="n">topics</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">topic_vec</span><span class="p">))</span>
+
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;topic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">topics</span>
+
+        <span class="k">return</span> <span class="n">df</span></div>
+
+<div class="viewcode-block" id="LDA.evaluate"><a class="viewcode-back" href="../../../../../src.models.topic_modelling.train.html#src.models.topic_modelling.train.lda.LDA.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot the top words in each topic.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          df (pd.DataFrame): dataframe with predicted topic</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          fig: Plotly figure of the top words</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">topics</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;topic&quot;</span><span class="p">]))</span>
+        <span class="n">topics</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">visualise_top_words</span><span class="p">(</span>
+            <span class="n">df</span><span class="p">,</span> <span class="n">topics</span><span class="p">,</span>
+            <span class="n">custom_sw</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">common_words</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">fig</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, H2o2.ai.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
