@@ -189,7 +189,8 @@ class BERT(Classifier):
             plt.title("BERT Training Graph")
             plt.legend()
         plt.show()
-        FileUtil.create_dir_if_not_exists(FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
+        FileUtil.create_dir_if_not_exists(
+            FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
         plt.savefig(FileUtil().BERT_TRAINING_GRAPH_FILE_PATH)
 
     def convert_data_to_examples(self, train, valid, TEXT_COL, SENTIMENT_COL):

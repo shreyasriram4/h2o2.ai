@@ -23,7 +23,7 @@ def predict_sentiment_topic(test_filepath=FileUtil().TEST_FILE_NAME,
         warnings.warn(
             "No entries in dataframe. Returning empty dataframe.")
         return df
-    
+
     df = predict_sentiment(df)
     df = predict_topic(df)
 
