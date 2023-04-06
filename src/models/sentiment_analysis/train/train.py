@@ -23,11 +23,11 @@ def sentiment_analysis_train():
     train = train.reset_index(drop=True)
     valid = valid.reset_index(drop=True)
 
-    bert_model = BERT()
-    trained_bert_model, history = bert_model.fit(train.copy(), valid.copy())
-    trained_bert_model.save_pretrained(FileUtil().BERT_SENTIMENT_MODEL_DIR)
-    bert_ap, bert_pr_auc = bert_model.evaluate(valid.copy())
-    bert_model.plot_training_acc_loss(history)
+    #bert_model = BERT()
+    #trained_bert_model, history = bert_model.fit(train.copy(), valid.copy())
+    #trained_bert_model.save_pretrained(FileUtil().BERT_SENTIMENT_MODEL_DIR)
+    #bert_ap, bert_pr_auc = bert_model.evaluate(valid.copy())
+    #bert_model.plot_training_acc_loss(history)
 
     lstm_model = Lstm()
     df_lstm = df.copy()
@@ -61,8 +61,8 @@ def sentiment_analysis_train():
     logreg_ap, logreg_pr_auc = logreg_model.evaluate(valid)
 
     FileUtil.put_metrics("sentiment_analysis",
-                         {"BERT": {"PR AUC": bert_pr_auc,
-                                   "Average Precision": bert_ap},
+                         {#"BERT": {"PR AUC": bert_pr_auc,
+                          #         "Average Precision": bert_ap},
                           "LSTM": {"PR AUC": lstm_pr_auc,
                                    "Average Precision": lstm_ap},
                           "LOGREG": {"PR AUC": logreg_pr_auc,

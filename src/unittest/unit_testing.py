@@ -1,6 +1,7 @@
-import warnings
+import os
 
 import pandas as pd
+from sklearn.model_selection import train_test_split
 
 from src.utils.file_util import FileUtil
 from src.models.predict import predict_sentiment_topic
@@ -30,8 +31,8 @@ from src.models.topic_modelling.train.nmf import Tfidf_NMF_Module
 from src.models.topic_modelling.train.train import topic_modelling_train
 
 from src.models.sentiment_analysis.train.bert import BERT
-from src.models.sentiment_analysis.train.logreg import LogisticRegression
-from src.models.sentiment_analysis.train.lstm import LSTM
+from src.models.sentiment_analysis.train.logreg import LOGREG
+from src.models.sentiment_analysis.train.lstm import Lstm
 from src.models.sentiment_analysis.train.train import sentiment_analysis_train
 
 files = FileUtil()
@@ -409,16 +410,16 @@ def test_predict_sentiment():
 
 
 def test_predict_topic():
-    check = None
+    check = []
     df = pd.DataFrame([["18/6/21", "these chips were bad."],
                        ["19/2/21", "Such good coffee!"]],
                       columns=["Time", "Text"])
     output = predict_topic(df=apply_cleaning_test(df))
 
     if not all(topic in topics for topic in list(output["topic"])):
-        check = "Output topics are not in list of possible topic labels"
+        check.append("Output topics are not in list of possible topic labels")
     if not all(subtopic in subtopics for subtopic in list(output["subtopic"])):
-        check = "Output subtopics are not in list of possible subtopic labels"
+        check.append("Output subtopics are not in list of possible subtopic labels")
 
     df_expected_output = pd.DataFrame([["18/6/21", "these chips were bad.",
                                         "chips bad"],
@@ -437,14 +438,10 @@ def test_predict_topic():
                     'cleaned_text']],
             df_expected_output,
             check_index_type=False)
-
-# check that sentiments are either 0 or 1
-# check that sentiment probabilities are between 0 and 1
-# check that topics and subtopics are within candidate labels
-
+    
 
 def test_predict_sentiment_topic():
-    check = None
+    check = []
     df = pd.DataFrame([["18/6/21", "these chips are bad."],
                        ["19/2/21", "Such good coffee!"]],
                       columns=["Time", "Text"])
@@ -452,13 +449,13 @@ def test_predict_sentiment_topic():
     output = predict_sentiment_topic(df=df)
 
     if not output["sentiment_prob"].between(0, 1).all():
-        check = "Sentiment probabilities are out of range of 0 to 1"
+        check.append("Sentiment probabilities are out of range of 0 to 1")
     if not all(sentiment in [0, 1] for sentiment in list(output["sentiment"])):
-        check = "Sentiment output values are not binary (strictly 0 or 1)"
+        check.append("Sentiment output values are not binary (strictly 0 or 1)")
     if not all(topic in topics for topic in list(output["topic"])):
-        check = "Output topics are not in list of possible topic labels"
+        check.append("Output topics are not in list of possible topic labels")
     if not all(subtopic in subtopics for subtopic in list(output["subtopic"])):
-        check = "Output subtopics are not in list of possible subtopic labels"
+        check.append("Output subtopics are not in list of possible subtopic labels")
 
     df_expected_output = pd.DataFrame([["18/6/21", "these chips are bad.",
                                         "chips bad"],
@@ -482,7 +479,7 @@ def test_predict_sentiment_topic():
 
 
 def test_lbl2vec_module():
-    check = None
+    check = []
     df = pd.DataFrame([["18/6/21", "these chips are bad."],
                        ["19/2/21", "Such good coffee!"]],
                       columns=["Time", "Text"])
@@ -499,9 +496,9 @@ def test_lbl2vec_module():
     subtopics = list(set(candidate_labels.keys()))
 
     if not all(subtopic in subtopics for subtopic in output_df['subtopic']):
-        check = "Subtopic labels not in subtopic"
+        check.append("Subtopic labels not in subtopic")
     if not all(topic in topics for topic in output_df['topic']):
-        check = "Topic labels not in topic"
+        check.append("Topic labels not in topic")
 
     if check:
         print(check)
@@ -546,7 +543,7 @@ def test_zeroshot_module():
 
 def test_lda_module():
 
-    check = None
+    check = []
     num_topics = config_params['LDA']['num_topics']
     
     lda_model = LDA()
@@ -555,121 +552,223 @@ def test_lda_module():
     output_df = lda_model.predict(df_preproc, lda, df_corpus)
 
     if output_df['topic'].isnull().values.any():
-        print("There are topics with null values.")
+        check.append("There are topics with null values.")
     if not all(int(topic) <= num_topics for topic in output_df['topic']):
-        print("The topics exceed the specified number of topics.")
+        check.append("The topics exceed the specified number of topics.")
+
+    if check:
+        print(check)
 
 
 def test_nmf_module():
     num_topics = config_params['NMF']['nmf_args']['n_components']
-    check = None
+    check = []
     
     nmf = Tfidf_NMF_Module()
     nmf.fit(data_proc.copy())
     output_df = nmf.predict(data_proc.copy())
 
     if output_df['topic'].isnull().values.any():
-        print("There are topics with null values.")
+        check.append("There are topics with null values.")
     if not all(int(topic) <= num_topics for topic in output_df['topic']):
-        print("The topics exceed the specified number of topics.")
+        check.append("The topics exceed the specified number of topics.")
+
+    if check:
+        print(check)
 
 
 def test_bertopic_module():
     num_topics = config_params['BERTopic']['nr_topics']
-    check = None
+    check = []
 
     bertopic_model = BERTopic_Module()
     bertopic_model.hdbscan_args['min_cluster_size'] = 10
     output_df = bertopic_model.predict(data_proc.copy())
 
     if all(output_df['topic'] == -1):
-        print("All reviews are identified as outliers. Choose better hyperparameters")
+        check.append("All reviews are identified as outliers. Choose better hyperparameters")
     if not all(int(topic) <= num_topics for topic in output_df['topic']):
-        print("The topics exceed the specified number of topics.")
-
-
-def test_topic_modelling_train_module():
-    
-    check = None
-    topic_modelling_train(df = data_proc_large)
-
-    if not FileUtil.check_filepath_exists(FileUtil().LDA_TOPIC_FILE_PATH):
-        check = "LDA topics not generated!"
-
-    if not FileUtil.check_filepath_exists(FileUtil().NMF_TOPIC_FILE_PATH):
-        check = "NMF topics not generated!"
-
-    if not FileUtil.check_filepath_exists(FileUtil().BERTOPIC_TOPIC_FILE_PATH):
-        check = "BERTopic topics not generated!"
+        check.append("The topics exceed the specified number of topics.")
 
     if check:
         print(check)
 
 
-def test_bert_predict():
-    pass
+def test_topic_modelling_train_module():
+    
+    check = []
+    topic_modelling_train(df = data_proc_large)
+
+    if not FileUtil.check_filepath_exists(FileUtil().LDA_TOPIC_FILE_PATH):
+        check.append("LDA topics not generated!")
+
+    if not FileUtil.check_filepath_exists(FileUtil().NMF_TOPIC_FILE_PATH):
+        check.append("NMF topics not generated!")
+
+    if not FileUtil.check_filepath_exists(FileUtil().BERTOPIC_TOPIC_FILE_PATH):
+        check.append("BERTopic topics not generated!")
+
+    if check:
+        print(check)
+
+def test_sentiment_analysis_train_module(): # ideally to be run on EC2 instance
+    check = []
+    sentiment_analysis_train(df = data_proc_large)
+
+    # check training accuracy/loss graphs for LSTM & BERT
+    if not FileUtil.check_filepath_exists(FileUtil().LSTM_TRAINING_LOSS_GRAPH_FILE_PATH):
+        check.append("LSTM training loss graph not generated!")
+
+    if not FileUtil.check_filepath_exists(FileUtil().LSTM_TRAINING_ACC_GRAPH_FILE_PATH):
+        check.append("LSTM training accuracy graph not generated!")
+
+    if not FileUtil.check_filepath_exists(FileUtil().BERT_TRAINING_GRAPH_FILENAME):
+        check.append("BERT training loss and accuracy graph not generated!")
+
+    # check metrics file of length 3 for LSTM, BERT & Logistic Regression
+    if not FileUtil.check_filepath_exists(os.path.join(
+                                                FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR,
+                                                FileUtil().METRICS_FILE_NAME)):
+        check.append("Metrics.json not generated!")
+    else:
+        metrics = FileUtil().get_metrics("sentiment_analysis")
+        if len(metrics) != 3:
+            check.append("Metrics.json doesn't generate all results!")
+        else:
+            if not pd.Series(metrics["LOGREG"].values()).between(0, 1).all():
+                check.append("Logistic regression metrics probabilities are not between 0 and 1. Fix evaluate code.")
+            if not pd.Series(metrics["BERT"].values()).between(0, 1).all():
+                check.append("BERT metrics probabilities are not between 0 and 1. Fix evaluate code.")
+            if not pd.Series(metrics["LSTM"].values()).between(0, 1).all():
+                check.append("LSTM metrics probabilities are not between 0 and 1. Fix evaluate code.")
+    if check:
+        print(check)
 
 
-def test_lstm_predict():
-    pass
+def test_bert_module():
+    check = []
+    df = pd.DataFrame([["18/6/21", "chips bad."],
+                       ["19/2/21", "good coffee"],
+                       ["19/2/21", "worst coffee ever"],
+                       ["19/2/21", "tea could better"],
+                       ["19/2/21", "bad restaurant poor decoration not clean"],
+                       ["19/2/21", "rude waiter zero stars"]],
+                      columns=["Time", "cleaned_text"])
+    
+    model = BERT(True)
+    label, probs, tf_predictions = model.predict(df)
+    df["sentiment"] = label
+    df["sentiment_prob"] = probs
+
+    if not df["sentiment_prob"].between(0, 1).all():
+        check.append("Sentiment probabilities are out of range of 0 to 1")
+    if not all(sentiment in [0, 1] for sentiment in list(df["sentiment"])):
+        check.append("Sentiment output values are not binary (strictly 0 or 1)")
+
+    if check:
+        print(check)
 
 
-def test_logreg_predict():
-    pass
+def test_logreg_module():
+    check = []
+    df = pd.DataFrame([["18/6/21", "chips bad."],
+                       ["19/2/21", "good coffee"],
+                       ["19/2/21", "worst coffee ever"],
+                       ["19/2/21", "tea could better"],
+                       ["19/2/21", "bad restaurant poor decoration not clean"],
+                       ["19/2/21", "rude waiter zero stars"]],
+                      columns=["Time", "cleaned_text"])
+    
+    model = LOGREG(True)
+    model.tokenize(df)
+    label, probs = model.predict(df)
+    df["sentiment"] = label
+    df["sentiment_prob"] = probs
+
+    if not df["sentiment_prob"].between(0, 1).all():
+        check.append("Sentiment probabilities are out of range of 0 to 1")
+    if not all(sentiment in [0, 1] for sentiment in list(df["sentiment"])):
+        check.append("Sentiment output values are not binary (strictly 0 or 1)")
+
+    if check:
+        print(check)
 
 
-def test_sentiment_analysis_train_module():
-    pass
+def test_lstm_module():
 
-def test_sentiment_analysis_predict_module():
-    pass
+    check = []
+    df = pd.DataFrame([["18/6/21", "chips bad."],
+                       ["19/2/21", "good coffee"],
+                       ["19/2/21", "worst coffee ever"],
+                       ["19/2/21", "tea could better"],
+                       ["19/2/21", "bad restaurant poor decoration not clean"],
+                       ["19/2/21", "rude waiter zero stars"]],
+                      columns=["Time", "cleaned_text"])
+    
+    model = Lstm(True)
+    model.tokenize(df)
+    label, probs = model.predict(df)
+    df["sentiment"] = label
+    df["sentiment_prob"] = probs
+
+    if not df["sentiment_prob"].between(0, 1).all():
+        check.append("Sentiment probabilities are out of range of 0 to 1")
+    if not all(sentiment in [0, 1] for sentiment in list(df["sentiment"])):
+        check.append("Sentiment output values are not binary (strictly 0 or 1)")
+
+    if check:
+        print(check)
 
 
 def unit_test():
     # Testing preprocessing utils
-    # test_convert_sentiment_df()
-    # test_expand_contractions_df()
-    # test_lowercase_string_df()
-    # test_remove_numbers_df()
-    # test_remove_punctuations_df()
-    # test_remove_stopwords_df()
-    # test_remove_trailing_leading_spaces_df()
-    # test_rename_column_df()
-    # test_replace_multiple_spaces_df()
-    # test_strip_html_tags_df()
-    # test_remove_empty_reviews_df()
+    test_convert_sentiment_df()
+    test_expand_contractions_df()
+    test_lowercase_string_df()
+    test_remove_numbers_df()
+    test_remove_punctuations_df()
+    test_remove_stopwords_df()
+    test_remove_trailing_leading_spaces_df()
+    test_rename_column_df()
+    test_replace_multiple_spaces_df()
+    test_strip_html_tags_df()
+    test_remove_empty_reviews_df()
 
     # # Testing cleaning functions
-    # test_apply_cleaning_test()
-    # test_apply_cleaning_train()
+    test_apply_cleaning_test()
+    test_apply_cleaning_train()
 
     # # Testing cleaning edge cases
-    # test_cleaning_when_date_is_string()
-    # test_cleaning_when_date_is_datetime()
-    # test_cleaning_punctuation_and_html_tags()
-    # test_replace_multiple_spaces_df_for_tabs()
+    test_cleaning_when_date_is_string()
+    test_cleaning_when_date_is_datetime()
+    test_cleaning_punctuation_and_html_tags()
+    test_replace_multiple_spaces_df_for_tabs()
 
     # # Testing prediction functions
 
-    # test_predict_sentiment()
-    # test_predict_sentiment_topic()
-    # test_predict_topic()
+    test_predict_sentiment()
+    test_predict_sentiment_topic()
+    test_predict_topic()
 
     # # Testing predict function edge cases
-    # test_predict_when_null_reviews()
-    # test_predict_when_all_stopwords()
-    # test_predict_when_empty_review()
+    test_predict_when_null_reviews()
+    test_predict_when_all_stopwords()
+    test_predict_when_empty_review()
 
-    # Testing model-specific prediction functions
-      #test_lbl2vec_module()
-      #test_zeroshot_module()
-      #est_lda_module()
-      #test_nmf_module()
-      #test_bertopic_module()
-    
+    # Testing topic modelling modules
+    test_lbl2vec_module()
+    test_zeroshot_module()
+    test_lda_module()
+    test_nmf_module()
+    test_bertopic_module()
     test_topic_modelling_train_module()
-    # Test model-specific training functions
-
+    
+    # Testing sentiment analysis modules
+    test_bert_module()
+    test_lstm_module()
+    test_logreg_module()
+    #test_sentiment_analysis_train_module()
+    
     # Test FileUtil module
 
 
