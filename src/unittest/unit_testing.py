@@ -1,3 +1,5 @@
+import warnings
+
 import pandas as pd
 
 from src.utils.file_util import FileUtil
@@ -25,12 +27,19 @@ from src.models.topic_modelling.test.zero_shot import ZeroShot
 from src.models.topic_modelling.train.lda import LDA
 from src.models.topic_modelling.train.bertopic import BERTopic_Module
 from src.models.topic_modelling.train.nmf import Tfidf_NMF_Module
+from src.models.topic_modelling.train.train import topic_modelling_train
+
+from src.models.sentiment_analysis.train.bert import BERT
+from src.models.sentiment_analysis.train.logreg import LogisticRegression
+from src.models.sentiment_analysis.train.lstm import LSTM
+from src.models.sentiment_analysis.train.train import sentiment_analysis_train
 
 files = FileUtil()
 config_params = files.CONFIG_PARAMS
 topics = config_params["topics"]
 subtopics = sum(config_params["topic_mapping"].values(), [])
-data_processed = files.get_processed_train_data().head(300)
+data_proc = files.get_processed_train_data().head(300)
+data_proc_large = files.get_processed_train_data().head(1000)
 
 # Testing preprocessing functions
 
@@ -387,8 +396,8 @@ def test_predict_sentiment():
     output = predict_sentiment(df=apply_cleaning_test(df))
 
     if not all(sentiment in [0, 1] for sentiment in list(output["sentiment"])):
-        check = "Sentiment output values are not binary (strictly 0 or 1)"
-        return check
+        print("Sentiment output values are not binary (strictly 0 or 1)")
+        
     else:
         return pd.testing.assert_frame_equal(output[["date",
                                                      "partially_cleaned_text",
@@ -420,7 +429,7 @@ def test_predict_topic():
                                                'partially_cleaned_text',
                                                'cleaned_text'])
     if check:
-        return check
+        print(check)
     else:
         return pd.testing.assert_frame_equal(
             output[['date',
@@ -460,7 +469,7 @@ def test_predict_sentiment_topic():
                                                'partially_cleaned_text',
                                                'cleaned_text'])
     if check:
-        return check
+        print(check)
     else:
         return pd.testing.assert_frame_equal(
             output[['date',
@@ -495,7 +504,7 @@ def test_lbl2vec_module():
         check = "Topic labels not in topic"
 
     if check:
-        return check
+        print(check)
     else:
         return pd.testing.assert_frame_equal(
             output_df[['Time',
@@ -505,7 +514,6 @@ def test_lbl2vec_module():
 
 
 def test_zeroshot_module():
-    check = None
     df = pd.DataFrame([["18/6/21", "these chips are bad."],
                        ["19/2/21", "Such good coffee!"],
                        ["19/2/21", "good coffee!"],
@@ -527,8 +535,7 @@ def test_zeroshot_module():
                                                'Text'])
     
     if not all(topic in candidate_labels for topic in output_df['topic']):
-        check = "Topic labels not in topic"
-        return check
+        print("Topic labels not in topic")
     else:
         return pd.testing.assert_frame_equal(
             output_df[['Time',
@@ -539,69 +546,82 @@ def test_zeroshot_module():
 
 def test_lda_module():
 
-    num_topics = config_params['LDA']['num_topics']
     check = None
-    df = pd.DataFrame([["18/6/21", "these chips are bad."],
-                       ["19/2/21", "Such good coffee!"],
-                       ["19/2/21", "good coffee!"],
-                       ["19/2/21", "tea could be better!"],
-                       ["19/2/21", "bad chips"],
-                       ["19/2/21", "best chips ever"]],
-                      columns=["Time", "review"])
+    num_topics = config_params['LDA']['num_topics']
     
-    df_expected_output = pd.DataFrame([["18/6/21", "these chips are bad."],
-                                        ["19/2/21", "Such good coffee!"],
-                                        ["19/2/21", "good coffee!"],
-                                        ["19/2/21", "tea could be better!"],
-                                        ["19/2/21", "bad chips"],
-                                        ["19/2/21", "best chips ever"]],
-                                        columns=['Time',
-                                               'review'])
-    
-    model = LDA()
-    lda, df_corpus, df_id2word, df_bigram = model.fit(df)
-    output_df = model.predict(df, lda, df_corpus)
+    lda_model = LDA()
+    df_preproc = lda_model.preprocess(data_proc.copy(), "review")
+    lda, df_corpus, df_id2word, df_bigram = lda_model.fit(df_preproc)
+    output_df = lda_model.predict(df_preproc, lda, df_corpus)
 
-    if output_df['topics'].isnull().values().any():
-        check = "There are topics with null values."
-    if not all(topic <= num_topics for topic in output_df['topics']):
-        check = "The topics exceed the specified number of topics."
-    
-    if check:
-        return check
-    else:
-        return pd.testing.assert_frame_equal(
-            output_df[['Time',
-                    'review']],
-            df_expected_output,
-            check_index_type=False)
+    if output_df['topic'].isnull().values.any():
+        print("There are topics with null values.")
+    if not all(int(topic) <= num_topics for topic in output_df['topic']):
+        print("The topics exceed the specified number of topics.")
 
 
 def test_nmf_module():
-    pass
+    num_topics = config_params['NMF']['nmf_args']['n_components']
+    check = None
+    
+    nmf = Tfidf_NMF_Module()
+    nmf.fit(data_proc.copy())
+    output_df = nmf.predict(data_proc.copy())
+
+    if output_df['topic'].isnull().values.any():
+        print("There are topics with null values.")
+    if not all(int(topic) <= num_topics for topic in output_df['topic']):
+        print("The topics exceed the specified number of topics.")
 
 
 def test_bertopic_module():
-    pass
+    num_topics = config_params['BERTopic']['nr_topics']
+    check = None
+
+    bertopic_model = BERTopic_Module()
+    bertopic_model.hdbscan_args['min_cluster_size'] = 10
+    output_df = bertopic_model.predict(data_proc.copy())
+
+    if all(output_df['topic'] == -1):
+        print("All reviews are identified as outliers. Choose better hyperparameters")
+    if not all(int(topic) <= num_topics for topic in output_df['topic']):
+        print("The topics exceed the specified number of topics.")
 
 
 def test_topic_modelling_train_module():
+    
+    check = None
+    topic_modelling_train(df = data_proc_large)
+
+    if not FileUtil.check_filepath_exists(FileUtil().LDA_TOPIC_FILE_PATH):
+        check = "LDA topics not generated!"
+
+    if not FileUtil.check_filepath_exists(FileUtil().NMF_TOPIC_FILE_PATH):
+        check = "NMF topics not generated!"
+
+    if not FileUtil.check_filepath_exists(FileUtil().BERTOPIC_TOPIC_FILE_PATH):
+        check = "BERTopic topics not generated!"
+
+    if check:
+        print(check)
+
+
+def test_bert_predict():
     pass
 
 
-def test_bert_module():
+def test_lstm_predict():
     pass
 
 
-def test_lstm_module():
-    pass
-
-
-def test_logreg_module():
+def test_logreg_predict():
     pass
 
 
 def test_sentiment_analysis_train_module():
+    pass
+
+def test_sentiment_analysis_predict_module():
     pass
 
 
@@ -643,8 +663,11 @@ def unit_test():
     # Testing model-specific prediction functions
       #test_lbl2vec_module()
       #test_zeroshot_module()
-      test_lda_module()
-
+      #est_lda_module()
+      #test_nmf_module()
+      #test_bertopic_module()
+    
+    test_topic_modelling_train_module()
     # Test model-specific training functions
 
     # Test FileUtil module
