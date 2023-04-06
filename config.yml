@@ -86,7 +86,7 @@ processed_data_path: "data/processed"
 output_path: "data/predicted"
 
 train_filename: "reviews.csv"
-test_filename: ""
+test_filename: "final_presentation/reviews_test.csv"
 model_filename: "model.pkl"
 metrics_filename: "metrics.json"
 bert_training_graph_filename: "bert_training.png"

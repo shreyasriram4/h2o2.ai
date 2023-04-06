@@ -10,12 +10,12 @@ from src.preprocessing.transformations import apply_cleaning_test
 
 
 def predict_sentiment_topic(test_filepath=FileUtil().TEST_FILE_NAME,
-                            df=FileUtil.get_raw_train_data()):
-
-    df.drop(["Sentiment"], errors="ignore", inplace=True, axis=1)
+                            df=FileUtil().get_raw_train_data()):
 
     if test_filepath:
         df = pd.read_csv(test_filepath)
+
+    df.drop(["Sentiment"], errors="ignore", inplace=True, axis=1)
 
     df = apply_cleaning_test(df)
 
@@ -24,7 +24,6 @@ def predict_sentiment_topic(test_filepath=FileUtil().TEST_FILE_NAME,
             "No entries in dataframe. Returning empty dataframe.")
         return df
 
-    # df = df.iloc[:10,] #uncomment to predict just the first 10 rows
     df = predict_sentiment(df)
     df = predict_topic(df)
 

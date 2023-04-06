@@ -446,7 +446,7 @@ def test_predict_sentiment_topic():
                        ["19/2/21", "Such good coffee!"]],
                       columns=["Time", "Text"])
 
-    output = predict_sentiment_topic(df=df)
+    output = predict_sentiment_topic(test_filepath="", df=df)
 
     if not output["sentiment_prob"].between(0, 1).all():
         check.append("Sentiment probabilities are out of range of 0 to 1")
@@ -718,7 +718,6 @@ def test_lstm_module():
 
     if check:
         print(check)
-
 
 def unit_test():
     # Testing preprocessing utils
