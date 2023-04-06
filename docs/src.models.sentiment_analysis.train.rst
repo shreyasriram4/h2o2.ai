@@ -1,9 +1,6 @@
 src.models.sentiment\_analysis.train package
 ============================================
 
-Submodules
-----------
-
 src.models.sentiment\_analysis.train.bert module
 ------------------------------------------------
 
@@ -36,10 +33,3 @@ src.models.sentiment\_analysis.train.train module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
-
-.. automodule:: src.models.sentiment_analysis.train
-   :members:
-   :undoc-members:
-   :show-inheritance:

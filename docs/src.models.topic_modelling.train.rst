@@ -1,8 +1,6 @@
 src.models.topic\_modelling.train package
 =========================================
 
-Submodules
-----------
 
 src.models.topic\_modelling.train.bertopic module
 -------------------------------------------------
@@ -36,10 +34,3 @@ src.models.topic\_modelling.train.train module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
-
-.. automodule:: src.models.topic_modelling.train
-   :members:
-   :undoc-members:
-   :show-inheritance:

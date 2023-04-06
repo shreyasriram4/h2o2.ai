@@ -1,8 +1,6 @@
 src.models.topic\_modelling.test package
 ========================================
 
-Submodules
-----------
 
 src.models.topic\_modelling.test.lbl2vec module
 -----------------------------------------------
@@ -28,10 +26,3 @@ src.models.topic\_modelling.test.zero\_shot module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
-
-.. automodule:: src.models.topic_modelling.test
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -1,8 +1,6 @@
 src.visualisation package
 =========================
 
-Submodules
-----------
 
 src.visualisation.dashboard\_viz module
 ---------------------------------------
@@ -25,10 +23,3 @@ src.visualisation.visualise\_topics module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
-
-.. automodule:: src.visualisation
-   :members:
-   :undoc-members:
-   :show-inheritance:

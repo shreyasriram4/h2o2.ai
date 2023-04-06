@@ -50,7 +50,6 @@
 <li class="toctree-l4 current"><a class="current reference internal" href="#">src.visualisation package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="src.html#module-src">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -85,9 +84,6 @@
              
   <section id="src-visualisation-package">
 <h1>src.visualisation package<a class="headerlink" href="#src-visualisation-package" title="Permalink to this heading"></a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
-</section>
 <section id="src-visualisation-dashboard-viz-module">
 <h2>src.visualisation.dashboard_viz module<a class="headerlink" href="#src-visualisation-dashboard-viz-module" title="Permalink to this heading"></a></h2>
 <span class="target" id="module-src.visualisation.dashboard_viz"></span><dl class="py function">
@@ -121,10 +117,11 @@ sentiment probability.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>html of the plotly figure</p>
+<dd class="field-even"><p>list of reviews sorted by sentiment probability
+in descending order</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>html (html)</p>
+<dd class="field-odd"><p>topic_sliced (list)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -153,17 +150,34 @@ and predicted sentiment</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.visualisation.dashboard_viz.get_subtopics">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">get_subtopics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#get_subtopics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.get_subtopics" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">get_subtopics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#get_subtopics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.get_subtopics" title="Permalink to this definition"></a></dt>
 <dd><p>Distribution of subtopics under selected topic.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>pd.Dataframe</em>) – dataframe</p></li>
-<li><p><strong>topic</strong> (<em>str</em>) – string of topic</p></li>
+<li><p><strong>topic</strong> (<em>str</em>) – string representing topic</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>html of the plotly figure</p>
+<dd class="field-even"><p>plotly figure</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>fig (graph object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.visualisation.dashboard_viz.html_output">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">html_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#html_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.html_output" title="Permalink to this definition"></a></dt>
+<dd><p>Converts plotly figure to html</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fig</strong> (<em>graph object</em>) – plotly figure</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>html of plotly figure</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>html (html)</p>
@@ -192,24 +206,24 @@ date columns</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.visualisation.dashboard_viz.sentiment_line_chart_over_time">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">sentiment_line_chart_over_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#sentiment_line_chart_over_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.sentiment_line_chart_over_time" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">sentiment_line_chart_over_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#sentiment_line_chart_over_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.sentiment_line_chart_over_time" title="Permalink to this definition"></a></dt>
 <dd><p>Plots a line chart of positive and negative sentiments over time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>data</strong> (<em>pd.Dataframe</em>) – dataframe</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>html of the plotly figure</p>
+<dd class="field-even"><p>plotly line chart figure</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>html (html)</p>
+<dd class="field-odd"><p>fig (graph object)</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.visualisation.dashboard_viz.sentiment_pie_chart">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">sentiment_pie_chart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#sentiment_pie_chart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.sentiment_pie_chart" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">sentiment_pie_chart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#sentiment_pie_chart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.sentiment_pie_chart" title="Permalink to this definition"></a></dt>
 <dd><p>Plots a pie chart to show distribution of positive and negative
 sentiments in the data.</p>
 <dl class="field-list simple">
@@ -217,17 +231,17 @@ sentiments in the data.</p>
 <dd class="field-odd"><p><strong>data</strong> (<em>pd.Dataframe</em>) – dataframe</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>html of plotly figure</p>
+<dd class="field-even"><p>plotly pie chart figure</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>html (html)</p>
+<dd class="field-odd"><p>fig (graph object)</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.visualisation.dashboard_viz.topics_bar_chart">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">topics_bar_chart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#topics_bar_chart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.topics_bar_chart" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">topics_bar_chart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#topics_bar_chart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.topics_bar_chart" title="Permalink to this definition"></a></dt>
 <dd><p>Bar chart to visualise the distribution of positive and
 negative sentiments for each topic in the data.</p>
 <dl class="field-list simple">
@@ -235,17 +249,17 @@ negative sentiments for each topic in the data.</p>
 <dd class="field-odd"><p><strong>data</strong> (<em>pd.Dataframe</em>) – dataframe</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>html of the plotly figure</p>
+<dd class="field-even"><p>plotly bar chart figure</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>html (html)</p>
+<dd class="field-odd"><p>fig (graph object)</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.visualisation.dashboard_viz.topics_bar_chart_over_time">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">topics_bar_chart_over_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#topics_bar_chart_over_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.topics_bar_chart_over_time" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">topics_bar_chart_over_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#topics_bar_chart_over_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.topics_bar_chart_over_time" title="Permalink to this definition"></a></dt>
 <dd><p>Bar chart plotting the distribution of topics against specified
 time frame.</p>
 <dl class="field-list simple">
@@ -257,44 +271,44 @@ time frame.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>html of the plotly figure</p>
+<dd class="field-even"><p>plotly bar chart figure</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>html (html)</p>
+<dd class="field-odd"><p>fig (graph object)</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.visualisation.dashboard_viz.topics_line_chart_over_time">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">topics_line_chart_over_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#topics_line_chart_over_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.topics_line_chart_over_time" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">topics_line_chart_over_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#topics_line_chart_over_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.topics_line_chart_over_time" title="Permalink to this definition"></a></dt>
 <dd><p>Plots trend (number of reviews) of each topic over time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>data</strong> (<em>pd.Dataframe</em>) – dataframe</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>html of the plotly figure</p>
+<dd class="field-even"><p>plotly line chart figure</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>html (html)</p>
+<dd class="field-odd"><p>fig (graph object)</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.visualisation.dashboard_viz.topics_pie_chart">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">topics_pie_chart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#topics_pie_chart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.topics_pie_chart" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">topics_pie_chart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#topics_pie_chart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.topics_pie_chart" title="Permalink to this definition"></a></dt>
 <dd><p>Pie chart showing distribution of topics in the data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>data</strong> (<em>pd.Dataframe</em>) – dataframe</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>html of the plotly figure</p>
+<dd class="field-even"><p>plotly pie chart figure</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>html (html)</p>
+<dd class="field-odd"><p>fig (graph object)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -318,24 +332,24 @@ time frame.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.visualisation.dashboard_viz.visualise_all_topics">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">visualise_all_topics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#visualise_all_topics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.visualise_all_topics" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">visualise_all_topics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#visualise_all_topics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.visualise_all_topics" title="Permalink to this definition"></a></dt>
 <dd><p>Barcharts showing top key words in each topic.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>data</strong> (<em>pd.Dataframe</em>) – dataframe</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>html of the plotly figure</p>
+<dd class="field-even"><p>plotly figure</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>html (html)</p>
+<dd class="field-odd"><p>fig (graph object)</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.visualisation.dashboard_viz.visualise_all_topics_playground">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">visualise_all_topics_playground</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#visualise_all_topics_playground"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.visualise_all_topics_playground" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.visualisation.dashboard_viz.</span></span><span class="sig-name descname"><span class="pre">visualise_all_topics_playground</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/visualisation/dashboard_viz.html#visualise_all_topics_playground"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.visualisation.dashboard_viz.visualise_all_topics_playground" title="Permalink to this definition"></a></dt>
 <dd><p>Barcharts showing top key words in the selected topic.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -345,10 +359,10 @@ time frame.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>html of the plotly figure</p>
+<dd class="field-even"><p>plotly figure</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>html (html)</p>
+<dd class="field-odd"><p>fig (graph object)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -405,9 +419,6 @@ topic. Else, for all topics in the list.</p></li>
 </dl>
 </dd></dl>
 
-</section>
-<section id="module-src.visualisation">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.visualisation" title="Permalink to this heading"></a></h2>
 </section>
 </section>
 

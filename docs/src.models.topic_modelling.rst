@@ -11,10 +11,3 @@ Subpackages
    src.models.topic_modelling.test
    src.models.topic_modelling.train
 
-Module contents
----------------
-
-.. automodule:: src.models.topic_modelling
-   :members:
-   :undoc-members:
-   :show-inheritance:
