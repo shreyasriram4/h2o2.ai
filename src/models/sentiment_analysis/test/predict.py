@@ -9,7 +9,7 @@ from src.models.sentiment_analysis.train.logreg import LOGREG
 from src.utils.file_util import FileUtil
 
 
-model_name = FileUtil.get_config()["best_sentiment_analysis_model"]
+model_name = FileUtil().best_sentiment_analysis_model
 
 
 def predict_sentiment(df, model_name=model_name):

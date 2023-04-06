@@ -3,6 +3,7 @@ from src.app.helper import add_card, clear_cards
 from src.visualisation.dashboard_viz import get_subtopics
 from src.visualisation.dashboard_viz import sentiment_pie_chart
 from src.visualisation.dashboard_viz import extract_top_reviews
+from src.visualisation.dashboard_viz import html_output
 import pandas as pd
 
 # @on('#topic_playground')
@@ -112,12 +113,13 @@ async def page4_result(q: Q, topics, df):
     add_card(q, 'Subtopic', ui.frame_card(
         box=ui.box(zone='side2', order='1'),
         title=f"Subtopics from specific topic: {topics}",
-        content=await get_subtopics(df, topics)),
+        content=await html_output(get_subtopics(df, topics))),
         )
 
     add_card(q, 'sentimentbreakdown_playground', ui.frame_card(
         box=ui.box(zone='side2', order='2'),
-        title=f"Sentiment Breakdown from specific topic: {topics}",
-        content=await sentiment_pie_chart(data=df[df["topic"] == topics]),
+        title="Sentiment Breakdown from specific topic: " + topics,
+        content=await html_output(sentiment_pie_chart(
+            data=df[df["topic"] == topics])),
         ))
     await q.page.save()
