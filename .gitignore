@@ -26,3 +26,5 @@ src/models/topic_modelling/train/eval/
 
 #incomplete
 test.ipynb
+
+.ipynb_checkpoints/
