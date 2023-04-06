@@ -8,7 +8,7 @@ BERT:
   epsilon: 1.0e-08
   learning_rate: 3.0e-05
   target_col: sentiment
-  text_col: cleaned_text
+  text_col: partially_cleaned_text
 BERTopic:
   hdbscan_args:
     cluster_selection_method: leaf
