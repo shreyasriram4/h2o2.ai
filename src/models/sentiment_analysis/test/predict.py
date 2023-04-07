@@ -8,6 +8,7 @@ from src.models.sentiment_analysis.train.lstm import Lstm
 from src.models.sentiment_analysis.train.logreg import LOGREG
 from src.utils.file_util import FileUtil
 
+
 def predict_sentiment(df, model_name=FileUtil().best_sentiment_analysis_model):
     """
     Predict the sentiment for df.

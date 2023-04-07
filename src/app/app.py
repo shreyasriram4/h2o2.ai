@@ -53,7 +53,7 @@ async def init(q: Q) -> None:
                                         'horizontal2',
                                         direction=ui.ZoneDirection.ROW,
                                         size='41%'), ])]),
-                            ])])])
+                ])])])
 
     q.page['sidebar'] = ui.nav_card(
         box='sidebar', color='card', title='H2O2.ai', subtitle="NUS DSA4263",
@@ -85,11 +85,11 @@ async def serve(q: Q):
 
     if q.args.file_upload:
         q.client.working_file_path = await q.site.download(
-                                        url=q.args.file_upload[0],
-                                        path='data/test')
+            url=q.args.file_upload[0],
+            path='data/test')
         q.client.input_df = pd.read_csv(q.client.working_file_path)
         predict_df = predict_sentiment_topic(
-                        test_filepath=q.client.working_file_path)
+            test_filepath=q.client.working_file_path)
         q.client.predict_df = reformat_data(predict_df)
     else:
         input_df = pd.read_csv('data/processed/reviews.csv')
