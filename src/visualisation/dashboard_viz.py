@@ -167,9 +167,9 @@ def visualise_all_topics(data):
     Returns:
         fig (graph object): plotly figure
     """
-    fig = visualise_top_words(data, topics=CONFIG_PARAMS["labels"],
-                              specific=False,
-                              custom_sw=CONFIG_PARAMS["custom_stopwords"])
+    fig = visualise_top_words(data, topics=list(data.topic.unique()),
+                            specific=False,
+                            custom_sw=CONFIG_PARAMS["custom_stopwords"])
     update_chart(fig)
     fig.update_yaxes(dtick=1)
     return fig
