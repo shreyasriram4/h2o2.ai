@@ -10,6 +10,7 @@ import re
 
 import pandas as pd
 import yaml
+from IPython.display import Image, display
 
 
 class InvalidExtensionException(Exception):
@@ -452,3 +453,26 @@ class FileUtil():
         call_args = json.loads(f'[{call_arg_str}]')
         plotly_json = {'data': call_args[1], 'layout': call_args[2]}
         return plotly.io.from_json(json.dumps(plotly_json))
+
+    @classmethod
+    def get_sentiment_viz_png(self):
+        """
+        Prints sentiment training visualisations from sentiment analysis'
+        evaluation directory. Retrieves visualisations ending in *.png
+
+        Returns:
+          pickle file of the model
+        """
+
+        FileUtil.create_dir_if_not_exists(
+            FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
+
+        eval_folder = os.path.join(
+            FileUtil().SENTIMENT_ANALYSIS_DIR,
+            FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
+
+        for filename in os.listdir(eval_folder):
+            if filename.endswith(".png"):
+                filepath = os.path.join(eval_folder, filename)
+                print("{filename}:".format(filename=filename))
+                display(Image(filename=filepath))
