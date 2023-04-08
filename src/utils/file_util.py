@@ -459,12 +459,9 @@ class FileUtil():
         FileUtil.create_dir_if_not_exists(
             FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
 
-        eval_folder = os.path.join(
-            FileUtil().SENTIMENT_ANALYSIS_DIR,
-            FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
-
-        for filename in os.listdir(eval_folder):
+        for filename in os.listdir(FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR):
             if filename.endswith(".png"):
-                filepath = os.path.join(eval_folder, filename)
+                filepath = os.path.join(
+                    FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR, filename)
                 print("{filename}:".format(filename=filename))
                 display(Image(filename=filepath))
