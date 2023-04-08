@@ -43,8 +43,7 @@ def sentiment_analysis_train():
 
     lstm_model.build_model()
     lstm_model.fit(train, valid)
-    lstm_model.plot_training_acc()
-    lstm_model.plot_training_loss()
+    lstm_model.plot_training_metrics()
     lstm_ap, lstm_pr_auc = lstm_model.evaluate(valid)
 
     logreg_model = LOGREG()

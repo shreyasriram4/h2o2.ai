@@ -6,7 +6,7 @@ BERT: {"dropout": 0.1,
       "callback_monitor": "val_loss",
       "callback_patience": 5,
       "epochs": 20,
-      "text_col": "cleaned_text",
+      "text_col": "partially_cleaned_text",
       "target_col": "sentiment"}
 
 LSTM: {"vector_size": 100, 
@@ -90,8 +90,7 @@ test_filename: "final_presentation/reviews_test.csv"
 model_filename: "model.pkl"
 metrics_filename: "metrics.json"
 bert_training_graph_filename: "bert_training.png"
-lstm_training_loss_graph_filename: "lstm_training_loss.png"
-lstm_training_acc_graph_filename: "lstm_training_acc.png"
+lstm_training_graph_filename: "lstm_training_graph.png"
 
 sentiment_analysis_path: "src/models/sentiment_analysis"
 topic_modelling_path: "src/models/topic_modelling"

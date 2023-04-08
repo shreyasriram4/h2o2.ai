@@ -160,28 +160,29 @@ class Lstm(Classifier):
         self.history_embedding = history_embedding
         return history_embedding
 
-    def plot_training_acc(self):
+    def plot_training_metrics(self):
 
         accs = self.history_embedding.history['accuracy']
         val_accs = self.history_embedding.history['val_accuracy']
 
-        plt.figure(figsize=(12, 4))
-        plt.plot(accs, c='b', label='train accuracy')
-        plt.plot(val_accs, c='r', label='validation accuracy')
-        plt.legend(loc='upper right')
-        plt.savefig(FileUtil().LSTM_TRAINING_ACC_GRAPH_FILE_PATH)
-        plt.show()
-
-    def plot_training_loss(self):
-
         losses = self.history_embedding.history['loss']
         val_losses = self.history_embedding.history['val_loss']
+        epochs = len(losses)
 
         plt.figure(figsize=(12, 4))
-        plt.plot(losses, c='b', label='train loss')
-        plt.plot(val_losses, c='r', label='validation loss')
-        plt.legend(loc='upper right')
-        plt.savefig(FileUtil().LSTM_TRAINING_LOSS_GRAPH_FILE_PATH)
+        for i, metrics in enumerate(zip([losses, accs], [val_losses, val_accs],
+                                        ['Loss', 'Accuracy'])):
+            plt.subplot(1, 2, i + 1)
+            plt.plot(range(1, epochs + 1), metrics[0],
+                     label='Training {}'.format(metrics[2]))
+            plt.title("LSTM Training Graph")
+            plt.plot(range(1, epochs + 1), metrics[1],
+                     label='Validation {}'.format(metrics[2]))
+            plt.title("LSTM Training Graph")
+            plt.legend()
+        FileUtil.create_dir_if_not_exists(
+            FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
+        plt.savefig(FileUtil().LSTM_TRAINING_GRAPH_FILE_PATH)
         plt.show()
 
     def predict(self, valid):
