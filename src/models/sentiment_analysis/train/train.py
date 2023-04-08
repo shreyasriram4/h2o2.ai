@@ -61,7 +61,7 @@ def sentiment_analysis_train():
 
     FileUtil.put_metrics("sentiment_analysis",
                          {"BERT": {"PR AUC": bert_pr_auc,
-                                "Average Precision": bert_ap},
+                                   "Average Precision": bert_ap},
                           "LSTM": {"PR AUC": lstm_pr_auc,
                                    "Average Precision": lstm_ap},
                           "LOGREG": {"PR AUC": logreg_pr_auc,
