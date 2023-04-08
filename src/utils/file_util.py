@@ -459,9 +459,6 @@ class FileUtil():
         """
         Prints sentiment training visualisations from sentiment analysis'
         evaluation directory. Retrieves visualisations ending in *.png
-
-        Returns:
-          pickle file of the model
         """
 
         FileUtil.create_dir_if_not_exists(

@@ -12,6 +12,7 @@ from src.utils.file_util import FileUtil
 from src.visualisation.visualise_topics import visualise_top_words
 
 nltk.download('wordnet')
+nltk.download('omw-1.4')
 
 
 class LDA(Classifier):
