@@ -626,16 +626,12 @@ def test_sentiment_analysis_train_module():
 
     # check training accuracy/loss graphs for LSTM & BERT
     if not FileUtil.check_filepath_exists(
-                            FileUtil().LSTM_TRAINING_LOSS_GRAPH_FILE_PATH):
-        check.append("LSTM training loss graph not generated!")
-
-    if not FileUtil.check_filepath_exists(
-                            FileUtil().LSTM_TRAINING_ACC_GRAPH_FILE_PATH):
-        check.append("LSTM training accuracy graph not generated!")
+                            FileUtil().LSTM_TRAINING_GRAPH_FILE_PATH):
+        check.append("LSTM training graph not generated!")
 
     if not FileUtil.check_filepath_exists(
                             FileUtil().BERT_TRAINING_GRAPH_FILENAME):
-        check.append("BERT training loss and accuracy graph not generated!")
+        check.append("BERT training graph not generated!")
 
     # check metrics file of length 3 for LSTM, BERT & Logistic Regression
     if not FileUtil.check_filepath_exists(os.path.join(
