@@ -20,7 +20,7 @@ def preprocess_train():
     """
     Applies cleaning to raw training data in according
     to filepath specified in FileUtil module.
-    Returns processed training data to filepath specified
+    Saves processed training data to filepath specified
     in FileUtil module.
     """
     df = FileUtil.get_raw_train_data()
