@@ -603,7 +603,7 @@ def test_bertopic_module():
 def test_topic_modelling_train_module():
 
     check = []
-    topic_modelling_train(df=data_proc_large)
+    topic_modelling_train()
 
     if not FileUtil.check_filepath_exists(FileUtil().LDA_TOPIC_FILE_PATH):
         check.append("LDA topics not generated!")
@@ -620,8 +620,9 @@ def test_topic_modelling_train_module():
 
 # ideally to be run on EC2 instance
 def test_sentiment_analysis_train_module():
+
     check = []
-    sentiment_analysis_train(df=data_proc_large)
+    sentiment_analysis_train()
 
     # check training accuracy/loss graphs for LSTM & BERT
     if not FileUtil.check_filepath_exists(
