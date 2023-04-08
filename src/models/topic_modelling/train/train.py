@@ -8,14 +8,13 @@ from src.models.topic_modelling.train.nmf import Tfidf_NMF_Module
 from src.utils.file_util import FileUtil
 
 
-def topic_modelling_train():
+def topic_modelling_train(df=FileUtil.get_processed_train_data()):
     """
     Train topic models on training data.
 
     LDA, BERTopic, and NMF models will be fitted on training data.
     All 3 models' topics plot will be saved to eval folder.
     """
-    df = FileUtil.get_processed_train_data()
 
     # LDA
     lda_model = LDA()

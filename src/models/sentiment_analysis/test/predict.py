@@ -9,10 +9,7 @@ from src.models.sentiment_analysis.train.logreg import LOGREG
 from src.utils.file_util import FileUtil
 
 
-model_name = FileUtil().best_sentiment_analysis_model
-
-
-def predict_sentiment(df, model_name=model_name):
+def predict_sentiment(df, model_name=FileUtil().best_sentiment_analysis_model):
     """
     Predict the sentiment for df.
 
@@ -31,6 +28,7 @@ def predict_sentiment(df, model_name=model_name):
         label, probs, tf_predictions = model.predict(df)
         df["sentiment"] = label
         df["sentiment_prob"] = probs
+
     elif model_name == "Logistic Regression":
         model = LOGREG(True)
         model.tokenize(df)
