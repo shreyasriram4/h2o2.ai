@@ -13,9 +13,11 @@ def sentiment_analysis_train():
     Train sentiment analysis models on training data.
 
     Processed dataset will be split into 80% train and 20% valid.
-    BERT, Logistic Regression, and LSTM models will be fitted on
-    training data and evaluated on validation data.
-    All 3 models and metrics, and BERT training graph will be saved to storage.
+    BERT and LSTM models will be fitted on training data and
+    evaluated on validation data, while Logistic Regression will be fitted
+    on full data.
+    All 3 models and metrics as well as LSTM and BERT training graphs
+    will be saved to storage.
     """
     df = FileUtil.get_processed_train_data()
     train, valid = train_test_split(df, test_size=0.2, random_state=1)

@@ -30,7 +30,6 @@ class LOGREG(Classifier):
         Args:
           load_model (bool): boolean value to indicate
           whether to load trained model or not
-
         """
         self.load_model = load_model
         self.saved_model_path = FileUtil().LOGREG_SENTIMENT_MODEL_PATH
@@ -50,7 +49,7 @@ class LOGREG(Classifier):
 
     def tokenize(self, df):
         """
-        Tokenize data.
+        Tokenize text column in df.
 
         Args:
           df (pd.DataFrame): dataframe
@@ -129,7 +128,7 @@ class LOGREG(Classifier):
 
     def fit(self, train):
         """
-        Fit LPGREG model on the train data
+        Fit LOGREG model on the train data
 
         Args:
           train (pd.DataFrame): train dataframe
