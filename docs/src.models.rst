@@ -1,15 +1,12 @@
 src.models package
 ==================
 
-Subpackages
------------
 
 .. toctree::
    :maxdepth: 4
 
    src.models.sentiment_analysis
    src.models.topic_modelling
-
 
 src.models.classifier module
 ----------------------------

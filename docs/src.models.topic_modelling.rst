@@ -1,8 +1,6 @@
 src.models.topic\_modelling package
 ===================================
 
-Subpackages
------------
 
 .. toctree::
    :maxdepth: 4

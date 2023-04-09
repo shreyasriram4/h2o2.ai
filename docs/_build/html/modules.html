@@ -77,27 +77,83 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="src.html">src package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="src.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="src.models.html">src.models package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="src.models.html#subpackages">Subpackages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.models.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.models.html#module-src.models.classifier">src.models.classifier module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.models.html#module-src.models.predict">src.models.predict module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.models.html#module-src.models">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.models.html">src.models package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.models.sentiment_analysis.html">src.models.sentiment_analysis package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.models.sentiment_analysis.test.html">src.models.sentiment_analysis.test package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.models.sentiment_analysis.train.html">src.models.sentiment_analysis.train package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="src.preprocessing.html">src.preprocessing package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#module-src.preprocessing.preprocessing_utils">src.preprocessing.preprocessing_utils module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#module-src.preprocessing.transformations">src.preprocessing.transformations module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.models.topic_modelling.html">src.models.topic_modelling package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.models.topic_modelling.eval.html">src.models.topic_modelling.eval package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.models.topic_modelling.test.html">src.models.topic_modelling.test package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.models.topic_modelling.train.html">src.models.topic_modelling.train package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="src.utils.html">src.utils package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="src.utils.html#module-src.utils.file_util">src.utils.file_util module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.models.html#module-src.models.classifier">src.models.classifier module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.models.html#src.models.classifier.Classifier"><code class="docutils literal notranslate"><span class="pre">Classifier</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="src.visualisation.html">src.visualisation package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src-visualisation-dashboard-viz-module">src.visualisation.dashboard_viz module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#module-src.visualisation.visualise_topics">src.visualisation.visualise_topics module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.models.html#module-src.models.predict">src.models.predict module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.models.html#src.models.predict.predict_sentiment_topic"><code class="docutils literal notranslate"><span class="pre">predict_sentiment_topic()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.preprocessing.html">src.preprocessing package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.preprocessing.html#module-src.preprocessing.preprocessing_utils">src.preprocessing.preprocessing_utils module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#src.preprocessing.preprocessing_utils.convert_sentiment_df"><code class="docutils literal notranslate"><span class="pre">convert_sentiment_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#src.preprocessing.preprocessing_utils.expand_contractions_df"><code class="docutils literal notranslate"><span class="pre">expand_contractions_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#src.preprocessing.preprocessing_utils.expand_contractions_text"><code class="docutils literal notranslate"><span class="pre">expand_contractions_text()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#src.preprocessing.preprocessing_utils.lowercase_string_df"><code class="docutils literal notranslate"><span class="pre">lowercase_string_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#src.preprocessing.preprocessing_utils.remove_empty_reviews_df"><code class="docutils literal notranslate"><span class="pre">remove_empty_reviews_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#src.preprocessing.preprocessing_utils.remove_numbers_df"><code class="docutils literal notranslate"><span class="pre">remove_numbers_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#src.preprocessing.preprocessing_utils.remove_punctuations_df"><code class="docutils literal notranslate"><span class="pre">remove_punctuations_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#src.preprocessing.preprocessing_utils.remove_stopwords_df"><code class="docutils literal notranslate"><span class="pre">remove_stopwords_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#src.preprocessing.preprocessing_utils.remove_stopwords_text"><code class="docutils literal notranslate"><span class="pre">remove_stopwords_text()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#src.preprocessing.preprocessing_utils.remove_trailing_leading_spaces_df"><code class="docutils literal notranslate"><span class="pre">remove_trailing_leading_spaces_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#src.preprocessing.preprocessing_utils.rename_column_df"><code class="docutils literal notranslate"><span class="pre">rename_column_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#src.preprocessing.preprocessing_utils.replace_multiple_spaces_df"><code class="docutils literal notranslate"><span class="pre">replace_multiple_spaces_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#src.preprocessing.preprocessing_utils.strip_html_tags_df"><code class="docutils literal notranslate"><span class="pre">strip_html_tags_df()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="src.preprocessing.html#module-src.preprocessing.transformations">src.preprocessing.transformations module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#src.preprocessing.transformations.apply_cleaning_test"><code class="docutils literal notranslate"><span class="pre">apply_cleaning_test()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#src.preprocessing.transformations.apply_cleaning_train"><code class="docutils literal notranslate"><span class="pre">apply_cleaning_train()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.preprocessing.html#src.preprocessing.transformations.preprocess_train"><code class="docutils literal notranslate"><span class="pre">preprocess_train()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.utils.html">src.utils package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.utils.html#module-src.utils.file_util">src.utils.file_util module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.utils.html#src.utils.file_util.FileUtil"><code class="docutils literal notranslate"><span class="pre">FileUtil</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.utils.html#src.utils.file_util.InvalidExtensionException"><code class="docutils literal notranslate"><span class="pre">InvalidExtensionException</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.visualisation.html">src.visualisation package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.visualisation.html#src-visualisation-dashboard-viz-module">src.visualisation.dashboard_viz module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src.visualisation.dashboard_viz.extract_num_topics"><code class="docutils literal notranslate"><span class="pre">extract_num_topics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src.visualisation.dashboard_viz.extract_top_reviews"><code class="docutils literal notranslate"><span class="pre">extract_top_reviews()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src.visualisation.dashboard_viz.extract_top_topic_reviews"><code class="docutils literal notranslate"><span class="pre">extract_top_topic_reviews()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src.visualisation.dashboard_viz.get_subtopics"><code class="docutils literal notranslate"><span class="pre">get_subtopics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src.visualisation.dashboard_viz.html_output"><code class="docutils literal notranslate"><span class="pre">html_output()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src.visualisation.dashboard_viz.reformat_data"><code class="docutils literal notranslate"><span class="pre">reformat_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src.visualisation.dashboard_viz.sentiment_line_chart_over_time"><code class="docutils literal notranslate"><span class="pre">sentiment_line_chart_over_time()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src.visualisation.dashboard_viz.sentiment_pie_chart"><code class="docutils literal notranslate"><span class="pre">sentiment_pie_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src.visualisation.dashboard_viz.topics_bar_chart"><code class="docutils literal notranslate"><span class="pre">topics_bar_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src.visualisation.dashboard_viz.topics_bar_chart_over_time"><code class="docutils literal notranslate"><span class="pre">topics_bar_chart_over_time()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src.visualisation.dashboard_viz.topics_line_chart_over_time"><code class="docutils literal notranslate"><span class="pre">topics_line_chart_over_time()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src.visualisation.dashboard_viz.topics_pie_chart"><code class="docutils literal notranslate"><span class="pre">topics_pie_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src.visualisation.dashboard_viz.update_chart"><code class="docutils literal notranslate"><span class="pre">update_chart()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src.visualisation.dashboard_viz.visualise_all_topics"><code class="docutils literal notranslate"><span class="pre">visualise_all_topics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src.visualisation.dashboard_viz.visualise_all_topics_playground"><code class="docutils literal notranslate"><span class="pre">visualise_all_topics_playground()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="src.visualisation.html#module-src.visualisation.visualise_topics">src.visualisation.visualise_topics module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src.visualisation.visualise_topics.get_top_words"><code class="docutils literal notranslate"><span class="pre">get_top_words()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.visualisation.html#src.visualisation.visualise_topics.visualise_top_words"><code class="docutils literal notranslate"><span class="pre">visualise_top_words()</span></code></a></li>
 </ul>
 </li>
 </ul>
