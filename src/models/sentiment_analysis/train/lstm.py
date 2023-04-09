@@ -121,7 +121,7 @@ class Lstm(Classifier):
         Converts texts to numeric sequences.
 
         Args:
-          df (pd.DataFrame): dataframe 
+          df (pd.DataFrame): dataframe
 
         Returns:
           pad_rev: Numeric representation of texts

@@ -64,7 +64,7 @@ class LOGREG(Classifier):
         return df
 
     def train_w2v_model(self, train):
-         """
+        """
         Trains word to vector model on train data
 
         Args:
@@ -73,7 +73,6 @@ class LOGREG(Classifier):
         Returns:
           w2v_model: Trained word to vector model
         """
-
 
         X_train = train[self.text_col]
 
@@ -95,7 +94,7 @@ class LOGREG(Classifier):
         Converts texts to word vectors.
 
         Args:
-          df (pd.DataFrame): dataframe 
+          df (pd.DataFrame): dataframe
 
         Returns:
           X_vect_avg: Numeric representation of texts

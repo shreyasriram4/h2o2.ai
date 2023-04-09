@@ -17,7 +17,7 @@ def predict_sentiment_topic(test_filepath=FileUtil().TEST_FILE_NAME,
     Test dataset will be cleaned.
     Best senitment models will be used to predict sentiment
     of test data according to the config file
-    Best topic modelling modelling model will be used to predict 
+    Best topic modelling modelling model will be used to predict
     topics of test according to the arg in predict in topic_model.test.predict
 
     Args:
