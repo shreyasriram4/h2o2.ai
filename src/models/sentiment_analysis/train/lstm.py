@@ -200,11 +200,11 @@ class Lstm(Classifier):
 
     def fit(self, train, val):
         """
-        Fit Lstm model on the train data and val data
+        Fit Lstm model on the train data and evaluate on validation data
 
         Args:
           train (pd.DataFrame): train dataframe
-          valid (pd.DataFrame): valid dataframe
+          val (pd.DataFrame): valid dataframe
 
         Returns:
           history_embedding: training history
@@ -227,7 +227,6 @@ class Lstm(Classifier):
     def plot_training_metrics(self):
         """
         Plot and save LSTM training graph.
-
         """
 
         accs = self.history_embedding.history['accuracy']
