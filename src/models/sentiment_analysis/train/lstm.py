@@ -31,7 +31,21 @@ from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, EarlyStopping
 
 
 class Lstm(Classifier):
+    """Lstm sentiment analysis class."""
+
     def __init__(self, load_model_bool=False):
+        """
+        Constructor for Lstm class.
+
+        Args:
+          load_model (bool): boolean value to indicate
+          whether to load trained model or not
+
+        Raises:
+          FileNotFoundError: If load_model is True, but
+          there is no trained model in the Lstm sentiment
+          model directory
+        """
         self.load_model = load_model_bool
         self.saved_model_path = FileUtil().LSTM_SENTIMENT_MODEL_DIR
         self.LSTM_config = FileUtil.get_config()["LSTM"]
@@ -63,6 +77,15 @@ class Lstm(Classifier):
             self.model = load_model(self.saved_model_path)
 
     def tokenize(self, df):
+        """
+        Tokenize data.
+
+        Args:
+          df (pd.DataFrame): dataframe
+
+        Returns:
+          df (pd.DataFrame): dataframe with tokenized column
+        """
         nltk.download('punkt')
         df['cleaned_text_new'] = df['cleaned_text'].apply(
             lambda x: word_tokenize(x))
@@ -73,6 +96,15 @@ class Lstm(Classifier):
         return df
 
     def train_w2v_model(self, df):
+        """
+        Trains word to vector model.
+
+        Args:
+          df (pd.DataFrame): dataframe
+
+        Returns:
+          w2v_model: Trained word to vector model
+        """
 
         X = df[self.text_col]
         w2v_model = gensim.models.Word2Vec(X,
@@ -85,6 +117,15 @@ class Lstm(Classifier):
         return w2v_model
 
     def get_word_vectors(self, df):
+        """
+        Converts texts to numeric sequences.
+
+        Args:
+          df (pd.DataFrame): dataframe
+
+        Returns:
+          pad_rev: Numeric representation of texts
+        """
 
         # this converts texts into some numeric sequences
         encd_rev = self.tokenizer.texts_to_sequences(df['cleaned_text'])
@@ -96,6 +137,12 @@ class Lstm(Classifier):
         return pad_rev
 
     def get_embedding_matrix(self):
+        """
+        Get embedded matrix for the shifting of weights.
+
+        Returns:
+          embed_matrix: Embedded matrix
+        """
 
         embed_matrix = np.zeros(shape=(self.vocab_size, self.vector_size))
         for word, i in self.tokenizer.word_index.items():
@@ -110,6 +157,13 @@ class Lstm(Classifier):
         return embed_matrix
 
     def build_model(self):
+        """
+        Builds the lstm model with its layers
+        based on the config file.
+
+        Returns:
+          model: Built and configured model
+        """
         # Build the LSTM Model
         model = Sequential()
         model.add(Embedding(input_dim=self.vocab_size,
@@ -145,6 +199,16 @@ class Lstm(Classifier):
         return model
 
     def fit(self, train, val):
+        """
+        Fit Lstm model on the train data and val data
+
+        Args:
+          train (pd.DataFrame): train dataframe
+          valid (pd.DataFrame): valid dataframe
+
+        Returns:
+          history_embedding: training history
+        """
         assert self.load_model is not True
 
         X_train_vect = self.get_word_vectors(train)
@@ -161,6 +225,10 @@ class Lstm(Classifier):
         return history_embedding
 
     def plot_training_metrics(self):
+        """
+        Plot and save LSTM training graph.
+
+        """
 
         accs = self.history_embedding.history['accuracy']
         val_accs = self.history_embedding.history['val_accuracy']
@@ -186,6 +254,16 @@ class Lstm(Classifier):
         plt.show()
 
     def predict(self, valid):
+        """
+        Predict LSTM model on test data.
+
+        Args:
+          valid (pd.DataFrame): test dataframe
+
+        Returns:
+          LSTM_test_pred: predicted sentiment labels for test dataset
+          LSTM_y_probs: probabilities of the predicted sentiment labels
+        """
 
         self.model = load_model(self.saved_model_path)
         X_val_vect = self.get_word_vectors(valid)
@@ -206,6 +284,16 @@ class Lstm(Classifier):
         return LSTM_test_pred, LSTM_y_probs
 
     def evaluate(self, valid):
+        """
+        Evaluate LSTM model performance on valid data.
+
+        Args:
+          valid (pd.DataFrame): valid dataframe
+
+        Returns:
+          ap: average precision score
+          pr_auc: precision recall area under curve score
+        """
         LSTM_test_pred, LSTM_y_probs = self.predict(valid)
         y_test = tensorflow.keras.utils.to_categorical(valid[self.target_col])
 
