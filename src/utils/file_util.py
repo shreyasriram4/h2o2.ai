@@ -10,6 +10,7 @@ import re
 
 import pandas as pd
 import yaml
+from IPython.display import Image, display
 
 
 class InvalidExtensionException(Exception):
@@ -68,10 +69,8 @@ class FileUtil():
         self.METRICS_FILE_NAME = self.CONFIG_PARAMS["metrics_filename"]
         self.BERT_TRAINING_GRAPH_FILENAME = self.CONFIG_PARAMS[
             "bert_training_graph_filename"]
-        self.LSTM_TRAINING_LOSS_GRAPH_FILENAME = self.CONFIG_PARAMS[
-            "lstm_training_loss_graph_filename"]
-        self.LSTM_TRAINING_ACC_GRAPH_FILENAME = self.CONFIG_PARAMS[
-            "lstm_training_acc_graph_filename"]
+        self.LSTM_TRAINING_GRAPH_FILENAME = self.CONFIG_PARAMS[
+            "lstm_training_graph_filename"]
         self.LDA_TOPIC_FILE_NAME = "lda_topics.html"
         self.BERTOPIC_TOPIC_FILE_NAME = "bertopic_topics.html"
         self.NMF_TOPIC_FILE_NAME = "nmf_topics.html"
@@ -100,12 +99,9 @@ class FileUtil():
 
         self.LSTM_SENTIMENT_MODEL_DIR = os.path.join(
             self.SENTIMENT_ANALYSIS_TRAIN_DIR, "lstm_model")
-        self.LSTM_TRAINING_LOSS_GRAPH_FILE_PATH = os.path.join(
+        self.LSTM_TRAINING_GRAPH_FILE_PATH = os.path.join(
             self.SENTIMENT_ANALYSIS_EVAL_DIR,
-            self.LSTM_TRAINING_LOSS_GRAPH_FILENAME)
-        self.LSTM_TRAINING_ACC_GRAPH_FILE_PATH = os.path.join(
-            self.SENTIMENT_ANALYSIS_EVAL_DIR,
-            self.LSTM_TRAINING_ACC_GRAPH_FILENAME)
+            self.LSTM_TRAINING_GRAPH_FILENAME)
 
         self.LOGREG_SENTIMENT_MODEL_DIR = os.path.join(
             self.SENTIMENT_ANALYSIS_TRAIN_DIR, "logreg_model")
@@ -452,3 +448,20 @@ class FileUtil():
         call_args = json.loads(f'[{call_arg_str}]')
         plotly_json = {'data': call_args[1], 'layout': call_args[2]}
         return plotly.io.from_json(json.dumps(plotly_json))
+
+    @classmethod
+    def get_sentiment_viz_png(self):
+        """
+        Prints sentiment training visualisations from sentiment analysis'
+        evaluation directory. Retrieves visualisations ending in *.png
+        """
+
+        FileUtil.create_dir_if_not_exists(
+            FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
+
+        for filename in os.listdir(FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR):
+            if filename.endswith(".png"):
+                filepath = os.path.join(
+                    FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR, filename)
+                print("{filename}:".format(filename=filename))
+                display(Image(filename=filepath))
