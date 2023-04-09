@@ -82,9 +82,11 @@
 <span class="sd">    Train sentiment analysis models on training data.</span>
 
 <span class="sd">    Processed dataset will be split into 80% train and 20% valid.</span>
-<span class="sd">    BERT, Logistic Regression, and LSTM models will be fitted on</span>
-<span class="sd">    training data and evaluated on validation data.</span>
-<span class="sd">    All 3 models and metrics, and BERT training graph will be saved to storage.</span>
+<span class="sd">    BERT and LSTM models will be fitted on training data and</span>
+<span class="sd">    evaluated on validation data, while Logistic Regression will be fitted</span>
+<span class="sd">    on full data.</span>
+<span class="sd">    All 3 models and metrics as well as LSTM and BERT training graphs</span>
+<span class="sd">    will be saved to storage.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">FileUtil</span><span class="o">.</span><span class="n">get_processed_train_data</span><span class="p">()</span>
     <span class="n">train</span><span class="p">,</span> <span class="n">valid</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>

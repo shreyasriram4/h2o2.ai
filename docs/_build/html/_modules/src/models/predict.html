@@ -83,15 +83,14 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Predict sentiment and topic of test data.</span>
 
-<span class="sd">    Test dataset will be cleaned.</span>
-<span class="sd">    Best senitment models will be used to predict sentiment</span>
-<span class="sd">    of test data according to the config file</span>
-<span class="sd">    Best topic modelling modelling model will be used to predict</span>
-<span class="sd">    topics of test according to the arg in predict in topic_model.test.predict</span>
+<span class="sd">    Test dataset will be preprocessed and then supplied to</span>
+<span class="sd">    predict_sentiment and predict_topic functions.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        test_filepath (str,optional): filepath of the test dataframe</span>
-<span class="sd">        df (pd.DataFrame,optional): test dataframe</span>
+<span class="sd">        test_filepath (str,optional): filepath of the test dataframe.</span>
+<span class="sd">        Default is the test file name specified in config file</span>
+<span class="sd">        df (pd.DataFrame,optional): test dataframe to predict.</span>
+<span class="sd">        Default is the raw train data.</span>
 
 
 <span class="sd">    Returns:</span>

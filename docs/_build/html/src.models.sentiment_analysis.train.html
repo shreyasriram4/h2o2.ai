@@ -237,7 +237,7 @@ pr_auc: precision recall area under curve score</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.logreg.LOGREG.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/logreg.html#LOGREG.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.logreg.LOGREG.fit" title="Permalink to this definition"></a></dt>
-<dd><p>Fit LPGREG model on the train data</p>
+<dd><p>Fit LOGREG model on the train data</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>train</strong> (<em>pd.DataFrame</em>) – train dataframe</p>
@@ -289,7 +289,7 @@ LR_y_probs: probabilities of the predicted sentiment labels</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.logreg.LOGREG.tokenize">
 <span class="sig-name descname"><span class="pre">tokenize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/logreg.html#LOGREG.tokenize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.logreg.LOGREG.tokenize" title="Permalink to this definition"></a></dt>
-<dd><p>Tokenize data.</p>
+<dd><p>Tokenize text column in df.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe</p>
@@ -366,12 +366,12 @@ pr_auc: precision recall area under curve score</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.lstm.Lstm.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/lstm.html#Lstm.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.lstm.Lstm.fit" title="Permalink to this definition"></a></dt>
-<dd><p>Fit Lstm model on the train data and val data</p>
+<dd><p>Fit Lstm model on the train data and evaluate on validation data</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>train</strong> (<em>pd.DataFrame</em>) – train dataframe</p></li>
-<li><p><strong>valid</strong> (<em>pd.DataFrame</em>) – valid dataframe</p></li>
+<li><p><strong>val</strong> (<em>pd.DataFrame</em>) – valid dataframe</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -483,9 +483,11 @@ LSTM_y_probs: probabilities of the predicted sentiment labels</p>
 <span class="sig-prename descclassname"><span class="pre">src.models.sentiment_analysis.train.train.</span></span><span class="sig-name descname"><span class="pre">sentiment_analysis_train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/train.html#sentiment_analysis_train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.train.sentiment_analysis_train" title="Permalink to this definition"></a></dt>
 <dd><p>Train sentiment analysis models on training data.</p>
 <p>Processed dataset will be split into 80% train and 20% valid.
-BERT, Logistic Regression, and LSTM models will be fitted on
-training data and evaluated on validation data.
-All 3 models and metrics, and BERT training graph will be saved to storage.</p>
+BERT and LSTM models will be fitted on training data and
+evaluated on validation data, while Logistic Regression will be fitted
+on full data.
+All 3 models and metrics as well as LSTM and BERT training graphs
+will be saved to storage.</p>
 </dd></dl>
 
 </section>

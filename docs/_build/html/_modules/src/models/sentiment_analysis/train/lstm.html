@@ -269,11 +269,11 @@
 
 <div class="viewcode-block" id="Lstm.fit"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Fit Lstm model on the train data and val data</span>
+<span class="sd">        Fit Lstm model on the train data and evaluate on validation data</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">          train (pd.DataFrame): train dataframe</span>
-<span class="sd">          valid (pd.DataFrame): valid dataframe</span>
+<span class="sd">          val (pd.DataFrame): valid dataframe</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">          history_embedding: training history</span>
@@ -296,7 +296,6 @@
 <div class="viewcode-block" id="Lstm.plot_training_metrics"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.plot_training_metrics">[docs]</a>    <span class="k">def</span> <span class="nf">plot_training_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot and save LSTM training graph.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">accs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">history_embedding</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span>

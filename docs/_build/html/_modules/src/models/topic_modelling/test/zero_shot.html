@@ -81,7 +81,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;ZeroShot topic model class.&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="ZeroShot.save_model"><a class="viewcode-back" href="../../../../../src.models.topic_modelling.test.html#src.models.topic_modelling.test.zero_shot.ZeroShot.save_model">[docs]</a>    <span class="k">def</span> <span class="nf">save_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save ZeroShot model from storage.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save ZeroShot model to storage.&quot;&quot;&quot;</span>
         <span class="n">classifier</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="s2">&quot;zero-shot-classification&quot;</span><span class="p">,</span>
                               <span class="n">model</span><span class="o">=</span><span class="s2">&quot;facebook/bart-large-mnli&quot;</span><span class="p">,</span>
                               <span class="n">device</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>

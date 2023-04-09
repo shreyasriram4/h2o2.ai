@@ -99,7 +99,6 @@
 <span class="sd">        Args:</span>
 <span class="sd">          load_model (bool): boolean value to indicate</span>
 <span class="sd">          whether to load trained model or not</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">load_model</span> <span class="o">=</span> <span class="n">load_model</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">saved_model_path</span> <span class="o">=</span> <span class="n">FileUtil</span><span class="p">()</span><span class="o">.</span><span class="n">LOGREG_SENTIMENT_MODEL_PATH</span>
@@ -119,7 +118,7 @@
 
 <div class="viewcode-block" id="LOGREG.tokenize"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.logreg.LOGREG.tokenize">[docs]</a>    <span class="k">def</span> <span class="nf">tokenize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Tokenize data.</span>
+<span class="sd">        Tokenize text column in df.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">          df (pd.DataFrame): dataframe</span>
@@ -198,7 +197,7 @@
 
 <div class="viewcode-block" id="LOGREG.fit"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.logreg.LOGREG.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Fit LPGREG model on the train data</span>
+<span class="sd">        Fit LOGREG model on the train data</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">          train (pd.DataFrame): train dataframe</span>
