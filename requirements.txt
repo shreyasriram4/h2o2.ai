@@ -20,3 +20,4 @@ sphinxcontrib-napoleon==0.9
 seaborn==0.12.2
 papermill==2.4.0
 kaleido==0.2.1
+IPython==8.12.0
