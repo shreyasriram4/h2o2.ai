@@ -79,6 +79,7 @@
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
 
 
 <div class="viewcode-block" id="InvalidExtensionException"><a class="viewcode-back" href="../../../src.utils.html#src.utils.file_util.InvalidExtensionException">[docs]</a><span class="k">class</span> <span class="nc">InvalidExtensionException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
@@ -137,10 +138,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">METRICS_FILE_NAME</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CONFIG_PARAMS</span><span class="p">[</span><span class="s2">&quot;metrics_filename&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">BERT_TRAINING_GRAPH_FILENAME</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CONFIG_PARAMS</span><span class="p">[</span>
             <span class="s2">&quot;bert_training_graph_filename&quot;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_TRAINING_LOSS_GRAPH_FILENAME</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CONFIG_PARAMS</span><span class="p">[</span>
-            <span class="s2">&quot;lstm_training_loss_graph_filename&quot;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_TRAINING_ACC_GRAPH_FILENAME</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CONFIG_PARAMS</span><span class="p">[</span>
-            <span class="s2">&quot;lstm_training_acc_graph_filename&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_TRAINING_GRAPH_FILENAME</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CONFIG_PARAMS</span><span class="p">[</span>
+            <span class="s2">&quot;lstm_training_graph_filename&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">LDA_TOPIC_FILE_NAME</span> <span class="o">=</span> <span class="s2">&quot;lda_topics.html&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">BERTOPIC_TOPIC_FILE_NAME</span> <span class="o">=</span> <span class="s2">&quot;bertopic_topics.html&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">NMF_TOPIC_FILE_NAME</span> <span class="o">=</span> <span class="s2">&quot;nmf_topics.html&quot;</span>
@@ -169,12 +168,9 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_SENTIMENT_MODEL_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">SENTIMENT_ANALYSIS_TRAIN_DIR</span><span class="p">,</span> <span class="s2">&quot;lstm_model&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_TRAINING_LOSS_GRAPH_FILE_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_TRAINING_GRAPH_FILE_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">SENTIMENT_ANALYSIS_EVAL_DIR</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_TRAINING_LOSS_GRAPH_FILENAME</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_TRAINING_ACC_GRAPH_FILE_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">SENTIMENT_ANALYSIS_EVAL_DIR</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_TRAINING_ACC_GRAPH_FILENAME</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_TRAINING_GRAPH_FILENAME</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">LOGREG_SENTIMENT_MODEL_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">SENTIMENT_ANALYSIS_TRAIN_DIR</span><span class="p">,</span> <span class="s2">&quot;logreg_model&quot;</span><span class="p">)</span>
@@ -194,6 +190,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">BERTOPIC_TOPIC_FILE_NAME</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">NMF_TOPIC_FILE_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">TOPIC_MODELLING_EVAL_DIR</span><span class="p">,</span>
                                                 <span class="bp">self</span><span class="o">.</span><span class="n">NMF_TOPIC_FILE_NAME</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">best_sentiment_analysis_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CONFIG_PARAMS</span><span class="p">[</span>
+            <span class="s2">&quot;best_sentiment_analysis_model&quot;</span><span class="p">]</span>
 
 <div class="viewcode-block" id="FileUtil.get_csv"><a class="viewcode-back" href="../../../src.utils.html#src.utils.file_util.FileUtil.get_csv">[docs]</a>    <span class="nd">@_check_filepath</span><span class="p">(</span><span class="s2">&quot;.csv&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">get_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
@@ -517,7 +516,24 @@
         <span class="n">call_arg_str</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Plotly\.newPlot\((.*)\)&#39;</span><span class="p">,</span> <span class="n">html</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="o">**</span><span class="mi">16</span><span class="p">:])[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">call_args</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[</span><span class="si">{</span><span class="n">call_arg_str</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
         <span class="n">plotly_json</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">call_args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;layout&#39;</span><span class="p">:</span> <span class="n">call_args</span><span class="p">[</span><span class="mi">2</span><span class="p">]}</span>
-        <span class="k">return</span> <span class="n">plotly</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">plotly_json</span><span class="p">))</span></div></div>
+        <span class="k">return</span> <span class="n">plotly</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">plotly_json</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="FileUtil.get_sentiment_viz_png"><a class="viewcode-back" href="../../../src.utils.html#src.utils.file_util.FileUtil.get_sentiment_viz_png">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_sentiment_viz_png</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prints sentiment training visualisations from sentiment analysis&#39;</span>
+<span class="sd">        evaluation directory. Retrieves visualisations ending in *.png</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">FileUtil</span><span class="o">.</span><span class="n">create_dir_if_not_exists</span><span class="p">(</span>
+            <span class="n">FileUtil</span><span class="p">()</span><span class="o">.</span><span class="n">SENTIMENT_ANALYSIS_EVAL_DIR</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">FileUtil</span><span class="p">()</span><span class="o">.</span><span class="n">SENTIMENT_ANALYSIS_EVAL_DIR</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.png&quot;</span><span class="p">):</span>
+                <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="n">FileUtil</span><span class="p">()</span><span class="o">.</span><span class="n">SENTIMENT_ANALYSIS_EVAL_DIR</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">))</span>
+                <span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filepath</span><span class="p">))</span></div></div>
 </pre></div>
 
            </div>

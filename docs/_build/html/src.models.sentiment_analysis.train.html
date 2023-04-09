@@ -215,38 +215,110 @@ tf_predictions: probabilities of both labels 0 and 1 for test dataset</p>
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.logreg.LOGREG">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.models.sentiment_analysis.train.logreg.</span></span><span class="sig-name descname"><span class="pre">LOGREG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/logreg.html#LOGREG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.logreg.LOGREG" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="src.models.html#src.models.classifier.Classifier" title="src.models.classifier.Classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Classifier</span></code></a></p>
+<p>LOGREG sentiment analysis class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.logreg.LOGREG.evaluate">
 <span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">valid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/logreg.html#LOGREG.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.logreg.LOGREG.evaluate" title="Permalink to this definition"></a></dt>
-<dd><p>Evaluate prediction result.</p>
+<dd><p>Evaluate LOGREG model performance on valid data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>valid</strong> (<em>pd.DataFrame</em>) – valid dataframe</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>average precision score
+pr_auc: precision recall area under curve score</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ap</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.logreg.LOGREG.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/logreg.html#LOGREG.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.logreg.LOGREG.fit" title="Permalink to this definition"></a></dt>
-<dd><p>Fit the Classifier.</p>
+<dd><p>Fit LPGREG model on the train data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>train</strong> (<em>pd.DataFrame</em>) – train dataframe</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>fitted model</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>self.model</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.logreg.LOGREG.get_word_vectors">
 <span class="sig-name descname"><span class="pre">get_word_vectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/logreg.html#LOGREG.get_word_vectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.logreg.LOGREG.get_word_vectors" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Converts texts to word vectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Numeric representation of texts</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>X_vect_avg</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.logreg.LOGREG.predict">
 <span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">valid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/logreg.html#LOGREG.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.logreg.LOGREG.predict" title="Permalink to this definition"></a></dt>
-<dd><p>Predict using Classifier.</p>
+<dd><p>Predict LOGREG model on test data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>valid</strong> (<em>pd.DataFrame</em>) – test dataframe</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>predicted sentiment labels for test dataset
+LR_y_probs: probabilities of the predicted sentiment labels</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>y_label</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.logreg.LOGREG.tokenize">
 <span class="sig-name descname"><span class="pre">tokenize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/logreg.html#LOGREG.tokenize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.logreg.LOGREG.tokenize" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Tokenize data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dataframe with tokenized column</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>df (pd.DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.logreg.LOGREG.train_w2v_model">
 <span class="sig-name descname"><span class="pre">train_w2v_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/logreg.html#LOGREG.train_w2v_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.logreg.LOGREG.train_w2v_model" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Trains word to vector model on train data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>train</strong> (<em>pd.DataFrame</em>) – train dataframe</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Trained word to vector model</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>w2v_model</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -257,58 +329,148 @@ tf_predictions: probabilities of both labels 0 and 1 for test dataset</p>
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.lstm.Lstm">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.models.sentiment_analysis.train.lstm.</span></span><span class="sig-name descname"><span class="pre">Lstm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_model_bool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/lstm.html#Lstm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.lstm.Lstm" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="src.models.html#src.models.classifier.Classifier" title="src.models.classifier.Classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Classifier</span></code></a></p>
+<p>Lstm sentiment analysis class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.lstm.Lstm.build_model">
 <span class="sig-name descname"><span class="pre">build_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/lstm.html#Lstm.build_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.lstm.Lstm.build_model" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Builds the lstm model with its layers
+based on the config file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Built and configured model</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>model</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.lstm.Lstm.evaluate">
 <span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">valid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/lstm.html#Lstm.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.lstm.Lstm.evaluate" title="Permalink to this definition"></a></dt>
-<dd><p>Evaluate prediction result.</p>
+<dd><p>Evaluate LSTM model performance on valid data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>valid</strong> (<em>pd.DataFrame</em>) – valid dataframe</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>average precision score
+pr_auc: precision recall area under curve score</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ap</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.lstm.Lstm.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/lstm.html#Lstm.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.lstm.Lstm.fit" title="Permalink to this definition"></a></dt>
-<dd><p>Fit the Classifier.</p>
+<dd><p>Fit Lstm model on the train data and val data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train</strong> (<em>pd.DataFrame</em>) – train dataframe</p></li>
+<li><p><strong>valid</strong> (<em>pd.DataFrame</em>) – valid dataframe</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>training history</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>history_embedding</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.lstm.Lstm.get_embedding_matrix">
 <span class="sig-name descname"><span class="pre">get_embedding_matrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/lstm.html#Lstm.get_embedding_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.lstm.Lstm.get_embedding_matrix" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Get embedded matrix for the shifting of weights.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Embedded matrix</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>embed_matrix</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.lstm.Lstm.get_word_vectors">
 <span class="sig-name descname"><span class="pre">get_word_vectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/lstm.html#Lstm.get_word_vectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.lstm.Lstm.get_word_vectors" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Converts texts to numeric sequences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Numeric representation of texts</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pad_rev</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="src.models.sentiment_analysis.train.lstm.Lstm.plot_training_acc">
-<span class="sig-name descname"><span class="pre">plot_training_acc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/lstm.html#Lstm.plot_training_acc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.lstm.Lstm.plot_training_acc" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="src.models.sentiment_analysis.train.lstm.Lstm.plot_training_loss">
-<span class="sig-name descname"><span class="pre">plot_training_loss</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/lstm.html#Lstm.plot_training_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.lstm.Lstm.plot_training_loss" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="src.models.sentiment_analysis.train.lstm.Lstm.plot_training_metrics">
+<span class="sig-name descname"><span class="pre">plot_training_metrics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/lstm.html#Lstm.plot_training_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.lstm.Lstm.plot_training_metrics" title="Permalink to this definition"></a></dt>
+<dd><p>Plot and save LSTM training graph.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.lstm.Lstm.predict">
 <span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">valid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/lstm.html#Lstm.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.lstm.Lstm.predict" title="Permalink to this definition"></a></dt>
-<dd><p>Predict using Classifier.</p>
+<dd><p>Predict LSTM model on test data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>valid</strong> (<em>pd.DataFrame</em>) – test dataframe</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>predicted sentiment labels for test dataset
+LSTM_y_probs: probabilities of the predicted sentiment labels</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>LSTM_test_pred</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.lstm.Lstm.tokenize">
 <span class="sig-name descname"><span class="pre">tokenize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/lstm.html#Lstm.tokenize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.lstm.Lstm.tokenize" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Tokenize data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dataframe with tokenized column</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>df (pd.DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.sentiment_analysis.train.lstm.Lstm.train_w2v_model">
 <span class="sig-name descname"><span class="pre">train_w2v_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/sentiment_analysis/train/lstm.html#Lstm.train_w2v_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.sentiment_analysis.train.lstm.Lstm.train_w2v_model" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Trains word to vector model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Trained word to vector model</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>w2v_model</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

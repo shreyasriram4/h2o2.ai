@@ -100,7 +100,21 @@
 
 
 <div class="viewcode-block" id="Lstm"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm">[docs]</a><span class="k">class</span> <span class="nc">Lstm</span><span class="p">(</span><span class="n">Classifier</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Lstm sentiment analysis class.&quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">load_model_bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor for Lstm class.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          load_model (bool): boolean value to indicate</span>
+<span class="sd">          whether to load trained model or not</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">          FileNotFoundError: If load_model is True, but</span>
+<span class="sd">          there is no trained model in the Lstm sentiment</span>
+<span class="sd">          model directory</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">load_model</span> <span class="o">=</span> <span class="n">load_model_bool</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">saved_model_path</span> <span class="o">=</span> <span class="n">FileUtil</span><span class="p">()</span><span class="o">.</span><span class="n">LSTM_SENTIMENT_MODEL_DIR</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">LSTM_config</span> <span class="o">=</span> <span class="n">FileUtil</span><span class="o">.</span><span class="n">get_config</span><span class="p">()[</span><span class="s2">&quot;LSTM&quot;</span><span class="p">]</span>
@@ -132,6 +146,15 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">saved_model_path</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Lstm.tokenize"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.tokenize">[docs]</a>    <span class="k">def</span> <span class="nf">tokenize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tokenize data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          df (pd.DataFrame): dataframe</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          df (pd.DataFrame): dataframe with tokenized column</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;punkt&#39;</span><span class="p">)</span>
         <span class="n">df</span><span class="p">[</span><span class="s1">&#39;cleaned_text_new&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;cleaned_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
             <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
@@ -142,6 +165,15 @@
         <span class="k">return</span> <span class="n">df</span></div>
 
 <div class="viewcode-block" id="Lstm.train_w2v_model"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.train_w2v_model">[docs]</a>    <span class="k">def</span> <span class="nf">train_w2v_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trains word to vector model.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          df (pd.DataFrame): dataframe</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          w2v_model: Trained word to vector model</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">text_col</span><span class="p">]</span>
         <span class="n">w2v_model</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Word2Vec</span><span class="p">(</span><span class="n">X</span><span class="p">,</span>
@@ -154,6 +186,15 @@
         <span class="k">return</span> <span class="n">w2v_model</span></div>
 
 <div class="viewcode-block" id="Lstm.get_word_vectors"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.get_word_vectors">[docs]</a>    <span class="k">def</span> <span class="nf">get_word_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts texts to numeric sequences.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          df (pd.DataFrame): dataframe</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          pad_rev: Numeric representation of texts</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># this converts texts into some numeric sequences</span>
         <span class="n">encd_rev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">texts_to_sequences</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;cleaned_text&#39;</span><span class="p">])</span>
@@ -165,6 +206,12 @@
         <span class="k">return</span> <span class="n">pad_rev</span></div>
 
 <div class="viewcode-block" id="Lstm.get_embedding_matrix"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.get_embedding_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">get_embedding_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get embedded matrix for the shifting of weights.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          embed_matrix: Embedded matrix</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">embed_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vocab_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_size</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">word_index</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -179,6 +226,13 @@
         <span class="k">return</span> <span class="n">embed_matrix</span></div>
 
 <div class="viewcode-block" id="Lstm.build_model"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.build_model">[docs]</a>    <span class="k">def</span> <span class="nf">build_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Builds the lstm model with its layers</span>
+<span class="sd">        based on the config file.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          model: Built and configured model</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Build the LSTM Model</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
         <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Embedding</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">vocab_size</span><span class="p">,</span>
@@ -214,6 +268,16 @@
         <span class="k">return</span> <span class="n">model</span></div>
 
 <div class="viewcode-block" id="Lstm.fit"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fit Lstm model on the train data and val data</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          train (pd.DataFrame): train dataframe</span>
+<span class="sd">          valid (pd.DataFrame): valid dataframe</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          history_embedding: training history</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">True</span>
 
         <span class="n">X_train_vect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_word_vectors</span><span class="p">(</span><span class="n">train</span><span class="p">)</span>
@@ -229,31 +293,46 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">history_embedding</span> <span class="o">=</span> <span class="n">history_embedding</span>
         <span class="k">return</span> <span class="n">history_embedding</span></div>
 
-<div class="viewcode-block" id="Lstm.plot_training_acc"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.plot_training_acc">[docs]</a>    <span class="k">def</span> <span class="nf">plot_training_acc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Lstm.plot_training_metrics"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.plot_training_metrics">[docs]</a>    <span class="k">def</span> <span class="nf">plot_training_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot and save LSTM training graph.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">accs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">history_embedding</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span>
         <span class="n">val_accs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">history_embedding</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_accuracy&#39;</span><span class="p">]</span>
 
-        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">accs</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;train accuracy&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">val_accs</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;validation accuracy&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">FileUtil</span><span class="p">()</span><span class="o">.</span><span class="n">LSTM_TRAINING_ACC_GRAPH_FILE_PATH</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
-
-<div class="viewcode-block" id="Lstm.plot_training_loss"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.plot_training_loss">[docs]</a>    <span class="k">def</span> <span class="nf">plot_training_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
         <span class="n">losses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">history_embedding</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">]</span>
         <span class="n">val_losses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">history_embedding</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_loss&#39;</span><span class="p">]</span>
+        <span class="n">epochs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">losses</span><span class="p">)</span>
 
         <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">losses</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;train loss&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">val_losses</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;validation loss&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">FileUtil</span><span class="p">()</span><span class="o">.</span><span class="n">LSTM_TRAINING_LOSS_GRAPH_FILE_PATH</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">metrics</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="n">losses</span><span class="p">,</span> <span class="n">accs</span><span class="p">],</span> <span class="p">[</span><span class="n">val_losses</span><span class="p">,</span> <span class="n">val_accs</span><span class="p">],</span>
+                                        <span class="p">[</span><span class="s1">&#39;Loss&#39;</span><span class="p">,</span> <span class="s1">&#39;Accuracy&#39;</span><span class="p">])):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">epochs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">metrics</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">metrics</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;LSTM Training Graph&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">epochs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">metrics</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Validation </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">metrics</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;LSTM Training Graph&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="n">FileUtil</span><span class="o">.</span><span class="n">create_dir_if_not_exists</span><span class="p">(</span>
+            <span class="n">FileUtil</span><span class="p">()</span><span class="o">.</span><span class="n">SENTIMENT_ANALYSIS_EVAL_DIR</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">FileUtil</span><span class="p">()</span><span class="o">.</span><span class="n">LSTM_TRAINING_GRAPH_FILE_PATH</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Lstm.predict"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">valid</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predict LSTM model on test data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          valid (pd.DataFrame): test dataframe</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          LSTM_test_pred: predicted sentiment labels for test dataset</span>
+<span class="sd">          LSTM_y_probs: probabilities of the predicted sentiment labels</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">saved_model_path</span><span class="p">)</span>
         <span class="n">X_val_vect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_word_vectors</span><span class="p">(</span><span class="n">valid</span><span class="p">)</span>
@@ -274,6 +353,16 @@
         <span class="k">return</span> <span class="n">LSTM_test_pred</span><span class="p">,</span> <span class="n">LSTM_y_probs</span></div>
 
 <div class="viewcode-block" id="Lstm.evaluate"><a class="viewcode-back" href="../../../../../src.models.sentiment_analysis.train.html#src.models.sentiment_analysis.train.lstm.Lstm.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">valid</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluate LSTM model performance on valid data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          valid (pd.DataFrame): valid dataframe</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          ap: average precision score</span>
+<span class="sd">          pr_auc: precision recall area under curve score</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">LSTM_test_pred</span><span class="p">,</span> <span class="n">LSTM_y_probs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">valid</span><span class="p">)</span>
         <span class="n">y_test</span> <span class="o">=</span> <span class="n">tensorflow</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">to_categorical</span><span class="p">(</span><span class="n">valid</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">target_col</span><span class="p">])</span>
 

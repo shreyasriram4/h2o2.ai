@@ -79,12 +79,30 @@
 
 
 <div class="viewcode-block" id="predict_sentiment_topic"><a class="viewcode-back" href="../../../src.models.html#src.models.predict.predict_sentiment_topic">[docs]</a><span class="k">def</span> <span class="nf">predict_sentiment_topic</span><span class="p">(</span><span class="n">test_filepath</span><span class="o">=</span><span class="n">FileUtil</span><span class="p">()</span><span class="o">.</span><span class="n">TEST_FILE_NAME</span><span class="p">,</span>
-                            <span class="n">df</span><span class="o">=</span><span class="n">FileUtil</span><span class="o">.</span><span class="n">get_raw_train_data</span><span class="p">()):</span>
+                            <span class="n">df</span><span class="o">=</span><span class="n">FileUtil</span><span class="p">()</span><span class="o">.</span><span class="n">get_raw_train_data</span><span class="p">()):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Predict sentiment and topic of test data.</span>
 
-    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;Sentiment&quot;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="sd">    Test dataset will be cleaned.</span>
+<span class="sd">    Best senitment models will be used to predict sentiment</span>
+<span class="sd">    of test data according to the config file</span>
+<span class="sd">    Best topic modelling modelling model will be used to predict</span>
+<span class="sd">    topics of test according to the arg in predict in topic_model.test.predict</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        test_filepath (str,optional): filepath of the test dataframe</span>
+<span class="sd">        df (pd.DataFrame,optional): test dataframe</span>
+
+
+<span class="sd">    Returns:</span>
+<span class="sd">        df (pd.DataFrame): dataframe with predicted topics and</span>
+<span class="sd">                            predicted sentiment</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">test_filepath</span><span class="p">:</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">test_filepath</span><span class="p">)</span>
+
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;Sentiment&quot;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="n">df</span> <span class="o">=</span> <span class="n">apply_cleaning_test</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 
@@ -93,7 +111,6 @@
             <span class="s2">&quot;No entries in dataframe. Returning empty dataframe.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">df</span>
 
-    <span class="c1"># df = df.iloc[:10,] #uncomment to predict just the first 10 rows</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">predict_sentiment</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">predict_topic</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 

@@ -77,9 +77,6 @@
 <span class="kn">from</span> <span class="nn">plotly</span> <span class="kn">import</span> <span class="n">graph_objects</span> <span class="k">as</span> <span class="n">go</span>
 <span class="kn">from</span> <span class="nn">plotly</span> <span class="kn">import</span> <span class="n">io</span> <span class="k">as</span> <span class="n">pio</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
-<span class="kn">from</span> <span class="nn">sklearn.feature_extraction</span> <span class="kn">import</span> <span class="n">text</span>
-
 <span class="kn">from</span> <span class="nn">src.visualisation.visualise_topics</span> <span class="kn">import</span> <span class="n">visualise_top_words</span>
 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;config.yml&quot;</span><span class="p">),</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ymlfile</span><span class="p">:</span>
@@ -123,7 +120,7 @@
     <span class="k">return</span> <span class="n">data</span></div>
 
 
-<div class="viewcode-block" id="sentiment_pie_chart"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.sentiment_pie_chart">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">sentiment_pie_chart</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="sentiment_pie_chart"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.sentiment_pie_chart">[docs]</a><span class="k">def</span> <span class="nf">sentiment_pie_chart</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots a pie chart to show distribution of positive and negative</span>
 <span class="sd">    sentiments in the data.</span>
@@ -132,7 +129,7 @@
 <span class="sd">        data (pd.Dataframe): dataframe</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        html (html): html of plotly figure</span>
+<span class="sd">        fig (graph object): plotly pie chart figure</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="s1">&#39;sentiment&#39;</span><span class="p">,</span>
                  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;sentiment&#39;</span><span class="p">,</span>
@@ -140,12 +137,10 @@
                     <span class="s1">&#39;negative&#39;</span><span class="p">:</span> <span class="n">px</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">qualitative</span><span class="o">.</span><span class="n">Plotly</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
                     <span class="s1">&#39;positive&#39;</span><span class="p">:</span> <span class="n">px</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">qualitative</span><span class="o">.</span><span class="n">Plotly</span><span class="p">[</span><span class="mi">2</span><span class="p">]})</span>
     <span class="n">update_chart</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
-    <span class="n">html</span> <span class="o">=</span> <span class="n">pio</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">auto_play</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">html</span></div>
+    <span class="k">return</span> <span class="n">fig</span></div>
 
 
-<div class="viewcode-block" id="sentiment_line_chart_over_time"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.sentiment_line_chart_over_time">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">sentiment_line_chart_over_time</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="sentiment_line_chart_over_time"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.sentiment_line_chart_over_time">[docs]</a><span class="k">def</span> <span class="nf">sentiment_line_chart_over_time</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots a line chart of positive and negative sentiments over time.</span>
 
@@ -153,7 +148,7 @@
 <span class="sd">        data (pd.Dataframe): dataframe</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        html (html): html of the plotly figure</span>
+<span class="sd">        fig (graph object): plotly line chart figure</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">freq_df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;sentiment&#39;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">freq_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;size&quot;</span><span class="p">,</span>
@@ -163,12 +158,10 @@
                     <span class="s1">&#39;negative&#39;</span><span class="p">:</span> <span class="n">px</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">qualitative</span><span class="o">.</span><span class="n">Plotly</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
                     <span class="s1">&#39;positive&#39;</span><span class="p">:</span> <span class="n">px</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">qualitative</span><span class="o">.</span><span class="n">Plotly</span><span class="p">[</span><span class="mi">2</span><span class="p">]})</span>
     <span class="n">update_chart</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
-    <span class="n">html</span> <span class="o">=</span> <span class="n">pio</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">auto_play</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">html</span></div>
+    <span class="k">return</span> <span class="n">fig</span></div>
 
 
-<div class="viewcode-block" id="topics_bar_chart"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.topics_bar_chart">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">topics_bar_chart</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="topics_bar_chart"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.topics_bar_chart">[docs]</a><span class="k">def</span> <span class="nf">topics_bar_chart</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Bar chart to visualise the distribution of positive and</span>
 <span class="sd">    negative sentiments for each topic in the data.</span>
@@ -177,7 +170,7 @@
 <span class="sd">        data (pd.Dataframe): dataframe</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        html (html): html of the plotly figure</span>
+<span class="sd">        fig (graph object): plotly bar chart figure</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">freq_df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;topic&#39;</span><span class="p">,</span> <span class="s1">&#39;sentiment&#39;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
     <span class="n">freq_df</span><span class="p">[</span><span class="s1">&#39;pct&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">freq_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;topic&#39;</span><span class="p">,</span>
@@ -191,12 +184,10 @@
                     <span class="s1">&#39;positive&#39;</span><span class="p">:</span> <span class="n">px</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">qualitative</span><span class="o">.</span><span class="n">Plotly</span><span class="p">[</span><span class="mi">2</span><span class="p">]})</span>
     <span class="n">update_chart</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">xaxis</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;dtick&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
-    <span class="n">html</span> <span class="o">=</span> <span class="n">pio</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">auto_play</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">html</span></div>
+    <span class="k">return</span> <span class="n">fig</span></div>
 
 
-<div class="viewcode-block" id="topics_line_chart_over_time"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.topics_line_chart_over_time">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">topics_line_chart_over_time</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="topics_line_chart_over_time"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.topics_line_chart_over_time">[docs]</a><span class="k">def</span> <span class="nf">topics_line_chart_over_time</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots trend (number of reviews) of each topic over time.</span>
 
@@ -204,17 +195,15 @@
 <span class="sd">        data (pd.Dataframe): dataframe</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        html (html): html of the plotly figure</span>
+<span class="sd">        fig (graph object): plotly line chart figure</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">freq_df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;topic&#39;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">area</span><span class="p">(</span><span class="n">freq_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;topic&quot;</span><span class="p">)</span>
     <span class="n">update_chart</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
-    <span class="n">html</span> <span class="o">=</span> <span class="n">pio</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">auto_play</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">html</span></div>
+    <span class="k">return</span> <span class="n">fig</span></div>
 
 
-<div class="viewcode-block" id="topics_pie_chart"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.topics_pie_chart">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">topics_pie_chart</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="topics_pie_chart"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.topics_pie_chart">[docs]</a><span class="k">def</span> <span class="nf">topics_pie_chart</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Pie chart showing distribution of topics in the data.</span>
 
@@ -222,23 +211,22 @@
 <span class="sd">        data (pd.Dataframe): dataframe</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        html (html): html of the plotly figure</span>
+<span class="sd">        fig (graph object): plotly pie chart figure</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;topic&#39;</span><span class="p">,</span>
                  <span class="n">category_orders</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;topic&#39;</span><span class="p">:</span> <span class="n">CONFIG_PARAMS</span><span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">]})</span>
     <span class="n">update_chart</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">legend</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-                    <span class="n">yanchor</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">,</span>
-                    <span class="n">y</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-                    <span class="n">xanchor</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
-                    <span class="n">x</span><span class="o">=</span><span class="mf">1.5</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+                      <span class="n">legend</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+                        <span class="n">yanchor</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">,</span>
+                        <span class="n">y</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                        <span class="n">xanchor</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
+                        <span class="n">x</span><span class="o">=</span><span class="mf">1.4</span>
                 <span class="p">))</span>
-    <span class="n">html</span> <span class="o">=</span> <span class="n">pio</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">auto_play</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">html</span></div>
+    <span class="k">return</span> <span class="n">fig</span></div>
 
 
-<div class="viewcode-block" id="visualise_all_topics"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.visualise_all_topics">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">visualise_all_topics</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="visualise_all_topics"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.visualise_all_topics">[docs]</a><span class="k">def</span> <span class="nf">visualise_all_topics</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Barcharts showing top key words in each topic.</span>
 
@@ -246,19 +234,17 @@
 <span class="sd">        data (pd.Dataframe): dataframe</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        html (html): html of the plotly figure</span>
+<span class="sd">        fig (graph object): plotly figure</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">visualise_top_words</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">topics</span><span class="o">=</span><span class="n">CONFIG_PARAMS</span><span class="p">[</span><span class="s2">&quot;labels&quot;</span><span class="p">],</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">visualise_top_words</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">topics</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">topic</span><span class="o">.</span><span class="n">unique</span><span class="p">()),</span>
                               <span class="n">specific</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                               <span class="n">custom_sw</span><span class="o">=</span><span class="n">CONFIG_PARAMS</span><span class="p">[</span><span class="s2">&quot;custom_stopwords&quot;</span><span class="p">])</span>
     <span class="n">update_chart</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">html</span> <span class="o">=</span> <span class="n">pio</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">auto_play</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">html</span></div>
+    <span class="k">return</span> <span class="n">fig</span></div>
 
 
-<div class="viewcode-block" id="visualise_all_topics_playground"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.visualise_all_topics_playground">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">visualise_all_topics_playground</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">topic</span><span class="p">):</span>
+<div class="viewcode-block" id="visualise_all_topics_playground"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.visualise_all_topics_playground">[docs]</a><span class="k">def</span> <span class="nf">visualise_all_topics_playground</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">topic</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Barcharts showing top key words in the selected topic.</span>
 
@@ -267,16 +253,14 @@
 <span class="sd">        topic (str): string of topic</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        html (html): html of the plotly figure</span>
+<span class="sd">        fig (graph object): plotly figure</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">visualise_top_words</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">topics</span><span class="o">=</span><span class="n">topic</span><span class="p">,</span>
                               <span class="n">specific</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                               <span class="n">custom_sw</span><span class="o">=</span><span class="n">CONFIG_PARAMS</span><span class="p">[</span><span class="s2">&quot;custom_stopwords&quot;</span><span class="p">])</span>
     <span class="n">update_chart</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">html</span> <span class="o">=</span> <span class="n">pio</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">auto_play</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">html</span></div>
+    <span class="k">return</span> <span class="n">fig</span></div>
 
 
 <div class="viewcode-block" id="extract_top_reviews"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.extract_top_reviews">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">extract_top_reviews</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="n">sentiment</span><span class="p">):</span>
@@ -288,8 +272,10 @@
 <span class="sd">        data (pd.Dataframe): dataframe</span>
 <span class="sd">        topic (str): string of topic</span>
 <span class="sd">        sentiment (str): sentiment (e.g &#39;positive&#39; or &#39;negative&#39;)</span>
+
 <span class="sd">    Returns:</span>
-<span class="sd">        html (html): html of the plotly figure</span>
+<span class="sd">        topic_sliced (list): list of reviews sorted by sentiment probability</span>
+<span class="sd">        in descending order</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">topic_df</span> <span class="o">=</span> <span class="n">data</span><span class="p">[(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;topic&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">topic</span><span class="p">)</span> <span class="o">&amp;</span>
                     <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;sentiment&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sentiment</span><span class="p">)]</span>
@@ -319,27 +305,7 @@
     <span class="k">return</span> <span class="n">topic_sliced</span></div>
 
 
-<span class="c1"># async def topics_line_chart_by_quarter(data):</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     Line chart plotting the distribution of topics overtime.</span>
-<span class="c1">#</span>
-<span class="c1">#     Args:</span>
-<span class="c1">#         data (pd.Dataframe): dataframe</span>
-<span class="c1">#     Returns:</span>
-<span class="c1">#         html (html): html of the plotly figure</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     data[&#39;year_quarter&#39;] = data[&#39;date&#39;].dt.to_period(&#39;Q&#39;).astype(&#39;string&#39;)</span>
-<span class="c1">#     freq_df = data.groupby([&#39;year_quarter&#39;, &#39;topic&#39;], as_index=False).size()</span>
-<span class="c1">#     fig = px.area(freq_df, x=&quot;year_quarter&quot;, y=&quot;size&quot;, color=&quot;topic&quot;,</span>
-<span class="c1">#                   category_orders={&#39;topic&#39;: CONFIG_PARAMS[&quot;labels&quot;]},</span>
-<span class="c1">#                   labels={&quot;topic&quot;: &quot;Topic&quot;, &#39;size&#39;: &quot;Number of reviews&quot;})</span>
-<span class="c1">#     update_chart(fig)</span>
-<span class="c1">#     html = pio.to_html(fig, config=None, auto_play=True,</span>
-<span class="c1">#                        include_plotlyjs=&quot;cdn&quot;)</span>
-<span class="c1">#     return html</span>
-
-
-<div class="viewcode-block" id="topics_bar_chart_over_time"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.topics_bar_chart_over_time">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">topics_bar_chart_over_time</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">time_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="topics_bar_chart_over_time"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.topics_bar_chart_over_time">[docs]</a><span class="k">def</span> <span class="nf">topics_bar_chart_over_time</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">time_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Bar chart plotting the distribution of topics against specified</span>
 <span class="sd">    time frame.</span>
@@ -350,7 +316,7 @@
 <span class="sd">                        (eg. &quot;M&quot; for months or &quot;Q&quot; for quarter)</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        html (html): html of the plotly figure</span>
+<span class="sd">        fig (graph object): plotly bar chart figure</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">time_frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;date_frame&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span>
@@ -369,9 +335,7 @@
                      <span class="n">barmode</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
     <span class="n">update_chart</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">xaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">categoryorder</span><span class="o">=</span><span class="s1">&#39;category ascending&#39;</span><span class="p">))</span>
-    <span class="n">html</span> <span class="o">=</span> <span class="n">pio</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">auto_play</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                       <span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">html</span></div>
+    <span class="k">return</span> <span class="n">fig</span></div>
 
 
 <div class="viewcode-block" id="extract_num_topics"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.extract_num_topics">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">extract_num_topics</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
@@ -388,44 +352,17 @@
     <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_topics</span><span class="p">)</span></div>
 
 
-<span class="c1"># async def extract_most_freq_words(data, positive=True):</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     Extracts the most frequent words among positive and negative</span>
-<span class="c1">#     sentiments respectively.</span>
-<span class="c1">#</span>
-<span class="c1">#     Args:</span>
-<span class="c1">#         data (pd.Dataframe): dataframe</span>
-<span class="c1">#     Returns:</span>
-<span class="c1">#         word (list): list of most frequently appearing words</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     if positive is True:</span>
-<span class="c1">#         df = data[data[&#39;sentiment&#39;] == &#39;positive&#39;]</span>
-<span class="c1">#     else:</span>
-<span class="c1">#         df = data[data[&#39;sentiment&#39;] == &#39;negative&#39;]</span>
-<span class="c1">#     my_stop_words = list(text.ENGLISH_STOP_WORDS.union(</span>
-<span class="c1">#         CONFIG_PARAMS[&quot;custom_stopwords&quot;]))</span>
-<span class="c1">#     cv = CountVectorizer(stop_words=my_stop_words)</span>
-<span class="c1">#     bow = cv.fit_transform(df[&#39;cleaned_text&#39;])</span>
-<span class="c1">#     word_freq = dict(zip(cv.get_feature_names(),</span>
-<span class="c1">#                          np.asarray(bow.sum(axis=0)).ravel()))</span>
-<span class="c1">#     word_counter = collections.Counter(word_freq)</span>
-<span class="c1">#     word_counter_df = pd.DataFrame(word_counter.most_common(20),</span>
-<span class="c1">#                                    columns=[&#39;word&#39;, &#39;freq&#39;])</span>
-<span class="c1">#     return word_counter_df[&#39;word&#39;]</span>
-
-
-<div class="viewcode-block" id="get_subtopics"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.get_subtopics">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">get_subtopics</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">topic</span><span class="p">):</span>
+<div class="viewcode-block" id="get_subtopics"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.get_subtopics">[docs]</a><span class="k">def</span> <span class="nf">get_subtopics</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">topic</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Distribution of subtopics under selected topic.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        data (pd.Dataframe): dataframe</span>
-<span class="sd">        topic (str): string of topic</span>
+<span class="sd">        topic (str): string representing topic</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        html (html): html of the plotly figure</span>
+<span class="sd">        fig (graph object): plotly figure</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;topic&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">topic</span><span class="p">]</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;subtopic&#39;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="p">)</span>
 
@@ -433,6 +370,20 @@
                  <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="s1">&#39;Number of Reviews&#39;</span><span class="p">,</span> <span class="s1">&#39;subtopic&#39;</span><span class="p">:</span> <span class="s1">&#39;Subtopic&#39;</span><span class="p">})</span>
     <span class="n">update_chart</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span></div>
+
+
+<div class="viewcode-block" id="html_output"><a class="viewcode-back" href="../../../src.visualisation.html#src.visualisation.dashboard_viz.html_output">[docs]</a><span class="k">async</span> <span class="k">def</span> <span class="nf">html_output</span><span class="p">(</span><span class="n">fig</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts plotly figure to html</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fig (graph object): plotly figure</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        html (html): html of plotly figure</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">html</span> <span class="o">=</span> <span class="n">pio</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">auto_play</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">include_plotlyjs</span><span class="o">=</span><span class="s2">&quot;cdn&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">html</span></div>

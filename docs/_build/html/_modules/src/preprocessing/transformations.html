@@ -86,6 +86,12 @@
 
 
 <div class="viewcode-block" id="preprocess_train"><a class="viewcode-back" href="../../../src.preprocessing.html#src.preprocessing.transformations.preprocess_train">[docs]</a><span class="k">def</span> <span class="nf">preprocess_train</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Applies cleaning to raw training data in according</span>
+<span class="sd">    to filepath specified in FileUtil module.</span>
+<span class="sd">    Saves processed training data to filepath specified</span>
+<span class="sd">    in FileUtil module.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">FileUtil</span><span class="o">.</span><span class="n">get_raw_train_data</span><span class="p">()</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">apply_cleaning_train</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 
@@ -93,6 +99,24 @@
 
 
 <div class="viewcode-block" id="apply_cleaning_train"><a class="viewcode-back" href="../../../src.preprocessing.html#src.preprocessing.transformations.apply_cleaning_train">[docs]</a><span class="k">def</span> <span class="nf">apply_cleaning_train</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Applies cleaning to training data as follows:</span>
+<span class="sd">    1. Converts sentiment column to binary integer format</span>
+<span class="sd">    2. Removes HTML tags, multiple spaces and trailing leading spaces</span>
+<span class="sd">    to form partially_cleaned_text column.</span>
+<span class="sd">    3. Removes HTML tags, multiple spaces, trailing leading spaces,</span>
+<span class="sd">    stopwords and numbers. Lowercases text, expands contractions and</span>
+<span class="sd">    removes empty reviews to form cleaned_text column.</span>
+<span class="sd">    4. Renames Time column to date</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.Dataframe): input dataframe with columns Text,</span>
+<span class="sd">        Sentiment and Time</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        df (pd.Dataframe): dataframe consisting of new text columns</span>
+<span class="sd">        partially_cleaned_text and cleaned_text.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">(</span>
         <span class="n">df</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">convert_sentiment_df</span><span class="p">)</span>
         <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">strip_html_tags_df</span><span class="p">,</span> <span class="n">src_col</span><span class="o">=</span><span class="s2">&quot;Text&quot;</span><span class="p">,</span> <span class="n">dst_col</span><span class="o">=</span><span class="s2">&quot;Text&quot;</span><span class="p">)</span>
@@ -114,6 +138,22 @@
 
 
 <div class="viewcode-block" id="apply_cleaning_test"><a class="viewcode-back" href="../../../src.preprocessing.html#src.preprocessing.transformations.apply_cleaning_test">[docs]</a><span class="k">def</span> <span class="nf">apply_cleaning_test</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Applies cleaning to test data as follows:</span>
+<span class="sd">    1. Removes HTML tags, multiple spaces and trailing leading spaces</span>
+<span class="sd">    to form partially_cleaned_text column.</span>
+<span class="sd">    2. Removes HTML tags, multiple spaces, trailing leading spaces,</span>
+<span class="sd">    stopwords and numbers. Lowercases text, expands contractions and</span>
+<span class="sd">    removes empty reviews to form cleaned_text column.</span>
+<span class="sd">    3. Renames Time column to date</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.Dataframe): input dataframe with columns Text and Time</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        df (pd.Dataframe): dataframe consisting of new text columns</span>
+<span class="sd">        partially_cleaned_text and cleaned_text.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">(</span>
         <span class="n">df</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">strip_html_tags_df</span><span class="p">,</span> <span class="n">src_col</span><span class="o">=</span><span class="s2">&quot;Text&quot;</span><span class="p">,</span> <span class="n">dst_col</span><span class="o">=</span><span class="s2">&quot;Text&quot;</span><span class="p">)</span>
         <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">replace_multiple_spaces_df</span><span class="p">,</span> <span class="n">src_col</span><span class="o">=</span><span class="s2">&quot;Text&quot;</span><span class="p">,</span> <span class="n">dst_col</span><span class="o">=</span><span class="s2">&quot;Text&quot;</span><span class="p">)</span>

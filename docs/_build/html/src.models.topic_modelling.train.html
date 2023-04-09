@@ -93,10 +93,22 @@
 <dt class="sig sig-object py" id="src.models.topic_modelling.train.bertopic.BERTopic_Module">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.models.topic_modelling.train.bertopic.</span></span><span class="sig-name descname"><span class="pre">BERTopic_Module</span></span><a class="reference internal" href="_modules/src/models/topic_modelling/train/bertopic.html#BERTopic_Module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.bertopic.BERTopic_Module" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="src.models.html#src.models.classifier.Classifier" title="src.models.classifier.Classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Classifier</span></code></a></p>
+<p>BERTopic_Module topic model class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.topic_modelling.train.bertopic.BERTopic_Module.evaluate">
 <span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/bertopic.html#BERTopic_Module.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.bertopic.BERTopic_Module.evaluate" title="Permalink to this definition"></a></dt>
-<dd><p>Evaluate prediction result.</p>
+<dd><p>Plot the top words in each topic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe with predicted topic</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Plotly figure of the top words</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>fig</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -108,7 +120,18 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.topic_modelling.train.bertopic.BERTopic_Module.predict">
 <span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/bertopic.html#BERTopic_Module.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.bertopic.BERTopic_Module.predict" title="Permalink to this definition"></a></dt>
-<dd><p>Predict using Classifier.</p>
+<dd><p>Predict df using BERTopic model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe to predict</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>df with the predicted topic</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>df (pd.DataFrame)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -239,7 +262,7 @@ bigram: list of bigrams</p>
 <dd class="field-even"><p>df with the predicted topic</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>df</p>
+<dd class="field-odd"><p>df (pd.DataFrame)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -301,28 +324,75 @@ bigram: list of bigrams</p>
 <dt class="sig sig-object py" id="src.models.topic_modelling.train.nmf.Tfidf_NMF_Module">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.models.topic_modelling.train.nmf.</span></span><span class="sig-name descname"><span class="pre">Tfidf_NMF_Module</span></span><a class="reference internal" href="_modules/src/models/topic_modelling/train/nmf.html#Tfidf_NMF_Module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.nmf.Tfidf_NMF_Module" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="src.models.html#src.models.classifier.Classifier" title="src.models.classifier.Classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Classifier</span></code></a></p>
+<p>Tfidf_NMF_Module topic model class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.evaluate">
 <span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/nmf.html#Tfidf_NMF_Module.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.evaluate" title="Permalink to this definition"></a></dt>
-<dd><p>Evaluate prediction result.</p>
+<dd><p>Plot the top words in each topic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe with predicted topic</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Plotly figure of the top words</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>fig</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/nmf.html#Tfidf_NMF_Module.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.fit" title="Permalink to this definition"></a></dt>
-<dd><p>Fit the Classifier.</p>
+<dd><p>Fit Tfidf NMF topic model on df.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – train dataframe to fit</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>matrix of TF-IDF features
+nmf: Learnt NMF model</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tfidf</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.predict">
 <span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/nmf.html#Tfidf_NMF_Module.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.predict" title="Permalink to this definition"></a></dt>
-<dd><p>Predict using Classifier.</p>
+<dd><p>Predict df using Tfidf.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe to predict</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>df with the predicted topic</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>df (pd.DataFrame)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.tokenize_df">
 <span class="sig-name descname"><span class="pre">tokenize_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/nmf.html#Tfidf_NMF_Module.tokenize_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.nmf.Tfidf_NMF_Module.tokenize_df" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Tokenize data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dataframe with tokenized column</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>df (pd.DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -332,7 +402,7 @@ bigram: list of bigrams</p>
 <p>This module contains topic_modelling_train function.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.models.topic_modelling.train.train.topic_modelling_train">
-<span class="sig-prename descclassname"><span class="pre">src.models.topic_modelling.train.train.</span></span><span class="sig-name descname"><span class="pre">topic_modelling_train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/train.html#topic_modelling_train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.train.topic_modelling_train" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.models.topic_modelling.train.train.</span></span><span class="sig-name descname"><span class="pre">topic_modelling_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">df=</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">date</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">partially_cleaned_text</span>&#160; <span class="pre">sentiment</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">cleaned_text</span> <span class="pre">0</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">18/6/21</span>&#160; <span class="pre">This</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">very</span> <span class="pre">healthy</span> <span class="pre">dog</span> <span class="pre">food.</span> <span class="pre">Good</span> <span class="pre">for</span> <span class="pre">thei...</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">1</span>&#160; <span class="pre">healthy</span> <span class="pre">dog</span> <span class="pre">food</span> <span class="pre">good</span> <span class="pre">digestion</span> <span class="pre">also</span> <span class="pre">good</span> <span class="pre">smal...</span> <span class="pre">1</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">7/7/21</span>&#160; <span class="pre">I've</span> <span class="pre">been</span> <span class="pre">very</span> <span class="pre">pleased</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">Natural</span> <span class="pre">Balanc...</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">1</span>&#160; <span class="pre">pleased</span> <span class="pre">natural</span> <span class="pre">balance</span> <span class="pre">dog</span> <span class="pre">food</span> <span class="pre">dogs</span> <span class="pre">issues</span> <span class="pre">d...</span> <span class="pre">2</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">18/6/21</span>&#160; <span class="pre">Before</span> <span class="pre">I</span> <span class="pre">was</span> <span class="pre">educated</span> <span class="pre">about</span> <span class="pre">feline</span> <span class="pre">nutrition,</span> <span class="pre">...</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">1</span>&#160; <span class="pre">educated</span> <span class="pre">feline</span> <span class="pre">nutrition</span> <span class="pre">allowed</span> <span class="pre">cats</span> <span class="pre">become</span> <span class="pre">...</span> <span class="pre">3</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">7/7/21</span>&#160; <span class="pre">My</span> <span class="pre">holistic</span> <span class="pre">vet</span> <span class="pre">recommended</span> <span class="pre">this,</span> <span class="pre">along</span> <span class="pre">with</span> <span class="pre">a...</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">1</span>&#160; <span class="pre">holistic</span> <span class="pre">vet</span> <span class="pre">recommended</span> <span class="pre">along</span> <span class="pre">brands</span> <span class="pre">tried</span> <span class="pre">ca...</span> <span class="pre">4</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">1/7/21</span>&#160; <span class="pre">I</span> <span class="pre">bought</span> <span class="pre">this</span> <span class="pre">coffee</span> <span class="pre">because</span> <span class="pre">its</span> <span class="pre">much</span> <span class="pre">cheaper</span> <span class="pre">...</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">1</span>&#160; <span class="pre">bought</span> <span class="pre">coffee</span> <span class="pre">much</span> <span class="pre">cheaper</span> <span class="pre">ganocafe</span> <span class="pre">organic</span> <span class="pre">re...</span> <span class="pre">...</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">...</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">...</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">...</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">...</span> <span class="pre">5439</span>&#160;&#160; <span class="pre">26/2/21</span>&#160; <span class="pre">This</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">okay</span> <span class="pre">gift</span> <span class="pre">box,</span> <span class="pre">only</span> <span class="pre">if</span> <span class="pre">you</span> <span class="pre">like</span> <span class="pre">med...</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">0</span>&#160; <span class="pre">okay</span> <span class="pre">gift</span> <span class="pre">box</span> <span class="pre">like</span> <span class="pre">mediocre</span> <span class="pre">cheese</span> <span class="pre">summer</span> <span class="pre">saus...</span> <span class="pre">5440</span>&#160; <span class="pre">18/12/19</span>&#160; <span class="pre">It</span> <span class="pre">looks</span> <span class="pre">llike</span> <span class="pre">I</span> <span class="pre">just</span> <span class="pre">walked</span> <span class="pre">into</span> <span class="pre">a</span> <span class="pre">raw</span> <span class="pre">deal.</span> <span class="pre">...</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">0</span>&#160; <span class="pre">looks</span> <span class="pre">llike</span> <span class="pre">walked</span> <span class="pre">raw</span> <span class="pre">deal</span> <span class="pre">item</span> <span class="pre">intolerably</span> <span class="pre">s...</span> <span class="pre">5441</span>&#160;&#160; <span class="pre">19/1/20</span>&#160; <span class="pre">Thank</span> <span class="pre">god</span> <span class="pre">that</span> <span class="pre">i</span> <span class="pre">tasted</span> <span class="pre">the</span> <span class="pre">metal</span> <span class="pre">before</span> <span class="pre">i</span> <span class="pre">swa...</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">0</span>&#160; <span class="pre">thank</span> <span class="pre">god</span> <span class="pre">tasted</span> <span class="pre">metal</span> <span class="pre">swallowed</span> <span class="pre">even</span> <span class="pre">get</span> <span class="pre">got</span> <span class="pre">...</span> <span class="pre">5442</span>&#160;&#160; <span class="pre">13/9/20</span>&#160; <span class="pre">This</span> <span class="pre">product</span> <span class="pre">was</span> <span class="pre">very</span> <span class="pre">good</span> <span class="pre">when</span> <span class="pre">I</span> <span class="pre">began</span> <span class="pre">buying...</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">0</span>&#160; <span class="pre">product</span> <span class="pre">good</span> <span class="pre">began</span> <span class="pre">buying</span> <span class="pre">lately</span> <span class="pre">terrible</span> <span class="pre">tast...</span> <span class="pre">5443</span>&#160;&#160; <span class="pre">10/7/20</span>&#160; <span class="pre">Once</span> <span class="pre">again,</span> <span class="pre">Paragon</span> <span class="pre">has</span> <span class="pre">disappointed</span> <span class="pre">with</span> <span class="pre">this...</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">0</span>&#160; <span class="pre">paragon</span> <span class="pre">disappointed</span> <span class="pre">flavor</span> <span class="pre">hawaiian</span> <span class="pre">tropic</span> <span class="pre">si...</span>&#160; <span class="pre">[5444</span> <span class="pre">rows</span> <span class="pre">x</span> <span class="pre">4</span> <span class="pre">columns]</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/train/train.html#topic_modelling_train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.train.train.topic_modelling_train" title="Permalink to this definition"></a></dt>
 <dd><p>Train topic models on training data.</p>
 <p>LDA, BERTopic, and NMF models will be fitted on training data.
 All 3 models’ topics plot will be saved to eval folder.</p>
