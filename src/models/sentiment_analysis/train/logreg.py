@@ -53,7 +53,7 @@ class LOGREG(Classifier):
         Tokenize data.
 
         Args:
-          df (pd.DataFrame): dataframe 
+          df (pd.DataFrame): dataframe
 
         Returns:
           df (pd.DataFrame): dataframe with tokenized column
@@ -68,7 +68,7 @@ class LOGREG(Classifier):
         Trains word to vector model on train data
 
         Args:
-          train (pd.DataFrame): train dataframe 
+          train (pd.DataFrame): train dataframe
 
         Returns:
           w2v_model: Trained word to vector model

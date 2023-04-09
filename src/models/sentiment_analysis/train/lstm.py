@@ -81,7 +81,7 @@ class Lstm(Classifier):
         Tokenize data.
 
         Args:
-          df (pd.DataFrame): dataframe 
+          df (pd.DataFrame): dataframe
 
         Returns:
           df (pd.DataFrame): dataframe with tokenized column
@@ -100,7 +100,7 @@ class Lstm(Classifier):
         Trains word to vector model.
 
         Args:
-          df (pd.DataFrame): dataframe 
+          df (pd.DataFrame): dataframe
 
         Returns:
           w2v_model: Trained word to vector model

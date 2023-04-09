@@ -26,7 +26,7 @@ def predict_sentiment_topic(test_filepath=FileUtil().TEST_FILE_NAME,
 
 
     Returns:
-        df (pd.DataFrame): dataframe with predicted topics and 
+        df (pd.DataFrame): dataframe with predicted topics and
                             predicted sentiment
     """
 
