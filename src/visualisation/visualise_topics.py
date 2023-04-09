@@ -96,16 +96,6 @@ def visualise_top_words(df,
     fig.update_layout(
         template="plotly_white",
         showlegend=False,
-        # title={
-        #     'text': "Top Words",
-        #     'x': 0,
-        #     'y': 1,
-        #     'xanchor': 'left',
-        #     'yanchor': 'top',
-        #     'font': dict(
-        #         size=22,
-        #         color="Black")
-        # },
         hoverlabel=dict(
             bgcolor="white",
             font_size=16,

@@ -14,15 +14,14 @@ def predict_sentiment_topic(test_filepath=FileUtil().TEST_FILE_NAME,
     """
     Predict sentiment and topic of test data.
 
-    Test dataset will be cleaned.
-    Best senitment models will be used to predict sentiment
-    of test data according to the config file
-    Best topic modelling modelling model will be used to predict
-    topics of test according to the arg in predict in topic_model.test.predict
+    Test dataset will be preprocessed and then supplied to
+    predict_sentiment and predict_topic functions.
 
     Args:
-        test_filepath (str,optional): filepath of the test dataframe
-        df (pd.DataFrame,optional): test dataframe
+        test_filepath (str,optional): filepath of the test dataframe.
+        Default is the test file name specified in config file
+        df (pd.DataFrame,optional): test dataframe to predict.
+        Default is the raw train data.
 
 
     Returns:
