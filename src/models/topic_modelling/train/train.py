@@ -14,6 +14,10 @@ def topic_modelling_train(df=FileUtil.get_processed_train_data()):
 
     LDA, BERTopic, and NMF models will be fitted on training data.
     All 3 models' topics plot will be saved to eval folder.
+
+    Args:
+      df (pd.DataFrame, optional): dataframe to train.
+      Default is the processed train data.
     """
 
     # LDA

@@ -12,7 +12,7 @@ class ZeroShot(Classifier):
     """ZeroShot topic model class."""
 
     def save_model(self):
-        """Save ZeroShot model from storage."""
+        """Save ZeroShot model to storage."""
         classifier = pipeline(task="zero-shot-classification",
                               model="facebook/bart-large-mnli",
                               device=-1)
