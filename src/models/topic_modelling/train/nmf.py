@@ -10,8 +10,10 @@ from src.visualisation.visualise_topics import visualise_top_words
 
 
 class Tfidf_NMF_Module(Classifier):
+    """Tfidf_NMF_Module topic model class."""
 
     def __init__(self):
+        """Constructor for Tfidf_NMF_Module topic model class."""
         self.config_params = FileUtil.get_config()
         self.nmf_config = self.config_params["NMF"]
         self.custom_stopwords = self.config_params["custom_stopwords"]
@@ -21,10 +23,30 @@ class Tfidf_NMF_Module(Classifier):
         self.num_topics = self.nmf_args["n_components"]
 
     def tokenize_df(self, df):
+        """
+        Tokenize data.
+
+        Args:
+          df (pd.DataFrame): dataframe 
+
+        Returns:
+          df (pd.DataFrame): dataframe with tokenized column
+        """
+
         df['tokenized_text'] = df["cleaned_text"].str.split()
         return df
 
     def fit(self, df):
+        """
+        Fit Tfidf NMF topic model on df.
+
+        Args:
+          df (pd.DataFrame): train dataframe to fit
+
+        Returns:
+          tfidf: matrix of TF-IDF features
+          nmf: Learnt NMF model
+        """
 
         df = self.tokenize_df(df)
 
@@ -41,6 +63,15 @@ class Tfidf_NMF_Module(Classifier):
         return tfidf, nmf
 
     def predict(self, df):
+        """
+        Predict df using Tfidf.
+
+        Args:
+          df (pd.DataFrame): dataframe to predict
+
+        Returns:
+          df (pd.DataFrame): df with the predicted topic
+        """
 
         nmf = self.nmf
         tfidf_vectorizer = self.tfidf_vectorizer
@@ -60,6 +91,15 @@ class Tfidf_NMF_Module(Classifier):
         return df
 
     def evaluate(self, df):
+        """
+        Plot the top words in each topic.
+
+        Args:
+          df (pd.DataFrame): dataframe with predicted topic
+
+        Returns:
+          fig: Plotly figure of the top words
+        """
         topics = list(set(df["topic"]))
         topics.sort()
         fig = visualise_top_words(

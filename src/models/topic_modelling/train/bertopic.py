@@ -9,7 +9,10 @@ from src.visualisation.visualise_topics import visualise_top_words
 
 
 class BERTopic_Module(Classifier):
+    """BERTopic_Module topic model class."""
+
     def __init__(self):
+        """Constructor for BERTopic_Module topic model class."""
         self.config_params = FileUtil.get_config()
         self.custom_stopwords = self.config_params['custom_stopwords']
         self.bertopic_config = self.config_params["BERTopic"]
@@ -35,6 +38,15 @@ class BERTopic_Module(Classifier):
         pass
 
     def predict(self, df):
+        """
+        Predict df using BERTopic model.
+
+        Args:
+          df (pd.DataFrame): dataframe to predict
+
+        Returns:
+          df (pd.DataFrame): df with the predicted topic
+        """
         bertopic_args = {}
         bertopic_args['nr_topics'] = self.nr_topics
 
@@ -57,6 +69,15 @@ class BERTopic_Module(Classifier):
         return df
 
     def evaluate(self, df):
+        """
+        Plot the top words in each topic.
+
+        Args:
+          df (pd.DataFrame): dataframe with predicted topic
+
+        Returns:
+          fig: Plotly figure of the top words
+        """
         topics = list(set(df["topic"]))
         topics = [topic_num for topic_num in topics if topic_num != -1]
         fig = visualise_top_words(

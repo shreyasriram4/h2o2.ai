@@ -173,7 +173,7 @@ class LDA(Classifier):
           df_corpus: corpus of fitted LDA model
 
         Returns:
-          df: df with the predicted topic
+          df (pd.DataFrame): df with the predicted topic
         """
         topic_vec = []
         for i in range(len(df)):
