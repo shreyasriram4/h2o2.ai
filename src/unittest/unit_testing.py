@@ -664,7 +664,7 @@ def test_bert_module():
                        ["19/2/21", "tea could better"],
                        ["19/2/21", "bad restaurant poor decoration not clean"],
                        ["19/2/21", "rude waiter zero stars"]],
-                      columns=["Time", "cleaned_text"])
+                      columns=["Time", "partially_cleaned_text"])
 
     model = BERT(True)
     label, probs, tf_predictions = model.predict(df)
