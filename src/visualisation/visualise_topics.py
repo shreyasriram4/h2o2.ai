@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import plotly.express as px
 import numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction import text
 
 
@@ -23,7 +23,7 @@ def get_top_words(corpus, custom_sw=[]):
     """
     my_stop_words = list(text.ENGLISH_STOP_WORDS.union(custom_sw))
 
-    vec = TfidfVectorizer(stop_words=my_stop_words).fit(corpus)
+    vec = CountVectorizer(stop_words=my_stop_words).fit(corpus)
     bag_of_words = vec.transform(corpus)
     sum_words = bag_of_words.sum(axis=0)
     words_freq = [(word, sum_words[0, idx])
