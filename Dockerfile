@@ -10,6 +10,10 @@ RUN pip install --upgrade pip
 # Set the working directory inside the container
 WORKDIR /h2o2_ai
 
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
 # Copy all files and folders from dir
 # Takes into account content in dockerignore
 COPY . .
