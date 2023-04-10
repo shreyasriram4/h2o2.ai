@@ -4,7 +4,7 @@ __pycache__/
 .DS_Store
 
 # topic modelling zero shot model pkl
-src/models/topic_modelling/model.pkl
+src/models/topic_modelling/test/zero_shot.pkl
 
 # test predictions
 data/predicted/2023*

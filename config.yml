@@ -87,7 +87,7 @@ output_path: "data/predicted"
 
 train_filename: "reviews.csv"
 test_filename: "final_presentation/reviews_test.csv"
-model_filename: "model.pkl"
+model_filename: "test/zero_shot.pkl"
 metrics_filename: "metrics.json"
 bert_training_graph_filename: "bert_training.png"
 lstm_training_graph_filename: "lstm_training_graph.png"
