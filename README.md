@@ -1,84 +1,158 @@
-# h2o2.ai: DSA4263 (Sense-making Case Analysis: Business and Commerce) project
+# h2o2.ai: DSA4263 (Sense-making Case Analysis: Business and Commerce) Project
 
-Building a production-ready web application for Voice of the Customer (VOC) analysis.
-
-## Folder Structure
-
-```bash
-.
-├──app/
-│   └── pages/
-├──data/
-│   ├── raw/
-│   └── processed/
-├── Dockerfile
-├── docker-compose.yml
-├── environment.yml
-├── figures/
-├── README.md
-├── reports/
-├──requirements.txt
-├── results/
-├── src/
-│   ├──__init__.py <- Make src a Python module
-│   ├──preprocessing/
-│       └── preprocressing_utils.py <- Scripts to preprocess corpus
-│   ├──models/
-        ├──sentiment_analysis/
-        └──topic_modelling/
-│   └──visualisations/
-│       └── eda_utils.py <- Scripts to run visualisations
-├── .dockerignore
-└── .gitignore 
-
-```
-
-## Prerequisites
-
-You will need to have a valid Python and Conda installation on your system.
-
-## Git Flow
- - Branch off main and do dev work, remember to git pull origin main
- - Create PR to merge to main once done and delete that branch
- - For bugfixes, if the branch is already merged, create hotfix branch based off main
- - Create PR to merge to prd when ready to realease and changes in release
+Building a production-ready Voice of Customer (VOC) web application.
 
 ## Setup Instructions
 
-### Option 1: Without Docker
-For installation, first close this repository, and generate the virtual environment required for running the programs within your IDE of choice:
+### Option 1: Docker
+
+#### Deployment
+
+To build Docker image and container, run the following commands on h2o2.ai project folder:
 
 ```bash
-#Create environment from file
-conda env create -f environment.yml
-
-#Activate created conda environment
-conda activate voc_env
-
+docker compose up
 ```
 
-### Option 2: With Docker
+#### Running Pipeline via Notebook
 
-## Deployment
+To run all pipelines via notebook, run the following commands on final_presentation folder:
 
-Add additional notes about how to deploy this on a live system
+```bash
+python3 run_notebook.py
+```
 
-## Built With
+#### Running Pipeline via Terminal
 
- - Python 3.9
+To run all pipelines via terminal, run the following commands on h2o2.ai project folder:
 
-## Authors
+```bash
+# Preprocess training data. This step should be done before calling train functions.
+python3 -m src.preprocessing.transformations
 
-madelinelim - Initial work (2021)
+# Train sentiment analysis models
+python3 -m src.models.sentiment_analysis.train.train
 
-## License
+# Train topic modelling models
+python3 -m src.models.topic_modelling.train.train
 
-This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details
+# Predict test data. Test file path should be supplied from config file.
+python3 -m src.models.predict
 
-## Acknowledgments
+# Execute unit testing.
+python3 -m src.unittest.unit_testing
+```
 
- - Hat tip to anyone who's code was used
- - Inspiration
- - etc.
+#### Running App
 
-# IN PROGRESS
+Open the app on http://127.0.0.1:8080/ or http://localhost:8080/
+
+### Option 2: EC2 Instance
+
+Unfortunately, it's not possible to run H2O Wave app on EC2 Instance given the limited access to AWS provided on RLCatalyst as it needs further setup on AWS to open the relative port of EC2 Instance (https://h2o.ai/blog/deploy-a-wave-app-on-an-aws-ec2-instance/).
+
+Hence, EC2 Instance is only used for model training and test prediction purposes.
+
+#### Prerequisites
+
+You will need to have an ubuntu EC2 GPU instance running and connect to the instance via terminal.
+
+Then, copy all files to the instance.
+
+#### Environment Setup
+
+To setup the EC2 instance, run the following commands on h2o2.ai project folder:
+
+```bash
+# Install pip for Python 3
+sudo apt install python3-pip
+
+# Install all libraries needed
+pip install -r requirements.txt
+```
+
+#### Running Pipeline via Notebook
+
+To run all pipelines via notebook, run the following commands on final_presentation folder:
+
+```bash
+python3 run_notebook.py
+```
+
+#### Running Pipeline via Terminal
+
+To run all pipelines via terminal, run the following commands on h2o2.ai project folder:
+
+```bash
+# Preprocess training data. This step should be done before calling train functions.
+python3 -m src.preprocessing.transformations
+
+# Train sentiment analysis models
+python3 -m src.models.sentiment_analysis.train.train
+
+# Train topic modelling models
+python3 -m src.models.topic_modelling.train.train
+
+# Predict test data. Test file path should be supplied from config file.
+python3 -m src.models.predict
+
+# Execute unit testing.
+python3 -m src.unittest.unit_testing
+```
+
+### Option 3: Local
+
+#### Prerequisites
+
+You will need to have a valid Python and Conda installation on your system.
+
+#### Environment Setup
+
+To avoid library dependency issues, run the following commands on h2o2.ai project folder:
+
+```bash
+# Create environment from file
+conda env create -f environment.yml
+
+# Activate created conda environment
+conda activate voc_env
+```
+
+#### Running Pipeline via Notebook
+
+To run all pipelines via notebook, run the following commands on final_presentation folder:
+
+```bash
+python run_notebook.py
+```
+
+#### Running Pipeline via Terminal
+
+To run all pipelines via terminal, run the following commands on h2o2.ai project folder:
+
+```bash
+# Preprocess training data. This step should be done before calling train functions.
+python -m src.preprocessing.transformations
+
+# Train sentiment analysis models
+python -m src.models.sentiment_analysis.train.train
+
+# Train topic modelling models
+python -m src.models.topic_modelling.train.train
+
+# Predict test data. Test file path should be supplied from config file.
+python -m src.models.predict
+
+# Execute unit testing.
+python -m src.unittest.unit_testing
+```
+
+#### Running App
+
+To start app, run the following commands on h2o2.ai project folder:
+
+```bash
+wave run src.app.app
+```
+
+Open the app on http://localhost:10101/
