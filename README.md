@@ -16,6 +16,8 @@ docker compose up
 
 #### Running Pipeline via Notebook
 
+Note that you will need to have the necessary computing power to run model training on Docker.
+
 To run all pipelines via notebook, run the following commands on final_presentation folder:
 
 ```bash
@@ -23,6 +25,8 @@ python3 run_notebook.py
 ```
 
 #### Running Pipeline via Terminal
+
+Note that you will need to have the necessary computing power to run model training on Docker.
 
 To run all pipelines via terminal, run the following commands on h2o2.ai project folder:
 
@@ -120,6 +124,8 @@ conda activate voc_env
 
 #### Running Pipeline via Notebook
 
+Note that you will need to have the necessary computing power to run model training on local.
+
 To run all pipelines via notebook, run the following commands on final_presentation folder:
 
 ```bash
@@ -127,6 +133,8 @@ python run_notebook.py
 ```
 
 #### Running Pipeline via Terminal
+
+Note that you will need to have the necessary computing power to run model training on local.
 
 To run all pipelines via terminal, run the following commands on h2o2.ai project folder:
 
