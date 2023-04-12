@@ -23,7 +23,7 @@ def convert_sentiment_df(df: pd.DataFrame,
         dst_col (str): expected column name of output sentiment column
 
     Returns:
-        df (pd.Dataframe): dataframe consisting of sentiment column
+        df (pd.Dataframe): dataframe consisting of sentiment column 
         where entries are in binary integer format (1 and 0)
     """
     df[dst_col] = df[src_col].apply(
@@ -153,11 +153,11 @@ def remove_stopwords_df(df: pd.DataFrame,
         df (pd.Dataframe): input dataframe with text column
         src_col (str): column name of input text column
         dst_col (str): column name of output text column with stopwords
-        removed
+                        removed
 
     Returns:
         df (pd.Dataframe): dataframe consisting of text column
-        with stopwords removed
+                            with stopwords removed
     """
     df[dst_col] = df[src_col].apply(
         remove_stopwords_text
@@ -193,8 +193,8 @@ def remove_trailing_leading_spaces_df(df: pd.DataFrame,
     Args:
         df (pd.Dataframe): input dataframe with text column
         src_col (str): column name of input text column
-        dst_col (str): column name of output text column with trailing
-        leading spaces removed
+        dst_col (str) : column name of output text column with trailing
+                       leading spaces removed
 
     Returns:
         df (pd.Dataframe): dataframe consisting of text column
@@ -218,7 +218,7 @@ def rename_column_df(df: pd.DataFrame, src_col: str, dst_col: str) \
 
     Returns:
         df (pd.Dataframe): dataframe consisting of a column
-        with name changed
+                            with name changed
     """
     df = df.rename(columns={src_col: dst_col})
     return df

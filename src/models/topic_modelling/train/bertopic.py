@@ -45,7 +45,7 @@ class BERTopic_Module(Classifier):
           df (pd.DataFrame): dataframe to predict
 
         Returns:
-          df (pd.DataFrame): df with the predicted topic
+          pd.DataFrame: df with the predicted topic
         """
         bertopic_args = {}
         bertopic_args['nr_topics'] = self.nr_topics
