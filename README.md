@@ -78,16 +78,14 @@ Add additional notes about how to deploy this on a live system
 
 ## Authors
 
-madelinelim - Initial work (2021)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details
+cliftonfelix
+hadragon26
+leeweiqing
+madelinelimm
+shreyasriram4
 
 ## Acknowledgments
 
  - Hat tip to anyone who's code was used
  - Inspiration
  - etc.
-
-# IN PROGRESS
