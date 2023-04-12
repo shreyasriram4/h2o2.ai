@@ -1,6 +1,14 @@
-# h2o2.ai: DSA4263 (Sense-making Case Analysis: Business and Commerce) Project
+# h2o2.ai presents: Voice of H2O
+## A production-ready web application for Voice of Customer (VOC) analysis
 
-Building a production-ready Voice of Customer (VOC) web application.
+From retail to big tech, customers can be hard to read - and that's where we come in. Introducing "Voice of H2O", our cutting-edge web application for Voice of Customer analysis. Built on H2OWave, our intuitive interface and advanced analytical capabilities allow firms to bridge the gap between big data and individual customers.
+
+Our application allows you to:
+1. Explore key themes in customer feedback
+2. Visualise sentiments of customers
+3. Perform trend analysis over time
+
+Whether you're a small business owner or a large enterprise, our VoC analysis application will help you improve customer satisfaction, boost loyalty, and drive business growth. And better yet - you can do this all for free. Simply follow setup instructions to containerise and build our web application on your very own device.
 
 ## Setup Instructions
 
