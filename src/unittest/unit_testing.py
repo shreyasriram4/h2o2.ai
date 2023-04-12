@@ -626,11 +626,11 @@ def test_sentiment_analysis_train_module():
 
     # check training accuracy/loss graphs for LSTM & BERT
     if not FileUtil.check_filepath_exists(
-                            FileUtil().LSTM_TRAINING_GRAPH_FILE_PATH):
+            FileUtil().LSTM_TRAINING_GRAPH_FILE_PATH):
         check.append("LSTM training graph not generated!")
 
     if not FileUtil.check_filepath_exists(
-                            FileUtil().BERT_TRAINING_GRAPH_FILENAME):
+            FileUtil().BERT_TRAINING_GRAPH_FILENAME):
         check.append("BERT training graph not generated!")
 
     # check metrics file of length 3 for LSTM, BERT & Logistic Regression
@@ -733,30 +733,34 @@ def test_lstm_module():
     if check:
         print(check)
 
+
 def test_fileutil_check_dir_exists():
     dirs = ["src/utils",
             "src/models/topic_modelling/train",
             "src/app",
-            "src/visualisation", 
+            "src/visualisation",
             "src/models/sentiment_analysis/train"]
-    
+
     check = list(filter(lambda dir: not FileUtil.check_dir_exists(dir), dirs))
 
     if check:
         print("These directories are not found: {}".format(check))
-        
+
+
 def test_check_filepath_exists():
     dirs = ["src/utils/file_util.py",
             "src/models/topic_modelling/train/train.py",
             "src/app/app.py",
             "src/models/predict.py",
-            "src/visualisation/dashboard_viz.py", 
+            "src/visualisation/dashboard_viz.py",
             "src/models/sentiment_analysis/test/predict.py"]
-    
-    check = list(filter(lambda dir: not FileUtil.check_filepath_exists(dir), dirs))
+
+    check = list(
+        filter(lambda dir: not FileUtil.check_filepath_exists(dir), dirs))
 
     if check:
         print("These filepaths are not found: {}".format(check))
+
 
 def test_check_get_yml():
     dir = "requirements.txt"
@@ -765,12 +769,14 @@ def test_check_get_yml():
     except InvalidExtensionException as error:
         return error
 
+
 def test_check_put_json():
     dir = "requirements.txt"
     try:
         FileUtil().get_yml(filepath=dir)
     except InvalidExtensionException as error:
-        return error 
+        return error
+
 
 def unit_test():
 
@@ -814,13 +820,13 @@ def unit_test():
     test_lda_module()
     test_nmf_module()
     test_bertopic_module()
-    #test_topic_modelling_train_module()
+    # test_topic_modelling_train_module()
 
     # # Testing sentiment analysis modules
     test_bert_module()
     test_lstm_module()
     test_logreg_module()
-    #test_sentiment_analysis_train_module()
+    # test_sentiment_analysis_train_module()
 
     # # Test FileUtil module
     test_fileutil_check_dir_exists()
@@ -829,6 +835,7 @@ def unit_test():
     test_check_put_json()
 
     print("Unit testing complete!")
-    
+
+
 if __name__ == "__main__":
     unit_test()
