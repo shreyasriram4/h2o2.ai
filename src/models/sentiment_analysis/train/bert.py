@@ -189,10 +189,11 @@ class BERT(Classifier):
                      label='Validation {}'.format(metrics[2]))
             plt.title("BERT Training Graph")
             plt.legend()
-        plt.show()
+
         FileUtil.create_dir_if_not_exists(
             FileUtil().SENTIMENT_ANALYSIS_EVAL_DIR)
         plt.savefig(FileUtil().BERT_TRAINING_GRAPH_FILE_PATH)
+        plt.show()
 
     def convert_data_to_examples(self, train, valid, TEXT_COL, SENTIMENT_COL):
         """
