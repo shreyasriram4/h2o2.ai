@@ -14,19 +14,22 @@ def predict_sentiment_topic(test_filepath=FileUtil().TEST_FILE_NAME,
     """
     Predict sentiment and topic of test data.
 
+    If test_filepath is not empty, data specified in test_filepath
+    will be used as test dataset. Otherwise, training data will be
+    used as test dataset.
     Test dataset will be preprocessed and then supplied to
     predict_sentiment and predict_topic functions.
 
     Args:
         test_filepath (str,optional): filepath of the test dataframe.
-        Default is the test file name specified in config file
+            Default is the test file name specified in config file
         df (pd.DataFrame,optional): test dataframe to predict.
-        Default is the raw train data.
+            Default is the raw train data.
 
 
     Returns:
         df (pd.DataFrame): dataframe with predicted topics and
-                            predicted sentiment
+            predicted sentiment
     """
 
     if test_filepath:

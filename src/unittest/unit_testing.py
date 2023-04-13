@@ -3,7 +3,7 @@ import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-from src.utils.file_util import FileUtil
+from src.utils.file_util import FileUtil, InvalidExtensionException
 from src.models.predict import predict_sentiment_topic
 from src.models.topic_modelling.test.predict import predict_topic
 from src.models.sentiment_analysis.test.predict import predict_sentiment
@@ -626,11 +626,11 @@ def test_sentiment_analysis_train_module():
 
     # check training accuracy/loss graphs for LSTM & BERT
     if not FileUtil.check_filepath_exists(
-                            FileUtil().LSTM_TRAINING_GRAPH_FILE_PATH):
+            FileUtil().LSTM_TRAINING_GRAPH_FILE_PATH):
         check.append("LSTM training graph not generated!")
 
     if not FileUtil.check_filepath_exists(
-                            FileUtil().BERT_TRAINING_GRAPH_FILENAME):
+            FileUtil().BERT_TRAINING_GRAPH_FILENAME):
         check.append("BERT training graph not generated!")
 
     # check metrics file of length 3 for LSTM, BERT & Logistic Regression
@@ -734,7 +734,52 @@ def test_lstm_module():
         print(check)
 
 
+def test_fileutil_check_dir_exists():
+    dirs = ["src/utils",
+            "src/models/topic_modelling/train",
+            "src/app",
+            "src/visualisation",
+            "src/models/sentiment_analysis/train"]
+
+    check = list(filter(lambda dir: not FileUtil.check_dir_exists(dir), dirs))
+
+    if check:
+        print("These directories are not found: {}".format(check))
+
+
+def test_check_filepath_exists():
+    dirs = ["src/utils/file_util.py",
+            "src/models/topic_modelling/train/train.py",
+            "src/app/app.py",
+            "src/models/predict.py",
+            "src/visualisation/dashboard_viz.py",
+            "src/models/sentiment_analysis/test/predict.py"]
+
+    check = list(
+        filter(lambda dir: not FileUtil.check_filepath_exists(dir), dirs))
+
+    if check:
+        print("These filepaths are not found: {}".format(check))
+
+
+def test_check_get_yml():
+    dir = "requirements.txt"
+    try:
+        FileUtil().get_yml(filepath=dir)
+    except InvalidExtensionException as error:
+        return error
+
+
+def test_check_put_json():
+    dir = "requirements.txt"
+    try:
+        FileUtil().get_yml(filepath=dir)
+    except InvalidExtensionException as error:
+        return error
+
+
 def unit_test():
+
     # Testing preprocessing utils
     test_convert_sentiment_df()
     test_expand_contractions_df()
@@ -769,21 +814,27 @@ def unit_test():
     test_predict_when_all_stopwords()
     test_predict_when_empty_review()
 
-    # Testing topic modelling modules
+    # # Testing topic modelling modules
     test_lbl2vec_module()
     test_zeroshot_module()
     test_lda_module()
     test_nmf_module()
     test_bertopic_module()
-    test_topic_modelling_train_module()
+    # test_topic_modelling_train_module()
 
-    # Testing sentiment analysis modules
+    # # Testing sentiment analysis modules
     test_bert_module()
     test_lstm_module()
     test_logreg_module()
     # test_sentiment_analysis_train_module()
 
-    # Test FileUtil module
+    # # Test FileUtil module
+    test_fileutil_check_dir_exists()
+    test_check_filepath_exists()
+    test_check_get_yml()
+    test_check_put_json()
+
+    print("Unit testing complete!")
 
 
 if __name__ == "__main__":

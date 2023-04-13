@@ -42,10 +42,10 @@ class BERTopic_Module(Classifier):
         Predict df using BERTopic model.
 
         Args:
-          df (pd.DataFrame): dataframe to predict
+            df (pd.DataFrame): dataframe to predict
 
         Returns:
-          df (pd.DataFrame): df with the predicted topic
+            df (pd.DataFrame): df with the predicted topic
         """
         bertopic_args = {}
         bertopic_args['nr_topics'] = self.nr_topics
@@ -73,10 +73,10 @@ class BERTopic_Module(Classifier):
         Plot the top words in each topic.
 
         Args:
-          df (pd.DataFrame): dataframe with predicted topic
+            df (pd.DataFrame): dataframe with predicted topic
 
         Returns:
-          fig: Plotly figure of the top words
+            fig (graph object): Plotly figure of the top words
         """
         topics = list(set(df["topic"]))
         topics = [topic_num for topic_num in topics if topic_num != -1]

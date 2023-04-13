@@ -43,7 +43,7 @@ def reformat_data(data):
 
     Returns:
         data (pd.Dataframe): dataframe with reformatted sentiment and
-        date columns
+            date columns
     """
     data = data.assign(sentiment=data.sentiment.map({1: "positive",
                                                      0: "negative"}))
@@ -206,7 +206,7 @@ async def extract_top_reviews(data, topic, sentiment):
 
     Returns:
         topic_sliced (list): list of reviews sorted by sentiment probability
-        in descending order
+            in descending order
     """
     topic_df = data[(data["topic"] == topic) &
                     (data["sentiment"] == sentiment)]
@@ -227,7 +227,7 @@ async def extract_top_topic_reviews(data, topic):
 
     Returns:
         topic_sliced (pd.Dataframe): dataframe consisting of review
-        and predicted sentiment
+            and predicted sentiment
     """
     topic_df = data[(data["topic"] == topic)]
     topic_sliced = topic_df.sort_values(
@@ -244,7 +244,7 @@ def topics_bar_chart_over_time(data, time_frame=None):
     Args:
         data (pd.Dataframe): dataframe
         time_frame (str): String of the timeframe required
-                        (eg. "M" for months or "Q" for quarter)
+            (eg. "M" for months or "Q" for quarter)
 
     Returns:
         fig (graph object): plotly bar chart figure
