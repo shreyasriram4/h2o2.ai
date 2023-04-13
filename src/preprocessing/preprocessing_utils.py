@@ -23,7 +23,7 @@ def convert_sentiment_df(df: pd.DataFrame,
         dst_col (str): expected column name of output sentiment column
 
     Returns:
-        df (pd.Dataframe): dataframe consisting of sentiment column 
+        df (pd.Dataframe): dataframe consisting of sentiment column
             where entries are in binary integer format (1 and 0)
     """
     df[dst_col] = df[src_col].apply(

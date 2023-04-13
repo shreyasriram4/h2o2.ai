@@ -120,7 +120,8 @@ class BERT(Classifier):
         Returns:
             label (list): predicted sentiment labels for test dataset
             probs (list): probabilities of the predicted sentiment labels
-            tf_predictions (list): probabilities of both labels 0 and 1 for test data
+            tf_predictions (list): probabilities of both labels 0 and 1
+                for test data
         """
         tf_outputs = []
         for i in range(int(np.ceil(len(test) / self.batch_size))):
