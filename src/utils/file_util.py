@@ -53,7 +53,7 @@ class FileUtil():
 
         Args:
           config_path (str, optional): path to config file.
-          Default is config.yml
+            Default is config.yml
         """
         self.PROJECT_DIR = os.path.abspath(
             os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)
@@ -405,7 +405,7 @@ class FileUtil():
 
         Args:
           model_name (str): model name of the topics
-          fig: Plotly figure
+          fig (graph object): Plotly figure
         """
         assert model_name in ["LDA", "BERTopic", "NMF"]
 
@@ -428,7 +428,7 @@ class FileUtil():
           model_name (str): model name of the topics
 
         Returns:
-          Plotly figure of the topics
+          fig (graph object): Plotly figure of the topics
         """
         assert model_name in ["LDA", "BERTopic", "NMF"]
 

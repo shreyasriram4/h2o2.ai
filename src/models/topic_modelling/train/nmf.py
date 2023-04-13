@@ -98,7 +98,7 @@ class Tfidf_NMF_Module(Classifier):
           df (pd.DataFrame): dataframe with predicted topic
 
         Returns:
-          fig: Plotly figure of the top words
+          fig (graph object): Plotly figure of the top words
         """
         topics = list(set(df["topic"]))
         topics.sort()

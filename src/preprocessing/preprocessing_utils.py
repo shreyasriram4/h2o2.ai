@@ -24,7 +24,7 @@ def convert_sentiment_df(df: pd.DataFrame,
 
     Returns:
         df (pd.Dataframe): dataframe consisting of sentiment column
-        where entries are in binary integer format (1 and 0)
+            where entries are in binary integer format (1 and 0)
     """
     df[dst_col] = df[src_col].apply(
         lambda x: 1 if x == "positive" else 0
@@ -47,11 +47,11 @@ def expand_contractions_df(df: pd.DataFrame,
         df (pd.Dataframe): input dataframe with text column
         src_col (str): column name of input text column with contractions
         dst_col (str): column name of output text column with
-        contractions expande
+            contractions expande
 
     Returns:
         df (pd.Dataframe): dataframe consisting of text column
-        with contractions explanded
+            with contractions explanded
     """
     df[dst_col] = df[src_col].apply(expand_contractions_text)
     return df
@@ -87,11 +87,11 @@ def lowercase_string_df(df: pd.DataFrame,
         df (pd.Dataframe): input dataframe with text column
         src_col (str): column name of input text column
         dst_col (str): column name of output text column in lowercase
-        format
+            format
 
     Returns:
         df (pd.Dataframe): dataframe consisting of text column
-        converted to lowercase
+            converted to lowercase
     """
     df[dst_col] = df[src_col].apply(
         lambda text: text.lower()
@@ -109,11 +109,11 @@ def remove_numbers_df(df: pd.DataFrame,
         df (pd.Dataframe): input dataframe with text column
         src_col (str): column name of input text column
         dst_col (str): column name of output text column with numbers
-        removed
+            removed
 
     Returns:
         df (pd.Dataframe): dataframe consisting of text column
-        with numbers removed
+            with numbers removed
     """
     df[dst_col] = df[src_col].apply(
         lambda text: ''.join([i for i in text if not i.isdigit()])
@@ -131,11 +131,11 @@ def remove_punctuations_df(df: pd.DataFrame,
         df (pd.Dataframe): input dataframe with text column
         src_col (str): column name of input text column
         dst_col (str): column name of output text column with punctuation
-        removed
+            removed
 
     Returns:
         df (pd.Dataframe): dataframe consisting of text column
-        with punctuation removed
+            with punctuation removed
     """
     df[dst_col] = df[src_col].apply(
         lambda text: re.sub(r'[^\w\s]', ' ', text)
@@ -153,11 +153,11 @@ def remove_stopwords_df(df: pd.DataFrame,
         df (pd.Dataframe): input dataframe with text column
         src_col (str): column name of input text column
         dst_col (str): column name of output text column with stopwords
-        removed
+            removed
 
     Returns:
         df (pd.Dataframe): dataframe consisting of text column
-        with stopwords removed
+            with stopwords removed
     """
     df[dst_col] = df[src_col].apply(
         remove_stopwords_text
@@ -193,12 +193,12 @@ def remove_trailing_leading_spaces_df(df: pd.DataFrame,
     Args:
         df (pd.Dataframe): input dataframe with text column
         src_col (str): column name of input text column
-        dst_col (str): column name of output text column with trailing
-        leading spaces removed
+        dst_col (str) : column name of output text column with trailing
+            leading spaces removed
 
     Returns:
         df (pd.Dataframe): dataframe consisting of text column
-        with trailing leading spaces removed
+            with trailing leading spaces removed
     """
     df[dst_col] = df[src_col].apply(
         lambda text: text.strip()
@@ -218,7 +218,7 @@ def rename_column_df(df: pd.DataFrame, src_col: str, dst_col: str) \
 
     Returns:
         df (pd.Dataframe): dataframe consisting of a column
-        with name changed
+            with name changed
     """
     df = df.rename(columns={src_col: dst_col})
     return df
@@ -236,11 +236,11 @@ def replace_multiple_spaces_df(df: pd.DataFrame,
         df (pd.Dataframe): input dataframe with text column
         src_col (str): column name of input text column
         dst_col (str): column name of output text column with multiple
-        spaces removed
+            spaces removed
 
     Returns:
         df (pd.Dataframe): dataframe consisting of text column
-        with multiple spaces removed
+            with multiple spaces removed
     """
 
     df[dst_col] = df[src_col].apply(
@@ -261,11 +261,11 @@ def strip_html_tags_df(df: pd.DataFrame,
         df (pd.Dataframe): input dataframe with text column
         src_col (str): column name of input text column
         dst_col (str): column name of output text column with
-        HTML tags removed
+            HTML tags removed
 
     Returns:
         df (pd.Dataframe): dataframe consisting of text column
-        with HTML tags removed
+            with HTML tags removed
     """
     df[dst_col] = df[src_col].apply(
         lambda text: re.sub('<[^<]+?>', ' ', text)
@@ -282,7 +282,7 @@ def remove_empty_reviews_df(df: pd.DataFrame,
     Args:
         df (pd.Dataframe): input dataframe with text column
         src_col (str): column name of text column that potentially
-        contains empty strings ("")
+            contains empty strings ("")
 
     Returns:
         df (pd.Dataframe): filtered dataframe with empty rows removed

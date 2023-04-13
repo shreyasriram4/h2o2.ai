@@ -95,55 +95,49 @@
 <p>This module contains Lbl2Vec topic model class</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.models.topic_modelling.test.lbl2vec.Lbl2Vec">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.models.topic_modelling.test.lbl2vec.</span></span><span class="sig-name descname"><span class="pre">Lbl2Vec</span></span><a class="reference internal" href="_modules/src/models/topic_modelling/test/lbl2vec.html#Lbl2Vec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.test.lbl2vec.Lbl2Vec" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.models.topic_modelling.test.lbl2vec.</span></span><span class="sig-name descname"><span class="pre">Lbl2Vec</span></span><a class="headerlink" href="#src.models.topic_modelling.test.lbl2vec.Lbl2Vec" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="src.models.html#src.models.classifier.Classifier" title="src.models.classifier.Classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Classifier</span></code></a></p>
 <p>Lbl2Vec topic model class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.topic_modelling.test.lbl2vec.Lbl2Vec.evaluate">
-<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/test/lbl2vec.html#Lbl2Vec.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.test.lbl2vec.Lbl2Vec.evaluate" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.models.topic_modelling.test.lbl2vec.Lbl2Vec.evaluate" title="Permalink to this definition"></a></dt>
 <dd><p>Evaluate topic classification.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.topic_modelling.test.lbl2vec.Lbl2Vec.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candidate_labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/test/lbl2vec.html#Lbl2Vec.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.test.lbl2vec.Lbl2Vec.fit" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candidate_labels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.topic_modelling.test.lbl2vec.Lbl2Vec.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Fit Lbl2TransformerVec on df with candidate_labels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe to fit</p></li>
 <li><p><strong>column</strong> (<em>str</em>) – text column in df</p></li>
-<li><p><strong>candidate_labels</strong> (<em>dict</em>) – dictionary of subtopic, topic</p></li>
-<li><p><strong>mapping</strong> – </p></li>
+<li><p><strong>candidate_labels</strong> (<em>dict</em>) – dictionary of subtopic, topic
+mapping</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>fitted Lbl2TransformerVec model</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>model</p>
+<dd class="field-even"><p><strong>model</strong> – fitted Lbl2TransformerVec model</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.topic_modelling.test.lbl2vec.Lbl2Vec.predict">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candidate_labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/test/lbl2vec.html#Lbl2Vec.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.test.lbl2vec.Lbl2Vec.predict" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candidate_labels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.topic_modelling.test.lbl2vec.Lbl2Vec.predict" title="Permalink to this definition"></a></dt>
 <dd><p>Predict the topic for df.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe to predict</p></li>
 <li><p><strong>column</strong> (<em>str</em>) – text column in df</p></li>
-<li><p><strong>candidate_labels</strong> (<em>list</em>) – list of lists</p></li>
-<li><p><strong>subtopics</strong> (<em>containing</em>) – </p></li>
+<li><p><strong>candidate_labels</strong> (<em>list</em>) – list of lists
+containing subtopics</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>prediction result dataframe</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dataframe (pd.Dataframe)</p>
+<dd class="field-even"><p><strong>dataframe</strong> (<em>pd.Dataframe</em>) – prediction result dataframe</p>
 </dd>
 </dl>
 </dd></dl>
@@ -157,21 +151,18 @@
 does topic prediction.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.models.topic_modelling.test.predict.predict_topic">
-<span class="sig-prename descclassname"><span class="pre">src.models.topic_modelling.test.predict.</span></span><span class="sig-name descname"><span class="pre">predict_topic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Lbl2Vec'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/test/predict.html#predict_topic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.test.predict.predict_topic" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.models.topic_modelling.test.predict.</span></span><span class="sig-name descname"><span class="pre">predict_topic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Lbl2Vec'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.topic_modelling.test.predict.predict_topic" title="Permalink to this definition"></a></dt>
 <dd><p>Predict the topic for df.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe to predict</p></li>
-<li><p><strong>model_name</strong> (<em>str</em><em>, </em><em>optional</em>) – model to run for prediction.</p></li>
-<li><p><strong>Lbl2Vec.</strong> (<em>Default is</em>) – </p></li>
+<li><p><strong>model_name</strong> (<em>str</em><em>, </em><em>optional</em>) – model to run for prediction.
+Default is Lbl2Vec.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>prediction result dataframe</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dataframe (pd.Dataframe)</p>
+<dd class="field-even"><p><strong>dataframe</strong> (<em>pd.Dataframe</em>) – prediction result dataframe</p>
 </dd>
 </dl>
 </dd></dl>
@@ -182,12 +173,12 @@ does topic prediction.</p>
 <p>This module contains ZeroShot topic model class.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.models.topic_modelling.test.zero_shot.ZeroShot">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.models.topic_modelling.test.zero_shot.</span></span><span class="sig-name descname"><span class="pre">ZeroShot</span></span><a class="reference internal" href="_modules/src/models/topic_modelling/test/zero_shot.html#ZeroShot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.test.zero_shot.ZeroShot" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.models.topic_modelling.test.zero_shot.</span></span><span class="sig-name descname"><span class="pre">ZeroShot</span></span><a class="headerlink" href="#src.models.topic_modelling.test.zero_shot.ZeroShot" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="src.models.html#src.models.classifier.Classifier" title="src.models.classifier.Classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Classifier</span></code></a></p>
 <p>ZeroShot topic model class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.topic_modelling.test.zero_shot.ZeroShot.dataloader">
-<span class="sig-name descname"><span class="pre">dataloader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/test/zero_shot.html#ZeroShot.dataloader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.test.zero_shot.ZeroShot.dataloader" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">dataloader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.topic_modelling.test.zero_shot.ZeroShot.dataloader" title="Permalink to this definition"></a></dt>
 <dd><p>Generate each row text from df.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -204,25 +195,25 @@ does topic prediction.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.topic_modelling.test.zero_shot.ZeroShot.evaluate">
-<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/test/zero_shot.html#ZeroShot.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.test.zero_shot.ZeroShot.evaluate" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.models.topic_modelling.test.zero_shot.ZeroShot.evaluate" title="Permalink to this definition"></a></dt>
 <dd><p>Evaluate topic classification.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.topic_modelling.test.zero_shot.ZeroShot.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/test/zero_shot.html#ZeroShot.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.test.zero_shot.ZeroShot.fit" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.models.topic_modelling.test.zero_shot.ZeroShot.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Fit ZeroShot topic model.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.topic_modelling.test.zero_shot.ZeroShot.get_model">
-<span class="sig-name descname"><span class="pre">get_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/test/zero_shot.html#ZeroShot.get_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.test.zero_shot.ZeroShot.get_model" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.models.topic_modelling.test.zero_shot.ZeroShot.get_model" title="Permalink to this definition"></a></dt>
 <dd><p>Get ZeroShot model from storage.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.topic_modelling.test.zero_shot.ZeroShot.predict">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candidate_labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/test/zero_shot.html#ZeroShot.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.test.zero_shot.ZeroShot.predict" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candidate_labels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.models.topic_modelling.test.zero_shot.ZeroShot.predict" title="Permalink to this definition"></a></dt>
 <dd><p>Predict the topic for df.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -233,17 +224,14 @@ does topic prediction.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>prediction result dataframe</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dataframe (pd.Dataframe)</p>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – prediction result dataframe</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.models.topic_modelling.test.zero_shot.ZeroShot.save_model">
-<span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/models/topic_modelling/test/zero_shot.html#ZeroShot.save_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.models.topic_modelling.test.zero_shot.ZeroShot.save_model" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.models.topic_modelling.test.zero_shot.ZeroShot.save_model" title="Permalink to this definition"></a></dt>
 <dd><p>Save ZeroShot model to storage.</p>
 </dd></dl>
 

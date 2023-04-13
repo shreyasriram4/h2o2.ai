@@ -19,7 +19,7 @@ def get_top_words(corpus, custom_sw=[]):
 
     Returns:
         dataframe (pd.Dataframe): dataframe consisting top words and
-                            its tf-idf score in descending order
+            its tf-idf score in descending order
     """
     my_stop_words = list(text.ENGLISH_STOP_WORDS.union(custom_sw))
 
@@ -46,7 +46,7 @@ def visualise_top_words(df,
         df (pd.Dataframe): dataframe
         topics (list): list of topics
         specific (boolean): If True, create plot for a selected
-                        topic. Else, for all topics in the list.
+            topic. Else, for all topics in the list.
         custom_sw (list): list of custom stopwords
         inc_size (boolean): If True, update layout of fig. Defaults to False.
 

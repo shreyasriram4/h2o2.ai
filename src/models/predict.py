@@ -22,14 +22,14 @@ def predict_sentiment_topic(test_filepath=FileUtil().TEST_FILE_NAME,
 
     Args:
         test_filepath (str,optional): filepath of the test dataframe.
-        Default is the test file name specified in config file
+            Default is the test file name specified in config file
         df (pd.DataFrame,optional): test dataframe to predict.
-        Default is the raw train data.
+            Default is the raw train data.
 
 
     Returns:
         df (pd.DataFrame): dataframe with predicted topics and
-                            predicted sentiment
+            predicted sentiment
     """
 
     if test_filepath:

@@ -124,9 +124,9 @@ class LDA(Classifier):
           column (str): text column of df
 
         Returns:
-          corpus: word corpus
-          id2word: id to words mapping
-          bigram: list of bigrams
+          corpus (list): word corpus
+          id2word (dict): id to words mapping
+          bigram (list): list of bigrams
         """
         words = list(self.sent_to_words(df[column]))
         bigram_mod = self.bigrams(words)
@@ -147,9 +147,9 @@ class LDA(Classifier):
 
         Returns:
           lda: fitted LDA model
-          df_corpus: df word corpus
-          df_id2word: df id to words mapping
-          df_bigram: df list of bigrams
+          df_corpus (list): df word corpus
+          df_id2word (dict): df id to words mapping
+          df_bigram (list): df list of bigrams
         """
         df_corpus, df_id2word, df_bigram = self.get_corpus(df, "review")
 
@@ -170,7 +170,7 @@ class LDA(Classifier):
         Args:
           df (pd.DataFrame): dataframe to predict
           lda: fitted LDA model
-          df_corpus: corpus of fitted LDA model
+          df_corpus (list): corpus of fitted LDA model
 
         Returns:
           df (pd.DataFrame): df with the predicted topic
@@ -196,7 +196,7 @@ class LDA(Classifier):
           df (pd.DataFrame): dataframe with predicted topic
 
         Returns:
-          fig: Plotly figure of the top words
+          fig (graph object): Plotly figure of the top words
         """
         topics = list(set(df["topic"]))
         topics.sort()
