@@ -181,4 +181,4 @@ By default we have included in the github workflow to regenerate the documentati
 ```bash
 sphinx-build -b html docs docs\_build\html
 ```
-The above command tells sphinx to build the documentation using the files in docs folder and outputs the html files at docs\_build\html folder. Note that you have to install all the required python libraries in requirements.txt.
+The above command tells sphinx to build the documentation using the files in docs folder and outputs the html files at docs\_build\html folder. Thereafter, open up the index.html within the docs\_build\html folder to view the documentation. Note that you have to install all the required python libraries in requirements.txt.
