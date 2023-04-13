@@ -132,7 +132,7 @@ conda activate voc_env
 
 #### Running Pipeline via Notebook
 
-Note that you will need to have the necessary computing power to run model training on local.
+Note that you will need to have the necessary computing power to run model training on local. Else this might slow down your laptop or use up extensive resources to train the sentiment analysis model.
 
 To run all pipelines via notebook, run the following commands on final_presentation folder:
 
