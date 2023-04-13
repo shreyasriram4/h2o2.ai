@@ -18,12 +18,8 @@ src/models/sentiment_analysis/train/lstm_model/
 src/models/sentiment_analysis/train/logreg_model/logreg_model.sav
 src/models/sentiment_analysis/train/logreg_model/logreg_word2vec.model
 
-#hide evaluation images temporarily
-src/models/topic_modelling/train/eval/
-
 # vscode extension
 .vscode/
 
-#incomplete
-test.ipynb
+# ipynb checkpoints
 .ipynb_checkpoints/
