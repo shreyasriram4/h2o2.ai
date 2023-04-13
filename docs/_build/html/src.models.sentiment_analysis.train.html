@@ -129,8 +129,8 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>examples</strong> (<em>list</em>) – list of InputExample</p></li>
 <li><p><strong>tokenizer</strong> (<em>BertTokenizer</em>) – BERT tokenizer</p></li>
-<li><p><strong>max_length</strong> (<em>int</em><em>, </em><em>optional</em>) – max_length of text encoding.</p></li>
-<li><p><strong>50.</strong> (<em>Default is</em>) – </p></li>
+<li><p><strong>max_length</strong> (<em>int</em><em>, </em><em>optional</em>) – max_length of text encoding.
+Default is 50.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -149,8 +149,8 @@
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>ap</strong> – average precision score</p></li>
-<li><p><strong>pr_auc</strong> – precision recall area under curve score</p></li>
+<li><p><strong>ap</strong> (<em>float</em>) – average precision score</p></li>
+<li><p><strong>pr_auc</strong> (<em>float</em>) – precision recall area under curve score</p></li>
 </ul>
 </dd>
 </dl>
@@ -197,9 +197,9 @@
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>label</strong> – predicted sentiment labels for test dataset</p></li>
-<li><p><strong>probs</strong> – probabilities of the predicted sentiment labels</p></li>
-<li><p><strong>tf_predictions</strong> – probabilities of both labels 0 and 1 for test dataset</p></li>
+<li><p><strong>label</strong> (<em>list</em>) – predicted sentiment labels for test dataset</p></li>
+<li><p><strong>probs</strong> (<em>list</em>) – probabilities of the predicted sentiment labels</p></li>
+<li><p><strong>tf_predictions</strong> (<em>list</em>) – probabilities of both labels 0 and 1 for test data</p></li>
 </ul>
 </dd>
 </dl>
@@ -225,8 +225,8 @@
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>ap</strong> – average precision score</p></li>
-<li><p><strong>pr_auc</strong> – precision recall area under curve score</p></li>
+<li><p><strong>ap</strong> (<em>float</em>) – average precision score</p></li>
+<li><p><strong>pr_auc</strong> (<em>float</em>) – precision recall area under curve score</p></li>
 </ul>
 </dd>
 </dl>
@@ -255,7 +255,7 @@
 <dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>X_vect_avg</strong> – Numeric representation of texts</p>
+<dd class="field-even"><p><strong>X_vect_avg</strong> (<em>list</em>) – Numeric representation of texts</p>
 </dd>
 </dl>
 </dd></dl>
@@ -270,8 +270,8 @@
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>y_label</strong> – predicted sentiment labels for test dataset</p></li>
-<li><p><strong>LR_y_probs</strong> – probabilities of the predicted sentiment labels</p></li>
+<li><p><strong>y_label</strong> (<em>list</em>) – predicted sentiment labels for test dataset</p></li>
+<li><p><strong>LR_y_probs</strong> (<em>list</em>) – probabilities of the predicted sentiment labels</p></li>
 </ul>
 </dd>
 </dl>
@@ -337,8 +337,8 @@ based on the config file.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>ap</strong> – average precision score</p></li>
-<li><p><strong>pr_auc</strong> – precision recall area under curve score</p></li>
+<li><p><strong>ap</strong> (<em>float</em>) – average precision score</p></li>
+<li><p><strong>pr_auc</strong> (<em>float</em>) – precision recall area under curve score</p></li>
 </ul>
 </dd>
 </dl>
@@ -367,7 +367,7 @@ based on the config file.</p>
 <dd><p>Get embedded matrix for the shifting of weights.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>embed_matrix</strong> – Embedded matrix</p>
+<dd class="field-odd"><p><strong>embed_matrix</strong> (<em>list of list</em>) – Embedded matrix</p>
 </dd>
 </dl>
 </dd></dl>
@@ -381,7 +381,7 @@ based on the config file.</p>
 <dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>pad_rev</strong> – Numeric representation of texts</p>
+<dd class="field-even"><p><strong>pad_rev</strong> (<em>list</em>) – Numeric representation of texts</p>
 </dd>
 </dl>
 </dd></dl>
@@ -402,8 +402,8 @@ based on the config file.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>LSTM_test_pred</strong> – predicted sentiment labels for test dataset</p></li>
-<li><p><strong>LSTM_y_probs</strong> – probabilities of the predicted sentiment labels</p></li>
+<li><p><strong>LSTM_test_pred</strong> (<em>list</em>) – predicted sentiment labels for test dataset</p></li>
+<li><p><strong>LSTM_y_probs</strong> (<em>list</em>) – probabilities of the predicted sentiment labels</p></li>
 </ul>
 </dd>
 </dl>

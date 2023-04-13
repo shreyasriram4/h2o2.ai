@@ -102,10 +102,8 @@ and ‘negative’) to integer format (1 and 0)</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of sentiment column</p></li>
-<li><p><strong>where entries are in binary integer format</strong> (<em>1 and 0</em>)</p></li>
-</ul>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of sentiment column
+where entries are in binary integer format (1 and 0)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -120,15 +118,13 @@ expand_contractions_text helper function</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with text column</p></li>
 <li><p><strong>src_col</strong> (<em>str</em>) – column name of input text column with contractions</p></li>
-<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column with</p></li>
-<li><p><strong>expande</strong> (<em>contractions</em>) – </p></li>
+<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column with
+contractions expande</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column</p></li>
-<li><p><strong>with contractions explanded</strong></p></li>
-</ul>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column
+with contractions explanded</p>
 </dd>
 </dl>
 </dd></dl>
@@ -159,15 +155,13 @@ asap -&gt; as soon as possible</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with text column</p></li>
 <li><p><strong>src_col</strong> (<em>str</em>) – column name of input text column</p></li>
-<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column in lowercase</p></li>
-<li><p><strong>format</strong> – </p></li>
+<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column in lowercase
+format</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column</p></li>
-<li><p><strong>converted to lowercase</strong></p></li>
-</ul>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column
+converted to lowercase</p>
 </dd>
 </dl>
 </dd></dl>
@@ -181,8 +175,8 @@ column of choice</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with text column</p></li>
-<li><p><strong>src_col</strong> (<em>str</em>) – column name of text column that potentially</p></li>
-<li><p><strong>strings</strong> (<em>contains empty</em>) – </p></li>
+<li><p><strong>src_col</strong> (<em>str</em>) – column name of text column that potentially
+contains empty strings (“”)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -200,15 +194,13 @@ column of choice</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with text column</p></li>
 <li><p><strong>src_col</strong> (<em>str</em>) – column name of input text column</p></li>
-<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column with numbers</p></li>
-<li><p><strong>removed</strong> – </p></li>
+<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column with numbers
+removed</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column</p></li>
-<li><p><strong>with numbers removed</strong></p></li>
-</ul>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column
+with numbers removed</p>
 </dd>
 </dl>
 </dd></dl>
@@ -222,15 +214,13 @@ column of choice</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with text column</p></li>
 <li><p><strong>src_col</strong> (<em>str</em>) – column name of input text column</p></li>
-<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column with punctuation</p></li>
-<li><p><strong>removed</strong> – </p></li>
+<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column with punctuation
+removed</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column</p></li>
-<li><p><strong>with punctuation removed</strong></p></li>
-</ul>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column
+with punctuation removed</p>
 </dd>
 </dl>
 </dd></dl>
@@ -287,10 +277,8 @@ leading spaces removed</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column</p></li>
-<li><p><strong>with trailing leading spaces removed</strong></p></li>
-</ul>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column
+with trailing leading spaces removed</p>
 </dd>
 </dl>
 </dd></dl>
@@ -308,10 +296,8 @@ leading spaces removed</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of a column</p></li>
-<li><p><strong>with name changed</strong></p></li>
-</ul>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of a column
+with name changed</p>
 </dd>
 </dl>
 </dd></dl>
@@ -327,15 +313,13 @@ e.g.
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with text column</p></li>
 <li><p><strong>src_col</strong> (<em>str</em>) – column name of input text column</p></li>
-<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column with multiple</p></li>
-<li><p><strong>removed</strong> (<em>spaces</em>) – </p></li>
+<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column with multiple
+spaces removed</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column</p></li>
-<li><p><strong>with multiple spaces removed</strong></p></li>
-</ul>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column
+with multiple spaces removed</p>
 </dd>
 </dl>
 </dd></dl>
@@ -351,15 +335,13 @@ e.g.
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with text column</p></li>
 <li><p><strong>src_col</strong> (<em>str</em>) – column name of input text column</p></li>
-<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column with</p></li>
-<li><p><strong>removed</strong> (<em>HTML tags</em>) – </p></li>
+<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column with
+HTML tags removed</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column</p></li>
-<li><p><strong>with HTML tags removed</strong></p></li>
-</ul>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column
+with HTML tags removed</p>
 </dd>
 </dl>
 </dd></dl>
@@ -382,10 +364,8 @@ removes empty reviews to form cleaned_text column.
 <dd class="field-odd"><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with columns Text and Time</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of new text columns</p></li>
-<li><p><strong>partially_cleaned_text and cleaned_text.</strong></p></li>
-</ul>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of new text columns
+partially_cleaned_text and cleaned_text.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -403,16 +383,12 @@ removes empty reviews to form cleaned_text column.
 4. Renames Time column to date</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with columns Text,</p></li>
-<li><p><strong>Time</strong> (<em>Sentiment and</em>) – </p></li>
-</ul>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with columns Text,
+Sentiment and Time</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of new text columns</p></li>
-<li><p><strong>partially_cleaned_text and cleaned_text.</strong></p></li>
-</ul>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of new text columns
+partially_cleaned_text and cleaned_text.</p>
 </dd>
 </dl>
 </dd></dl>

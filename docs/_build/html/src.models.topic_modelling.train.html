@@ -106,7 +106,7 @@
 <dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe with predicted topic</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>fig</strong> – Plotly figure of the top words</p>
+<dd class="field-even"><p><strong>fig</strong> (<em>graph object</em>) – Plotly figure of the top words</p>
 </dd>
 </dl>
 </dd></dl>
@@ -126,7 +126,7 @@
 <dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe to predict</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>pd.DataFrame</strong> – df with the predicted topic</p>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.DataFrame</em>) – df with the predicted topic</p>
 </dd>
 </dl>
 </dd></dl>
@@ -165,7 +165,7 @@
 <dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe with predicted topic</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>fig</strong> – Plotly figure of the top words</p>
+<dd class="field-even"><p><strong>fig</strong> (<em>graph object</em>) – Plotly figure of the top words</p>
 </dd>
 </dl>
 </dd></dl>
@@ -181,9 +181,9 @@
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>lda</strong> – fitted LDA model</p></li>
-<li><p><strong>df_corpus</strong> – df word corpus</p></li>
-<li><p><strong>df_id2word</strong> – df id to words mapping</p></li>
-<li><p><strong>df_bigram</strong> – df list of bigrams</p></li>
+<li><p><strong>df_corpus</strong> (<em>list</em>) – df word corpus</p></li>
+<li><p><strong>df_id2word</strong> (<em>dict</em>) – df id to words mapping</p></li>
+<li><p><strong>df_bigram</strong> (<em>list</em>) – df list of bigrams</p></li>
 </ul>
 </dd>
 </dl>
@@ -216,9 +216,9 @@
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>corpus</strong> – word corpus</p></li>
-<li><p><strong>id2word</strong> – id to words mapping</p></li>
-<li><p><strong>bigram</strong> – list of bigrams</p></li>
+<li><p><strong>corpus</strong> (<em>list</em>) – word corpus</p></li>
+<li><p><strong>id2word</strong> (<em>dict</em>) – id to words mapping</p></li>
+<li><p><strong>bigram</strong> (<em>list</em>) – list of bigrams</p></li>
 </ul>
 </dd>
 </dl>
@@ -247,7 +247,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe to predict</p></li>
 <li><p><strong>lda</strong> – fitted LDA model</p></li>
-<li><p><strong>df_corpus</strong> – corpus of fitted LDA model</p></li>
+<li><p><strong>df_corpus</strong> (<em>list</em>) – corpus of fitted LDA model</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -320,7 +320,7 @@
 <dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe with predicted topic</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>fig</strong> – Plotly figure of the top words</p>
+<dd class="field-even"><p><strong>fig</strong> (<em>graph object</em>) – Plotly figure of the top words</p>
 </dd>
 </dl>
 </dd></dl>
@@ -384,10 +384,8 @@
 All 3 models’ topics plot will be saved to eval folder.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.DataFrame</em><em>, </em><em>optional</em>) – dataframe to train.</p></li>
-<li><p><strong>data.</strong> (<em>Default is the processed train</em>) – </p></li>
-</ul>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em><em>, </em><em>optional</em>) – dataframe to train.
+Default is the processed train data.</p>
 </dd>
 </dl>
 </dd></dl>
