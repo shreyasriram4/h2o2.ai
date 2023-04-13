@@ -2,6 +2,5 @@ services:
   web:
     build: .
     shm_size: '2gb'
-    platform: linux/amd64
     ports:
       - 8080:10101
