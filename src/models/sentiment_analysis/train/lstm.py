@@ -124,7 +124,7 @@ class Lstm(Classifier):
           df (pd.DataFrame): dataframe
 
         Returns:
-          pad_rev: Numeric representation of texts
+          pad_rev (list): Numeric representation of texts
         """
 
         # this converts texts into some numeric sequences
@@ -141,7 +141,7 @@ class Lstm(Classifier):
         Get embedded matrix for the shifting of weights.
 
         Returns:
-          embed_matrix: Embedded matrix
+          embed_matrix (list of list): Embedded matrix
         """
 
         embed_matrix = np.zeros(shape=(self.vocab_size, self.vector_size))
@@ -260,8 +260,8 @@ class Lstm(Classifier):
           valid (pd.DataFrame): test dataframe
 
         Returns:
-          LSTM_test_pred: predicted sentiment labels for test dataset
-          LSTM_y_probs: probabilities of the predicted sentiment labels
+          LSTM_test_pred (list): predicted sentiment labels for test dataset
+          LSTM_y_probs (list): probabilities of the predicted sentiment labels
         """
 
         self.model = load_model(self.saved_model_path)
@@ -290,8 +290,8 @@ class Lstm(Classifier):
           valid (pd.DataFrame): valid dataframe
 
         Returns:
-          ap: average precision score
-          pr_auc: precision recall area under curve score
+          ap (float): average precision score
+          pr_auc (float): precision recall area under curve score
         """
         LSTM_test_pred, LSTM_y_probs = self.predict(valid)
         y_test = tensorflow.keras.utils.to_categorical(valid[self.target_col])

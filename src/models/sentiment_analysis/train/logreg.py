@@ -96,7 +96,7 @@ class LOGREG(Classifier):
           df (pd.DataFrame): dataframe
 
         Returns:
-          X_vect_avg: Numeric representation of texts
+          X_vect_avg (list): Numeric representation of texts
         """
 
         X_train = df[self.text_col]
@@ -155,8 +155,8 @@ class LOGREG(Classifier):
           valid (pd.DataFrame): test dataframe
 
         Returns:
-          y_label: predicted sentiment labels for test dataset
-          LR_y_probs: probabilities of the predicted sentiment labels
+          y_label (list): predicted sentiment labels for test dataset
+          LR_y_probs (list): probabilities of the predicted sentiment labels
         """
 
         X_valid_vect_avg = self.get_word_vectors(valid)
@@ -179,8 +179,8 @@ class LOGREG(Classifier):
           valid (pd.DataFrame): valid dataframe
 
         Returns:
-          ap: average precision score
-          pr_auc: precision recall area under curve score
+          ap (float): average precision score
+          pr_auc (float): precision recall area under curve score
         """
         y_pred, LR_y_probs = self.predict(valid)
 

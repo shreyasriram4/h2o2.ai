@@ -16,7 +16,7 @@ def predict_sentiment(df, model_name=FileUtil().best_sentiment_analysis_model):
     Args:
       df (pd.DataFrame): dataframe to predict
       model_name (str, optional): model to run for prediction.
-      Default is the model specified in config file.
+        Default is the model specified in config file.
 
     Returns:
       dataframe (pd.Dataframe): prediction result dataframe
