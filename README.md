@@ -176,9 +176,9 @@ Open the app on http://localhost:10101/
 ## Sphinx Documentation
 To view the latest version of the documentation, please refer to https://shreyasriram4.github.io/h2o2.ai/
 
-By default we have included in the github workflow to regenerate the documentation each time there is a push, pull request or workflow dispatch. However if you would like to regenerate the documentation on your own, use the following command at the h2o2.ai directory:
+By default we have included in the github workflow to regenerate the documentation each time there is a push, pull request or workflow dispatch. However if you would like to regenerate the documentation on your own, use the following command at the h2o2.ai project folder directory:
 
 ```bash
 sphinx-build -b html docs docs\_build\html
 ```
-The above command tells sphinx to build the documentation using the files in docs and outputs the html files at docs\_build\html. Note that you have to install all the required python libraries in requirements.txt.
+The above command tells sphinx to build the documentation using the files in docs folder and outputs the html files at docs\_build\html folder. Note that you have to install all the required python libraries in requirements.txt.
