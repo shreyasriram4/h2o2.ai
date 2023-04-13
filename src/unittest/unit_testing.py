@@ -40,7 +40,6 @@ config_params = files.CONFIG_PARAMS
 topics = config_params["topics"]
 subtopics = sum(config_params["topic_mapping"].values(), [])
 data_proc = files.get_processed_train_data().head(300)
-data_proc_large = files.get_processed_train_data().head(1000)
 
 # Testing preprocessing functions
 
