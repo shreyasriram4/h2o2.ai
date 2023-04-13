@@ -8,7 +8,7 @@ plotly==5.13.0
 spacy==3.4.0
 contractions==0.1.73
 nltk==3.8.1
-pyYAML
+pyYAML==5.4.1
 hdbscan==0.8.29
 scikit-learn==1.2.2
 tensorflow==2.12.0
@@ -22,3 +22,4 @@ seaborn==0.12.2
 papermill==2.4.0
 kaleido==0.2.1
 IPython==8.12.0
+IPykernel==6.22.0
