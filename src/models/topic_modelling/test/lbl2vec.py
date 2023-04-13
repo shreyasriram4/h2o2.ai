@@ -16,7 +16,7 @@ class Lbl2Vec(Classifier):
           df (pd.DataFrame): dataframe to fit
           column (str): text column in df
           candidate_labels (dict): dictionary of subtopic, topic
-          mapping
+            mapping
 
         Returns:
           model: fitted Lbl2TransformerVec model
@@ -39,7 +39,7 @@ class Lbl2Vec(Classifier):
           df (pd.DataFrame): dataframe to predict
           column (str): text column in df
           candidate_labels (list): list of lists
-          containing subtopics
+            containing subtopics
 
         Returns:
           dataframe (pd.Dataframe): prediction result dataframe

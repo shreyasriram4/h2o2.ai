@@ -42,11 +42,11 @@ def apply_cleaning_train(df: pd.DataFrame) -> pd.DataFrame:
 
     Args:
         df (pd.Dataframe): input dataframe with columns Text,
-        Sentiment and Time
+            Sentiment and Time
 
     Returns:
         df (pd.Dataframe): dataframe consisting of new text columns
-        partially_cleaned_text and cleaned_text.
+            partially_cleaned_text and cleaned_text.
     """
     return (
         df.pipe(convert_sentiment_df)
@@ -83,7 +83,7 @@ def apply_cleaning_test(df: pd.DataFrame) -> pd.DataFrame:
 
     Returns:
         df (pd.Dataframe): dataframe consisting of new text columns
-        partially_cleaned_text and cleaned_text.
+            partially_cleaned_text and cleaned_text.
     """
     return (
         df.pipe(strip_html_tags_df, src_col="Text", dst_col="Text")

@@ -50,7 +50,7 @@ class ZeroShot(Classifier):
           candidate_labels (list): list of topics
 
         Returns:
-          dataframe (pd.Dataframe): prediction result dataframe
+          df (pd.Dataframe): prediction result dataframe
         """
         clf = self.get_model()
         hypothesis_template = "The topic of this review is {}."

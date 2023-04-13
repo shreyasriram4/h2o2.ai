@@ -17,7 +17,7 @@ def predict_topic(df, model_name="Lbl2Vec"):
     Args:
       df (pd.DataFrame): dataframe to predict
       model_name (str, optional): model to run for prediction.
-      Default is Lbl2Vec.
+        Default is Lbl2Vec.
 
     Returns:
       dataframe (pd.Dataframe): prediction result dataframe

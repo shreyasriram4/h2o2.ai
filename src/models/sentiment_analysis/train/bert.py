@@ -24,13 +24,13 @@ class BERT(Classifier):
         Constructor for BERT class.
 
         Args:
-          load_model (bool): boolean value to indicate
-          whether to load trained model or not
+            load_model (bool): boolean value to indicate
+            whether to load trained model or not
 
         Raises:
-          FileNotFoundError: If load_model is True, but
-          there is no trained model in the BERT sentiment
-          model directory
+            FileNotFoundError: If load_model is True, but
+            there is no trained model in the BERT sentiment
+            model directory
         """
         self.load_model = load_model
         self.saved_model_path = FileUtil().BERT_SENTIMENT_MODEL_DIR
@@ -75,12 +75,12 @@ class BERT(Classifier):
         Fit BERT model on train data.
 
         Args:
-          train (pd.DataFrame): train dataframe
-          valid (pd.DataFrame): valid dataframe
+            train (pd.DataFrame): train dataframe
+            valid (pd.DataFrame): valid dataframe
 
         Returns:
-          self.model: fitted model
-          history: training history
+            self.model: fitted model
+            history: training history
         """
         assert self.load_model is not True
         train_InputExamples, validation_InputExamples = \
@@ -115,12 +115,12 @@ class BERT(Classifier):
         Predict BERT model on test data.
 
         Args:
-          test (pd.DataFrame): test dataframe
+            test (pd.DataFrame): test dataframe
 
         Returns:
-          label: predicted sentiment labels for test dataset
-          probs: probabilities of the predicted sentiment labels
-          tf_predictions: probabilities of both labels 0 and 1 for test dataset
+            label (list): predicted sentiment labels for test dataset
+            probs (list): probabilities of the predicted sentiment labels
+            tf_predictions (list): probabilities of both labels 0 and 1 for test data
         """
         tf_outputs = []
         for i in range(int(np.ceil(len(test) / self.batch_size))):
@@ -144,11 +144,11 @@ class BERT(Classifier):
         Evaluate BERT model performance on valid data.
 
         Args:
-          valid (pd.DataFrame): valid dataframe
+            valid (pd.DataFrame): valid dataframe
 
         Returns:
-          ap: average precision score
-          pr_auc: precision recall area under curve score
+            ap (float): average precision score
+            pr_auc (float): precision recall area under curve score
         """
         label, probs, tf_predictions = self.predict(valid)
         all_probs = list(map(lambda logit: np.exp(logit) / sum(np.exp(logit)),
@@ -169,7 +169,7 @@ class BERT(Classifier):
         Plot and save BERT training graph.
 
         Args:
-          history: BERT model training history
+            history: BERT model training history
         """
         losses = history.history['loss']
         accs = history.history['accuracy']
@@ -198,14 +198,14 @@ class BERT(Classifier):
         Convert train and valid data into InputExample format.
 
         Args:
-          train (pd.DataFrame): train dataframe
-          valid (pd.DataFrame): valid dataframe
-          TEXT_COL (str): text column name in train and valid
-          SENTIMENT_COL (str): sentiment column name in train and valid
+            train (pd.DataFrame): train dataframe
+            valid (pd.DataFrame): valid dataframe
+            TEXT_COL (str): text column name in train and valid
+            SENTIMENT_COL (str): sentiment column name in train and valid
 
         Returns:
-          train_InputExamples: InputExample of all rows in train
-          validation_InputExamples: InputExample of all rows in valid
+            train_InputExamples: InputExample of all rows in train
+            validation_InputExamples: InputExample of all rows in valid
         """
         train_InputExamples = train.apply(
             lambda x: InputExample(guid=None,
@@ -231,13 +231,13 @@ class BERT(Classifier):
         Convert InputExample into tensorflow dataset.
 
         Args:
-          examples (list): list of InputExample
-          tokenizer (BertTokenizer): BERT tokenizer
-          max_length (int, optional): max_length of text encoding.
-          Default is 50.
+            examples (list): list of InputExample
+            tokenizer (BertTokenizer): BERT tokenizer
+            max_length (int, optional): max_length of text encoding.
+                Default is 50.
 
         Returns:
-          tensorflow dataset
+            tensorflow dataset
         """
         features = []
 
