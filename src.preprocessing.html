@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.preprocessing package &mdash; H2o2.ai Voice of Customer 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="src.utils package" href="src.utils.html" />
+    <link rel="prev" title="src.models.topic_modelling.train package" href="src.models.topic_modelling.train.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            H2o2.ai Voice of Customer
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">h2o2.ai</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="src.html">src package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="src.models.html">src.models package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">src.preprocessing package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.preprocessing.preprocessing_utils">src.preprocessing.preprocessing_utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-src.preprocessing.transformations">src.preprocessing.transformations module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="src.utils.html">src.utils package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.visualisation.html">src.visualisation package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">H2o2.ai Voice of Customer</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">h2o2.ai</a></li>
+          <li class="breadcrumb-item"><a href="src.html">src package</a></li>
+      <li class="breadcrumb-item active">src.preprocessing package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/src.preprocessing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="src-preprocessing-package">
+<h1>src.preprocessing package<a class="headerlink" href="#src-preprocessing-package" title="Permalink to this heading"></a></h1>
+<section id="module-src.preprocessing.preprocessing_utils">
+<span id="src-preprocessing-preprocessing-utils-module"></span><h2>src.preprocessing.preprocessing_utils module<a class="headerlink" href="#module-src.preprocessing.preprocessing_utils" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.preprocessing.preprocessing_utils.convert_sentiment_df">
+<span class="sig-prename descclassname"><span class="pre">src.preprocessing.preprocessing_utils.</span></span><span class="sig-name descname"><span class="pre">convert_sentiment_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Sentiment'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'sentiment'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#src.preprocessing.preprocessing_utils.convert_sentiment_df" title="Permalink to this definition"></a></dt>
+<dd><p>Convert sentiments in a given dataframe from string format (‘positive’
+and ‘negative’) to integer format (1 and 0)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with sentiment column</p></li>
+<li><p><strong>src_col</strong> (<em>str</em>) – column name of input sentiment column</p></li>
+<li><p><strong>dst_col</strong> (<em>str</em>) – expected column name of output sentiment column</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of sentiment column
+where entries are in binary integer format (1 and 0)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.preprocessing.preprocessing_utils.expand_contractions_df">
+<span class="sig-prename descclassname"><span class="pre">src.preprocessing.preprocessing_utils.</span></span><span class="sig-name descname"><span class="pre">expand_contractions_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cleaned_text'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cleaned_text'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#src.preprocessing.preprocessing_utils.expand_contractions_df" title="Permalink to this definition"></a></dt>
+<dd><p>Expand contractions in a text column of a given dataframe using
+expand_contractions_text helper function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with text column</p></li>
+<li><p><strong>src_col</strong> (<em>str</em>) – column name of input text column with contractions</p></li>
+<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column with
+contractions expande</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column
+with contractions explanded</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.preprocessing.preprocessing_utils.expand_contractions_text">
+<span class="sig-prename descclassname"><span class="pre">src.preprocessing.preprocessing_utils.</span></span><span class="sig-name descname"><span class="pre">expand_contractions_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#src.preprocessing.preprocessing_utils.expand_contractions_text" title="Permalink to this definition"></a></dt>
+<dd><p>Expand contractions in a string
+e.g.:
+can’t -&gt; cannot
+asap -&gt; as soon as possible</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – text containing contractions</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>output_text</strong> (<em>str</em>) – text with contractions expanded</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.preprocessing.preprocessing_utils.lowercase_string_df">
+<span class="sig-prename descclassname"><span class="pre">src.preprocessing.preprocessing_utils.</span></span><span class="sig-name descname"><span class="pre">lowercase_string_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cleaned_text'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cleaned_text'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#src.preprocessing.preprocessing_utils.lowercase_string_df" title="Permalink to this definition"></a></dt>
+<dd><p>Convert text in a text column of a given dataframe to lowercase</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with text column</p></li>
+<li><p><strong>src_col</strong> (<em>str</em>) – column name of input text column</p></li>
+<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column in lowercase
+format</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column
+converted to lowercase</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.preprocessing.preprocessing_utils.remove_empty_reviews_df">
+<span class="sig-prename descclassname"><span class="pre">src.preprocessing.preprocessing_utils.</span></span><span class="sig-name descname"><span class="pre">remove_empty_reviews_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cleaned_text'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#src.preprocessing.preprocessing_utils.remove_empty_reviews_df" title="Permalink to this definition"></a></dt>
+<dd><p>Filters empty rows out of the dataframe based on input text
+column of choice</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with text column</p></li>
+<li><p><strong>src_col</strong> (<em>str</em>) – column name of text column that potentially
+contains empty strings (“”)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – filtered dataframe with empty rows removed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.preprocessing.preprocessing_utils.remove_numbers_df">
+<span class="sig-prename descclassname"><span class="pre">src.preprocessing.preprocessing_utils.</span></span><span class="sig-name descname"><span class="pre">remove_numbers_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cleaned_text'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cleaned_text'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#src.preprocessing.preprocessing_utils.remove_numbers_df" title="Permalink to this definition"></a></dt>
+<dd><p>Removes numbers in a text column of dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with text column</p></li>
+<li><p><strong>src_col</strong> (<em>str</em>) – column name of input text column</p></li>
+<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column with numbers
+removed</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column
+with numbers removed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.preprocessing.preprocessing_utils.remove_punctuations_df">
+<span class="sig-prename descclassname"><span class="pre">src.preprocessing.preprocessing_utils.</span></span><span class="sig-name descname"><span class="pre">remove_punctuations_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cleaned_text'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cleaned_text'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#src.preprocessing.preprocessing_utils.remove_punctuations_df" title="Permalink to this definition"></a></dt>
+<dd><p>Removes punctuation in a text column of dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with text column</p></li>
+<li><p><strong>src_col</strong> (<em>str</em>) – column name of input text column</p></li>
+<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column with punctuation
+removed</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column
+with punctuation removed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.preprocessing.preprocessing_utils.remove_stopwords_df">
+<span class="sig-prename descclassname"><span class="pre">src.preprocessing.preprocessing_utils.</span></span><span class="sig-name descname"><span class="pre">remove_stopwords_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cleaned_text'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cleaned_text'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#src.preprocessing.preprocessing_utils.remove_stopwords_df" title="Permalink to this definition"></a></dt>
+<dd><p>Removes stopwords in a text column of dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with text column</p></li>
+<li><p><strong>src_col</strong> (<em>str</em>) – column name of input text column</p></li>
+<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column with stopwords
+removed</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column
+with stopwords removed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.preprocessing.preprocessing_utils.remove_stopwords_text">
+<span class="sig-prename descclassname"><span class="pre">src.preprocessing.preprocessing_utils.</span></span><span class="sig-name descname"><span class="pre">remove_stopwords_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#src.preprocessing.preprocessing_utils.remove_stopwords_text" title="Permalink to this definition"></a></dt>
+<dd><p>Removes stopwords in a string
+Stopwords are obtained from nltk.corpus
+e.g.: the, a, is, had, etc</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – text containing stopwords</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>output_text</strong> (<em>str</em>) – text with stopwords removed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.preprocessing.preprocessing_utils.remove_trailing_leading_spaces_df">
+<span class="sig-prename descclassname"><span class="pre">src.preprocessing.preprocessing_utils.</span></span><span class="sig-name descname"><span class="pre">remove_trailing_leading_spaces_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cleaned_text'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cleaned_text'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#src.preprocessing.preprocessing_utils.remove_trailing_leading_spaces_df" title="Permalink to this definition"></a></dt>
+<dd><p>Removes trailing leading spaces in a text column of dataframe.
+e.g.
+” The food was good” -&gt; “The food was good”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with text column</p></li>
+<li><p><strong>src_col</strong> (<em>str</em>) – column name of input text column</p></li>
+<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column with trailing
+leading spaces removed</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column
+with trailing leading spaces removed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.preprocessing.preprocessing_utils.rename_column_df">
+<span class="sig-prename descclassname"><span class="pre">src.preprocessing.preprocessing_utils.</span></span><span class="sig-name descname"><span class="pre">rename_column_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#src.preprocessing.preprocessing_utils.rename_column_df" title="Permalink to this definition"></a></dt>
+<dd><p>Renames a text column in a given dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe</p></li>
+<li><p><strong>src_col</strong> (<em>str</em>) – input column name</p></li>
+<li><p><strong>dst_col</strong> (<em>str</em>) – output expected column name</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of a column
+with name changed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.preprocessing.preprocessing_utils.replace_multiple_spaces_df">
+<span class="sig-prename descclassname"><span class="pre">src.preprocessing.preprocessing_utils.</span></span><span class="sig-name descname"><span class="pre">replace_multiple_spaces_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cleaned_text'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cleaned_text'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#src.preprocessing.preprocessing_utils.replace_multiple_spaces_df" title="Permalink to this definition"></a></dt>
+<dd><p>Removes multiple spaces in a text column of dataframe.
+e.g.
+“The   food was good” -&gt; “The food was good”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with text column</p></li>
+<li><p><strong>src_col</strong> (<em>str</em>) – column name of input text column</p></li>
+<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column with multiple
+spaces removed</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column
+with multiple spaces removed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.preprocessing.preprocessing_utils.strip_html_tags_df">
+<span class="sig-prename descclassname"><span class="pre">src.preprocessing.preprocessing_utils.</span></span><span class="sig-name descname"><span class="pre">strip_html_tags_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cleaned_text'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cleaned_text'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#src.preprocessing.preprocessing_utils.strip_html_tags_df" title="Permalink to this definition"></a></dt>
+<dd><p>Removes HTML tags in a text column of dataframe.
+e.g.
+“&lt;p&gt;The food was good&lt;/p&gt;&lt;br&gt;” -&gt; “The food was good”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with text column</p></li>
+<li><p><strong>src_col</strong> (<em>str</em>) – column name of input text column</p></li>
+<li><p><strong>dst_col</strong> (<em>str</em>) – column name of output text column with
+HTML tags removed</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of text column
+with HTML tags removed</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-src.preprocessing.transformations">
+<span id="src-preprocessing-transformations-module"></span><h2>src.preprocessing.transformations module<a class="headerlink" href="#module-src.preprocessing.transformations" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.preprocessing.transformations.apply_cleaning_test">
+<span class="sig-prename descclassname"><span class="pre">src.preprocessing.transformations.</span></span><span class="sig-name descname"><span class="pre">apply_cleaning_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#src.preprocessing.transformations.apply_cleaning_test" title="Permalink to this definition"></a></dt>
+<dd><p>Applies cleaning to test data as follows:
+1. Removes HTML tags, multiple spaces and trailing leading spaces
+to form partially_cleaned_text column.
+2. Removes HTML tags, multiple spaces, trailing leading spaces,
+stopwords and numbers. Lowercases text, expands contractions and
+removes empty reviews to form cleaned_text column.
+3. Renames Time column to date</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with columns Text and Time</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of new text columns
+partially_cleaned_text and cleaned_text.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.preprocessing.transformations.apply_cleaning_train">
+<span class="sig-prename descclassname"><span class="pre">src.preprocessing.transformations.</span></span><span class="sig-name descname"><span class="pre">apply_cleaning_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#src.preprocessing.transformations.apply_cleaning_train" title="Permalink to this definition"></a></dt>
+<dd><p>Applies cleaning to training data as follows:
+1. Converts sentiment column to binary integer format
+2. Removes HTML tags, multiple spaces and trailing leading spaces
+to form partially_cleaned_text column.
+3. Removes HTML tags, multiple spaces, trailing leading spaces,
+stopwords and numbers. Lowercases text, expands contractions and
+removes empty reviews to form cleaned_text column.
+4. Renames Time column to date</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.Dataframe</em>) – input dataframe with columns Text,
+Sentiment and Time</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>df</strong> (<em>pd.Dataframe</em>) – dataframe consisting of new text columns
+partially_cleaned_text and cleaned_text.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.preprocessing.transformations.preprocess_train">
+<span class="sig-prename descclassname"><span class="pre">src.preprocessing.transformations.</span></span><span class="sig-name descname"><span class="pre">preprocess_train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.preprocessing.transformations.preprocess_train" title="Permalink to this definition"></a></dt>
+<dd><p>Applies cleaning to raw training data in according
+to filepath specified in FileUtil module.
+Saves processed training data to filepath specified
+in FileUtil module.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="src.models.topic_modelling.train.html" class="btn btn-neutral float-left" title="src.models.topic_modelling.train package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.utils.html" class="btn btn-neutral float-right" title="src.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, H2o2.ai.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
