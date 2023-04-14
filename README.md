@@ -24,7 +24,7 @@ docker compose up
 
 #### Running Pipeline via Notebook
 
-Note that you will need to have the necessary computing power to run model training on Docker.
+Note that you will need to have the necessary computing power to run model training on Docker. Else the terminal throws an error showing DeadKernelError: Kernel died.
 
 To run all pipelines via notebook, run the following commands on final_presentation folder:
 
@@ -34,7 +34,7 @@ python3 run_notebook.py
 
 #### Running Pipeline via Terminal
 
-Note that you will need to have the necessary computing power to run model training on Docker.
+Note that you will need to have the necessary computing power to run model training on Docker. Else running the command to train sentiment analysis models in the terminal might not run through the epochs and kills the training (showing 'Killed').
 
 To run all pipelines via terminal, run the following commands on h2o2.ai project folder:
 
@@ -132,7 +132,7 @@ conda activate voc_env
 
 #### Running Pipeline via Notebook
 
-Note that you will need to have the necessary computing power to run model training on local.
+Note that you will need to have the necessary computing power to run model training on local. Else this might slow down your laptop or use up extensive resources.
 
 To run all pipelines via notebook, run the following commands on final_presentation folder:
 
@@ -142,7 +142,7 @@ python run_notebook.py
 
 #### Running Pipeline via Terminal
 
-Note that you will need to have the necessary computing power to run model training on local.
+Note that you will need to have the necessary computing power to run model training on local. Else this might slow down your laptop or use up extensive resources to train the sentiment analysis model.
 
 To run all pipelines via terminal, run the following commands on h2o2.ai project folder:
 
